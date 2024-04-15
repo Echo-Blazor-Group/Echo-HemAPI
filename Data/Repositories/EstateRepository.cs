@@ -18,13 +18,13 @@ namespace Echo_HemAPI.Data.Repositories
         }
         public async Task<Estate> AddAsync(Estate entity)
         {
-             _context.Set<Estate>().Add(entity);
-            return entity;
+            await _context.Set<Estate>().AddAsync(entity);
+            return  entity;
         }
 
-        public async Task<IQueryable<Estate>> FindAsync(Expression<Func<Estate, bool>> preidcate)
+        public async Task<IQueryable<Estate>> FindAsync(Expression<Func<Estate, bool>> predicate)
         {
-            var entity = _context.Set<Estate>().Find(preidcate);
+            var entity = await _context.Set<Estate>().FindAsync(predicate);
             return (IQueryable<Estate>)entity;
         }
 
@@ -33,7 +33,7 @@ namespace Echo_HemAPI.Data.Repositories
             return await _context.Set<Estate>().ToListAsync();
         }
 
-        public async Task<Estate> GetByIdAsync(Guid id)
+        public async Task<Estate> GetByIdAsync(int id)
         {
             return await _context.Set<Estate>().FindAsync(id);
         }

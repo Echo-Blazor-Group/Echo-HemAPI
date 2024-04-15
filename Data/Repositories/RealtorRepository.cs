@@ -6,6 +6,7 @@ using System.Linq.Expressions;
 
 namespace Echo_HemAPI.Data.Repositories
 {
+    //Author Seb
     public class RealtorRepository : IRealtorRepository
     {
         public readonly ApplicationDbContext _context;
@@ -21,7 +22,11 @@ namespace Echo_HemAPI.Data.Repositories
 
         public async Task<IEnumerable<Realtor>?> GetAllAsync()
         {
-            var realtors = await _context.Realtors.ToListAsync();
+            var realtors = await _context.Realtors
+                                                  .Include(r => r.RealtorFirm)
+                                                  .OrderBy(r => r.LastName)
+                                                  .ThenBy(r => r.FirstName)
+                                                  .ToListAsync();
             if (realtors is null)
             {
                 return null;
@@ -46,6 +51,19 @@ namespace Echo_HemAPI.Data.Repositories
                 return realtor;
             }
 
+        }
+
+        public async Task<IQueryable<Realtor?>> FindAsync(Expression<Func<Realtor, bool>> predicate)
+        {
+            var realtor = await _context.Realtors.AsQueryable().Where(predicate);
+            if (realtor is null)
+            {
+                return null;
+            }
+            else
+            {
+                return realtor;
+            }
         }
         public async Task<Realtor?> RemoveAsync(Realtor entity)
         {
@@ -74,9 +92,9 @@ namespace Echo_HemAPI.Data.Repositories
                 return realtor;
             }
         }
-        public async Task SaveChangesAsync()
+        public void SaveChanges()
         {
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
         }
     }
 

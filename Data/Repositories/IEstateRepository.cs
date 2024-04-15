@@ -8,10 +8,10 @@ namespace Echo_HemAPI.Data.Repositories
     {
         Task<Estate> AddAsync(Estate entity);
         Task<Estate> UpdateAsync(Estate entity);
-        Task<Estate?> GetByIdAsync(Guid id);
+        Task<Estate?> GetByIdAsync(int id);
         Task<Estate> RemoveAsync(Estate entity);
         Task<IEnumerable<Estate>> GetAllAsync();
-        Task<IQueryable<Estate>> FindAsync(Expression<Func<Estate, bool>> preidcate);
+        Task<IQueryable<Estate>> FindAsync(Expression<Func<Estate, bool>> predicate);
         Task SaveChangesAsync();
     }
 }
