@@ -14,8 +14,6 @@ namespace Echo_HemAPI.Data.Context
         public DbSet<County> Counties { get; set; }
         public DbSet<Estate> Estates { get; set; }
         public DbSet<RealtorFirm> RealtorFirms { get; set; }
-        public DbSet<Realtor> Realtors { get; set; }
-
-        
+        public DbSet<Realtor> Realtors { get; set; }        
     }
 }
