@@ -1,17 +1,18 @@
-﻿
-using Echo_HemAPI.Data.Context;
+﻿using Echo_HemAPI.Data.Context;
+using Echo_HemAPI.Data.Models;
+using Echo_HemAPI.Data.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
-namespace Echo_HemAPI.Data.Models
+namespace Echo_HemAPI.Data.Repositories.Repos
 {
     // Author: Samed Salman
-    public class RealtorFirmRepository : IRealtorFirm
+    public class RealtorFirmRepository : IRealtorFirmRepository
     {
         private readonly ApplicationDbContext _applicationDbContext;
 
         public RealtorFirmRepository(ApplicationDbContext applicationDbContext)
         {
-            _applicationDbContext = applicationDbContext;            
+            _applicationDbContext = applicationDbContext;
         }
 
         public async Task<RealtorFirm> AddRealtorFirmAsync(RealtorFirm realtorFirm)

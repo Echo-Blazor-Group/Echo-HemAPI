@@ -1,7 +1,7 @@
 ﻿using Echo_HemAPI.Data.Models;
 using System.Linq.Expressions;
 
-namespace Echo_HemAPI.Data.Repositories
+namespace Echo_HemAPI.Data.Repositories.Interfaces
 {
     //Author Seb
     public interface IRealtorRepository

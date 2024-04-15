@@ -1,5 +1,7 @@
 
 using Echo_HemAPI.Data.Context;
+using Echo_HemAPI.Data.Repositories.Interfaces;
+using Echo_HemAPI.Data.Repositories.Repos;
 using Microsoft.EntityFrameworkCore;
 
 namespace Echo_HemAPI
@@ -11,14 +13,17 @@ namespace Echo_HemAPI
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-            builder.Services.AddDbContext<ApplicationDbContext>(options =>
-            options.UseSqlServer(builder.Configuration.GetConnectionString("dbContext") ??
-            throw new InvalidCastException()));
+            builder.Services.AddDbContext<ApplicationDbContext>
+            (options => options
+            .UseSqlServer(builder.Configuration.GetConnectionString("EchoHomeDb")));
 
             builder.Services.AddControllers();
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+            builder.Services.AddScoped<IEstateRepository, EstateRepository>();
+            builder.Services.AddScoped<IRealtorFirmRepository, RealtorFirmRepository>();
+            builder.Services.AddScoped<IRealtorRepository, RealtorRepository>();
+
 
             var app = builder.Build();
 

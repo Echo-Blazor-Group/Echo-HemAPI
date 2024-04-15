@@ -18,12 +18,12 @@ namespace Echo_HemAPI.Data.Context
         public DbSet<Estate> Estates { get; set; }
         public DbSet<RealtorFirm> RealtorFirms { get; set; }
         public DbSet<Realtor> Realtors { get; set; }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
             var counties = SeedCounties.GetCounties();
             modelBuilder.Entity<County>().HasData(counties);
-            base.OnModelCreating(modelBuilder);
+            
         }
     }
 }

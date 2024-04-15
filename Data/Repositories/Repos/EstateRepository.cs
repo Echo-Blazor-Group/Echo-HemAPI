@@ -1,9 +1,10 @@
 ﻿using Echo_HemAPI.Data.Context;
 using Echo_HemAPI.Data.Models;
+using Echo_HemAPI.Data.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
-namespace Echo_HemAPI.Data.Repositories
+namespace Echo_HemAPI.Data.Repositories.Repos
 {
 
     //Author Gustaf
@@ -18,13 +19,13 @@ namespace Echo_HemAPI.Data.Repositories
         }
         public async Task<Estate> AddAsync(Estate entity)
         {
-            await _context.Set<Estate>().AddAsync(entity);
-            return  entity;
+            _context.Set<Estate>().Add(entity);
+            return entity;
         }
 
-        public async Task<IQueryable<Estate>> FindAsync(Expression<Func<Estate, bool>> predicate)
+        public async Task<IQueryable<Estate>> FindAsync(Expression<Func<Estate, bool>> preidcate)
         {
-            var entity = await _context.Set<Estate>().FindAsync(predicate);
+            var entity = _context.Set<Estate>().Find(preidcate);
             return (IQueryable<Estate>)entity;
         }
 
@@ -33,7 +34,7 @@ namespace Echo_HemAPI.Data.Repositories
             return await _context.Set<Estate>().ToListAsync();
         }
 
-        public async Task<Estate> GetByIdAsync(int id)
+        public async Task<Estate> GetByIdAsync(Guid id)
         {
             return await _context.Set<Estate>().FindAsync(id);
         }

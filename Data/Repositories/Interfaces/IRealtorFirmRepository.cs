@@ -1,7 +1,9 @@
-﻿namespace Echo_HemAPI.Data.Models
+﻿using Echo_HemAPI.Data.Models;
+
+namespace Echo_HemAPI.Data.Repositories.Interfaces
 {
     // Author: Samed Salman
-    public interface IRealtorFirm
+    public interface IRealtorFirmRepository
     {
         Task<IEnumerable<RealtorFirm>> GetAllRealtorFirmsAsync();
         Task<RealtorFirm> GetRealtorFirmByIdAsync(int id);
