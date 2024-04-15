@@ -1,0 +1,6 @@
+@Echo_HemAPI_HostAddress = http://localhost:5263
+
+GET {{Echo_HemAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
