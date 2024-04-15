@@ -14,14 +14,15 @@ namespace Echo_HemAPI.Data.Repositories
         {
             _context = context;
         }
-        public Task<Estate> AddAsync(Estate entity)
+        public async Task<Estate> AddAsync(Estate entity)
         {
-            throw new NotImplementedException();
+             _context.Set<Estate>().Add(entity);
+            return entity;
         }
 
-        public Task<IEnumerable<Estate>> FindAsync(Expression<Func<Estate, bool>> preidcate)
+        public async Task<IEnumerable<Estate>> FindAsync(Expression<Func<Estate, bool>> preidcate)
         {
-            throw new NotImplementedException();
+            return  _context.Set<Estate>(); 
         }
 
         public async Task<IEnumerable<Estate>> GetAllAsync()
@@ -29,24 +30,26 @@ namespace Echo_HemAPI.Data.Repositories
             return await _context.Set<Estate>().ToListAsync();
         }
 
-        public Task<Estate> GetByIdAsync(Guid id)
+        public async Task<Estate> GetByIdAsync(Guid id)
         {
             return await _context.Set<Estate>().FindAsync(id);
         }
 
-        public Task<Estate> RemoveAsync(Estate estate)
+        public async Task<Estate> RemoveAsync(Estate entity)
         {
-            throw new NotImplementedException();
+            _context.Remove(entity);
+            return entity;
         }
 
         public Task SaveChangesAsync()
         {
-            throw new NotImplementedException();
+            return _context.SaveChangesAsync();
         }
 
-        public Task<Estate> UpdateAsync(Estate entity)
+        public async Task<Estate> UpdateAsync(Estate entity)
         {
-            throw new NotImplementedException();
+            _context.Set<Estate>().Update(entity);
+            return entity;
         }
     }
 }
