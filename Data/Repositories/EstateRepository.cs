@@ -5,6 +5,8 @@ using System.Linq.Expressions;
 
 namespace Echo_HemAPI.Data.Repositories
 {
+
+    //Author Gustaf
     public class EstateRepository : IEstateRepository
     {
 
@@ -20,9 +22,10 @@ namespace Echo_HemAPI.Data.Repositories
             return entity;
         }
 
-        public async Task<IEnumerable<Estate>> FindAsync(Expression<Func<Estate, bool>> preidcate)
+        public async Task<IQueryable<Estate>> FindAsync(Expression<Func<Estate, bool>> preidcate)
         {
-            return  _context.Set<Estate>(); 
+            var entity = _context.Set<Estate>().Find(preidcate);
+            return (IQueryable<Estate>)entity;
         }
 
         public async Task<IEnumerable<Estate>> GetAllAsync()

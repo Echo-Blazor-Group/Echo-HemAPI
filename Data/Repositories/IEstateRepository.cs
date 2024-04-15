@@ -3,6 +3,7 @@ using System.Linq.Expressions;
 
 namespace Echo_HemAPI.Data.Repositories
 {
+    //Author Gustaf
     public interface IEstateRepository
     {
         Task<Estate> AddAsync(Estate entity);
@@ -10,7 +11,7 @@ namespace Echo_HemAPI.Data.Repositories
         Task<Estate?> GetByIdAsync(Guid id);
         Task<Estate> RemoveAsync(Estate entity);
         Task<IEnumerable<Estate>> GetAllAsync();
-        Task<IEnumerable<Estate>> FindAsync(Expression<Func<Estate, bool>> preidcate);
+        Task<IQueryable<Estate>> FindAsync(Expression<Func<Estate, bool>> preidcate);
         Task SaveChangesAsync();
     }
 }

@@ -2,6 +2,8 @@
 
 namespace Echo_HemAPI.Data.Models
 {
+
+    //Author Gustaf
     public class Estate
     {
         public int Id { get; set; }
@@ -29,10 +31,13 @@ namespace Echo_HemAPI.Data.Models
         public string Images { get; set; }
         [Required]
         public string category { get; set; }
+
+        //Relational
         public County County { get; set; }
         public Realtor Realtor { get; set; }
 
-        public void Catergories()
+        //Method for Getting the Categories
+        public void Categories()
         {
             string[] categories = new string[]
             {
