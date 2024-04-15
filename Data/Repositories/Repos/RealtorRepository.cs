@@ -1,10 +1,11 @@
 ﻿using Echo_HemAPI.Data.Context;
 using Echo_HemAPI.Data.Models;
+using Echo_HemAPI.Data.Repositories.Interfaces;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
-namespace Echo_HemAPI.Data.Repositories
+namespace Echo_HemAPI.Data.Repositories.Repos
 {
     //Author Seb
     public class RealtorRepository : IRealtorRepository
@@ -35,7 +36,7 @@ namespace Echo_HemAPI.Data.Repositories
             {
                 return realtors;
             }
-           
+
         }
 
         public async Task<Realtor?> GetByIdAsync(string? id)
