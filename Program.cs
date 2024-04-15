@@ -15,7 +15,7 @@ namespace Echo_HemAPI
             // Add services to the container.
             builder.Services.AddDbContext<ApplicationDbContext>
             (options => options
-            .UseSqlServer(builder.Configuration.GetConnectionString("EchoHomeDb")));
+            .UseSqlServer(builder.Configuration.GetConnectionString("HomeDb")));
 
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
