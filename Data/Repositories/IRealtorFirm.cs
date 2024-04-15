@@ -1,8 +1,16 @@
 ﻿namespace Echo_HemAPI.Data.Models
 {
     // Author: Samed Salman
-    public class IRealtorFirm
+    public interface IRealtorFirm
     {
+        Task<IQueryable<RealtorFirm>> GetAllRealtorFirmsAsync();
+        Task<RealtorFirm> GetRealtorFirmByIdAsync(int id);
+        Task<RealtorFirm> GetRealtorFirmByNameAsync(string name);
 
+        // TODO: Hur använder vi returen i de här metoderna? 
+        Task<RealtorFirm> AddRealtorFirmAsync(RealtorFirm realtorFirm);
+        Task<RealtorFirm> UpdateRealtorFirmAsync(RealtorFirm realtorFirm);
+        Task<RealtorFirm> RemoveRealtorFirmAsync(RealtorFirm realtorFirm);
+        Task SaveChangesAsync();
     }
 }
