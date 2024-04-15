@@ -1,8 +1,6 @@
-﻿
-using Echo_HemAPI.Data.Context;
+﻿using Echo_HemAPI.Data.Context;
 using Echo_HemAPI.Data.Models.Echo_HemAPI.Data.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Linq.Expressions;
 
 namespace Echo_HemAPI.Data.Models
@@ -12,8 +10,6 @@ namespace Echo_HemAPI.Data.Models
     /// </summary>
     public class RealtorFirmRepository : IRealtorFirmRepository
     {
-
-        // TODO: Add null checks to this repository
 
         private readonly ApplicationDbContext _applicationDbContext;
 
@@ -57,10 +53,10 @@ namespace Echo_HemAPI.Data.Models
             return realtorFirm;
         }
 
-        async Task<IQueryable<RealtorFirm>> IRealtorFirmRepository.FindAsync(Expression<Func<RealtorFirm, bool>> predicate)
+        public async Task<IQueryable<RealtorFirm>> FindAsync(Expression<Func<RealtorFirm, bool>> predicate)
         {
-            var entity = _applicationDbContext.Set<RealtorFirm>().Find(predicate);
-            return (IQueryable<RealtorFirm>)entity;
+            var entities = _applicationDbContext.Set<RealtorFirm>().Find(predicate);
+            return (IQueryable<RealtorFirm>)entities;
         }
 
         public void SaveChanges()

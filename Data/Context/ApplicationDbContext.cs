@@ -6,7 +6,7 @@ using Echo_HemAPI.Helper;
 
 namespace Echo_HemAPI.Data.Context
 {
-    //Author All
+    //Author: All
     public class ApplicationDbContext : IdentityDbContext<Realtor>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)

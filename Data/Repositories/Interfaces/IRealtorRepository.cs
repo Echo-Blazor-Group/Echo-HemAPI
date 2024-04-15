@@ -12,6 +12,6 @@ namespace Echo_HemAPI.Data.Repositories.Interfaces
         Task<IQueryable<Realtor?>> FindAsync(Expression<Func<Realtor, bool>> predicate);
         Task<IEnumerable<Realtor>?> GetAllAsync();
         Task<Realtor?> RemoveAsync(Realtor entity);
-        Task SaveChanges();
+        void SaveChanges();
     }
 }
