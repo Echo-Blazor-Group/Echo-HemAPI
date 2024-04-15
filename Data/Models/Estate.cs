@@ -8,17 +8,17 @@ namespace Echo_HemAPI.Data.Models
     {
         public int Id { get; set; }
         [Required]
-        public string Adress { get; set; }
+        public string Address { get; set; }
         [Required]
         public int StartingPrice { get; set; }
         [Required]
-        public string LivingArea { get; set; }
+        public string LivingAreaKvm { get; set; }
         [Required]
         public string NumberOfRooms { get; set; }
         [Required]
-        public string BiArea { get; set; }
+        public string BiAreaKvm { get; set; }
         [Required]
-        public string PropertyArea { get; set; }
+        public string EstateAreaKvm { get; set; }
         [Required]
         public string MonthlyFee { get; set; }
         [Required]
@@ -26,11 +26,12 @@ namespace Echo_HemAPI.Data.Models
         [Required]
         public string ConstructionDate { get; set; }
         [Required]
-        public string PropertyDescription { get; set; }
+        public string EstateDescription { get; set; }
         [Required]
+        //Creater a new class for image storage
         public string Images { get; set; }
         [Required]
-        public string category { get; set; }
+        public string Category { get; set; }
 
         //Relational
         public County County { get; set; }
