@@ -1,13 +1,20 @@
-﻿using Echo_HemAPI.Data.Context;
-using Echo_HemAPI.Data.Models;
-using Echo_HemAPI.Data.Repositories.Interfaces;
+﻿
+using Echo_HemAPI.Data.Context;
+using Echo_HemAPI.Data.Models.Echo_HemAPI.Data.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Linq.Expressions;
 
-namespace Echo_HemAPI.Data.Repositories.Repos
+namespace Echo_HemAPI.Data.Models
 {
-    // Author: Samed Salman
+    /// <summary>
+    /// Author: Samed Salman
+    /// </summary>
     public class RealtorFirmRepository : IRealtorFirmRepository
     {
+
+        // TODO: Add null checks to this repository
+
         private readonly ApplicationDbContext _applicationDbContext;
 
         public RealtorFirmRepository(ApplicationDbContext applicationDbContext)
@@ -23,17 +30,19 @@ namespace Echo_HemAPI.Data.Repositories.Repos
 
         public async Task<IEnumerable<RealtorFirm>> GetAllRealtorFirmsAsync()
         {
-            return _applicationDbContext.RealtorFirms.Include(rf => rf.Employees).Include(rf => rf.Estates).OrderBy(rf => rf.Name).AsEnumerable();
+            return await _applicationDbContext.RealtorFirms
+                                                            .Include(rf => rf.Employees)
+                                                            .Include(rf => rf.Estates)
+                                                            .OrderBy(rf => rf.Name)
+                                                            .ToListAsync();
         }
 
         public async Task<RealtorFirm> GetRealtorFirmByIdAsync(int id)
         {
-            return await _applicationDbContext.RealtorFirms.Include(rf => rf.Employees).Include(rf => rf.Estates).FirstOrDefaultAsync.(rf => rf.RealtorFirmId == id);
-        }
-
-        public async Task<RealtorFirm> GetRealtorFirmByNameAsync(string name)
-        {
-            return await _applicationDbContext.RealtorFirms.Include(rf => rf.Employees).Include(rf => rf.Estates).FirstOrDefaultAsync.(rf => rf.Name == name);
+            return await _applicationDbContext.RealtorFirms
+                                                            .Include(rf => rf.Employees)
+                                                            .Include(rf => rf.Estates)
+                                                            .FirstOrDefaultAsync(rf => rf.RealtorFirmId == id);
         }
 
         public async Task<RealtorFirm> RemoveRealtorFirmAsync(RealtorFirm realtorFirm)
@@ -48,9 +57,15 @@ namespace Echo_HemAPI.Data.Repositories.Repos
             return realtorFirm;
         }
 
-        public async Task SaveChangesAsync()
+        async Task<IQueryable<RealtorFirm>> IRealtorFirmRepository.FindAsync(Expression<Func<RealtorFirm, bool>> predicate)
         {
-            await _applicationDbContext.SaveChangesAsync();
+            var entity = _applicationDbContext.Set<RealtorFirm>().Find(predicate);
+            return (IQueryable<RealtorFirm>)entity;
+        }
+
+        public void SaveChanges()
+        {
+            _applicationDbContext.SaveChanges();
         }
 
     }
