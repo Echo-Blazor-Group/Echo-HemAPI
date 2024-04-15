@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace Echo_HemAPI.Data.Context
 {
+    //Author All
     public class ApplicationDbContext : IdentityDbContext<Realtor>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)

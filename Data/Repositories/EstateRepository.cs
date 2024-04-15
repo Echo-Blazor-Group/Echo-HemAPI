@@ -18,7 +18,7 @@ namespace Echo_HemAPI.Data.Repositories
         }
         public async Task<Estate> AddAsync(Estate entity)
         {
-             _context.Set<Estate>().Add(entity);
+            _context.Set<Estate>().Add(entity);
             return entity;
         }
 

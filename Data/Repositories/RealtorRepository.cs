@@ -47,6 +47,19 @@ namespace Echo_HemAPI.Data.Repositories
             }
 
         }
+
+        public async Task<IQueryable<Realtor?>> FindAsync(Expression<Func<Realtor, bool>> predicate)
+        {
+            var realtor = await _context.Realtors.AsQueryable().Where(predicate);
+            if (realtor is null)
+            {
+                return null;
+            }
+            else
+            {
+                return realtor;
+            }
+        }
         public async Task<Realtor?> RemoveAsync(Realtor entity)
         {
             var realtor = await _context.Realtors.FirstOrDefaultAsync(x => x.Id == entity.Id);

@@ -11,7 +11,7 @@ namespace Echo_HemAPI.Data.Repositories
         Task<Estate?> GetByIdAsync(Guid id);
         Task<Estate> RemoveAsync(Estate entity);
         Task<IEnumerable<Estate>> GetAllAsync();
-        Task<IQueryable<Estate>> FindAsync(Expression<Func<Estate, bool>> preidcate);
+        Task<IQueryable<Estate>> FindAsync(Expression<Func<Estate, bool>> predicate);
         Task SaveChangesAsync();
     }
 }
