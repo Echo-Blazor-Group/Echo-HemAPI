@@ -3,7 +3,7 @@
     // Author: Samed Salman
     public interface IRealtorFirm
     {
-        Task<IQueryable<RealtorFirm>> GetAllRealtorFirmsAsync();
+        Task<IEnumerable<RealtorFirm>> GetAllRealtorFirmsAsync();
         Task<RealtorFirm> GetRealtorFirmByIdAsync(int id);
         Task<RealtorFirm> GetRealtorFirmByNameAsync(string name);
 

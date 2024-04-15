@@ -1,5 +1,6 @@
 ﻿
 using Echo_HemAPI.Data.Context;
+using Microsoft.EntityFrameworkCore;
 
 namespace Echo_HemAPI.Data.Models
 {
@@ -19,29 +20,31 @@ namespace Echo_HemAPI.Data.Models
             return realtorFirm;
         }
 
-        public async Task<IQueryable<RealtorFirm>> GetAllRealtorFirmsAsync()
+        public async Task<IEnumerable<RealtorFirm>> GetAllRealtorFirmsAsync()
         {
-            return _applicationDbContext.RealtorFirms.
+            return _applicationDbContext.RealtorFirms.Include(rf => rf.Employees).Include(rf => rf.Estates).OrderBy(rf => rf.Name).AsEnumerable();
         }
 
         public async Task<RealtorFirm> GetRealtorFirmByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            return await _applicationDbContext.RealtorFirms.Include(rf => rf.Employees).Include(rf => rf.Estates).FirstOrDefaultAsync.(rf => rf.RealtorFirmId == id);
         }
 
         public async Task<RealtorFirm> GetRealtorFirmByNameAsync(string name)
         {
-            throw new NotImplementedException();
+            return await _applicationDbContext.RealtorFirms.Include(rf => rf.Employees).Include(rf => rf.Estates).FirstOrDefaultAsync.(rf => rf.Name == name);
         }
 
         public async Task<RealtorFirm> RemoveRealtorFirmAsync(RealtorFirm realtorFirm)
         {
-            throw new NotImplementedException();
+            _applicationDbContext.Remove(realtorFirm);
+            return realtorFirm;
         }
 
         public async Task<RealtorFirm> UpdateRealtorFirmAsync(RealtorFirm realtorFirm)
         {
-            throw new NotImplementedException();
+            _applicationDbContext.Update(realtorFirm);
+            return realtorFirm;
         }
 
         public async Task SaveChangesAsync()
