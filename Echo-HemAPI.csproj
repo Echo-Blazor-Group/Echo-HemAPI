@@ -9,6 +9,22 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="TestGeneric Repository\**" />
+    <Content Remove="TestGeneric Repository\**" />
+    <EmbeddedResource Remove="TestGeneric Repository\**" />
+    <None Remove="TestGeneric Repository\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Data\Repositories\.cs" />
+    <Compile Remove="Data\Repositories\NewFile.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Data\Repositories\NewFile.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.4" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.4">
@@ -27,7 +43,6 @@
 
   <ItemGroup>
     <Folder Include="Controllers\" />
-    <Folder Include="Data\Repositories\" />
   </ItemGroup>
 
 </Project>
