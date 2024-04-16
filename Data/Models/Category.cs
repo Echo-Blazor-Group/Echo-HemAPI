@@ -4,7 +4,7 @@
     {
         public int Id { get; set; }
         
-        public string EstateCategory { get; }
+        public string EstateCategory { get; set; }
 
         public List<Estate> Estate { get; set; }
     }
