@@ -55,23 +55,12 @@ namespace Echo_HemAPI.Data.Models
 
         public async Task<IQueryable<RealtorFirm>> FindAsync(Expression<Func<RealtorFirm, bool>> predicate)
         {
-            var entities = _applicationDbContext.Set<RealtorFirm>().Find(predicate);
-            return (IQueryable<RealtorFirm>)entities;
+            IQueryable<RealtorFirm> entities = _applicationDbContext.RealtorFirms.Where(predicate).AsQueryable();
+            return entities;
         }
 
-        /// <summary>
-        /// Alternativ lösning - returnera en queryable lista och definiera sökvillkor i efterhand:
-        /// 
-        /// public async Task<IQueryable<RealtorFirm>> SearchAllFirmsAsync()
-        /// {
-        ///     return _applicationDbContext.RealtorFirms.AsQueryable();
-        /// }
-        /// 
-        /// 
-        /// </summary>
 
-
-    public void SaveChanges()
+        public void SaveChanges()
         {
             _applicationDbContext.SaveChanges();
         }
