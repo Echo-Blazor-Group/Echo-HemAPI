@@ -23,13 +23,13 @@ namespace Echo_HemAPI.Controllers
         [HttpGet]
         public async Task<IEnumerable<RealtorFirm>> GetListOfRealtorFirmsAsync()
         {
-            return await _realtorFirmRepository.GetAllRealtorFirmsAsync();
+            return await _realtorFirmRepository.GetAllAsync();
         }
 
         [HttpPost]
         public async Task<RealtorFirm> AddRealtorFirmAsync(RealtorFirm realtorFirm)
         {
-            return await _realtorFirmRepository.AddRealtorFirmAsync(realtorFirm);
+            return await _realtorFirmRepository.AddAsync(realtorFirm);
         }
     }
 }
