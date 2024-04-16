@@ -1,5 +1,5 @@
 ﻿using Echo_HemAPI.Data.Context;
-using Echo_HemAPI.Data.Models.Echo_HemAPI.Data.Repositories.Interfaces;
+using Echo_HemAPI.Data.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
@@ -55,9 +55,10 @@ namespace Echo_HemAPI.Data.Models
 
         public async Task<IQueryable<RealtorFirm>> FindAsync(Expression<Func<RealtorFirm, bool>> predicate)
         {
-            var entities = _applicationDbContext.Set<RealtorFirm>().Find(predicate);
-            return (IQueryable<RealtorFirm>)entities;
+            IQueryable<RealtorFirm> entities = _applicationDbContext.RealtorFirms.Where(predicate).AsQueryable();
+            return entities;
         }
+
 
         public void SaveChanges()
         {

@@ -66,6 +66,7 @@ namespace Echo_HemAPI.Data.Repositories.Repos
                 return oneOrManyRealtors;
             }
         }
+
         public async Task<Realtor?> RemoveAsync(Realtor entity)
         {
             var realtor = await _context.Realtors.FirstOrDefaultAsync(x => x.Id == entity.Id);

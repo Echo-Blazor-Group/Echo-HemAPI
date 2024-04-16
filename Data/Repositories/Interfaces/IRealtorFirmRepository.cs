@@ -1,5 +1,7 @@
 using System.Linq.Expressions;
 using Echo_HemAPI.Data.Models;
+namespace Echo_HemAPI.Data.Models
+{
     /// <summary>
     /// Author: Samed Salman
     /// </summary>

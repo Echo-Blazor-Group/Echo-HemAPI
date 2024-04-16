@@ -12,6 +12,6 @@ namespace Echo_HemAPI.Data.Repositories.Interfaces
         Task<Estate> RemoveAsync(Estate entity);
         Task<IEnumerable<Estate>> GetAllAsync();
         Task<IQueryable<Estate>> FindAsync(Expression<Func<Estate, bool>> predicate);
-        Task SaveChangesAsync();
+        void SaveChanges();
     }
 }
