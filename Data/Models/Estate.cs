@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore.Infrastructure.Internal;
+using System.ComponentModel.DataAnnotations;
 
 namespace Echo_HemAPI.Data.Models
 {
@@ -28,7 +29,7 @@ namespace Echo_HemAPI.Data.Models
         [Required]
         public string EstateDescription { get; set; } = string.Empty;
         [Required]
-        public DateOnly PublishDate { get; set; } = new DateOnly();
+        public DateOnly? PublishDate { get; set; } = new DateOnly();
    
 
         //Relational
