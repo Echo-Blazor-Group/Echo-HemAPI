@@ -4,14 +4,18 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <InvariantGlobalization>true</InvariantGlobalization>
+    <InvariantGlobalization>False</InvariantGlobalization>
     <RootNamespace>Echo_HemAPI</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\**" />
     <Compile Remove="TestGeneric Repository\**" />
+    <Content Remove="Migrations\**" />
     <Content Remove="TestGeneric Repository\**" />
+    <EmbeddedResource Remove="Migrations\**" />
     <EmbeddedResource Remove="TestGeneric Repository\**" />
+    <None Remove="Migrations\**" />
     <None Remove="TestGeneric Repository\**" />
   </ItemGroup>
 
