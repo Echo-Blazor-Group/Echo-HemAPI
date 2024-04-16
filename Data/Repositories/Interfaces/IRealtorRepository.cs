@@ -9,7 +9,7 @@ namespace Echo_HemAPI.Data.Repositories.Interfaces
         Task<Realtor> AddAsync(Realtor entity);
         Task<Realtor?> UpdateAsync(Realtor entity);
         Task<Realtor?> GetByIdAsync(string? id); //id will be string cause its a string in identity
-        Task<IQueryable<Realtor?>> FindAsync(Expression<Func<Realtor, bool>> predicate);
+        Task<IEnumerable<Realtor?>> FindAsync(Expression<Func<Realtor, bool>> predicate);
         Task<IEnumerable<Realtor>?> GetAllAsync();
         Task<Realtor?> RemoveAsync(Realtor entity);
         void SaveChanges();
