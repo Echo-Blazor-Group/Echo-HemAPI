@@ -1,5 +1,5 @@
 ﻿using Echo_HemAPI.Data.Context;
-using Echo_HemAPI.Data.Models.Echo_HemAPI.Data.Repositories.Interfaces;
+using Echo_HemAPI.Data.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
@@ -59,7 +59,19 @@ namespace Echo_HemAPI.Data.Models
             return (IQueryable<RealtorFirm>)entities;
         }
 
-        public void SaveChanges()
+        /// <summary>
+        /// Alternativ lösning - returnera en queryable lista och definiera sökvillkor i efterhand:
+        /// 
+        /// public async Task<IQueryable<RealtorFirm>> SearchAllFirmsAsync()
+        /// {
+        ///     return _applicationDbContext.RealtorFirms.AsQueryable();
+        /// }
+        /// 
+        /// 
+        /// </summary>
+
+
+    public void SaveChanges()
         {
             _applicationDbContext.SaveChanges();
         }

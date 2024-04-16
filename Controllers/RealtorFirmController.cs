@@ -1,4 +1,5 @@
 ﻿using Echo_HemAPI.Data.Models;
+using Echo_HemAPI.Data.Repositories.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
