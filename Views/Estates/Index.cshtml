@@ -1,0 +1,95 @@
+﻿@model IEnumerable<Echo_HemAPI.Data.Models.Estate>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Address)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StartingPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LivingAreaKvm)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NumberOfRooms)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BiAreaKvm)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EstateAreaKvm)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MonthlyFee)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RunningCosts)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ConstructionDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EstateDescription)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PublishDate)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartingPrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LivingAreaKvm)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NumberOfRooms)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BiAreaKvm)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EstateAreaKvm)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MonthlyFee)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RunningCosts)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ConstructionDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EstateDescription)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PublishDate)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
