@@ -28,15 +28,15 @@ namespace Echo_HemAPI.Data.Models
         [Required]
         public string EstateDescription { get; set; } = string.Empty;
         [Required]
-        //Creater a new class for image storage
-        public string Images { get; set; } = string.Empty;
+        public DateOnly PublishDate { get; set; } = new DateOnly();
+   
 
         //Relational
         public County County { get; set; }
         public Realtor Realtor { get; set; }
         public Category Category { get; set; }
+        public List<Picture> Pictures { get; set; }
 
-        //Method for Getting the Categories
 
     }
 }

@@ -11,58 +11,58 @@ namespace Echo_HemAPI.Data.Models
     public class RealtorFirmRepository : IRealtorFirmRepository
     {
 
-        private readonly ApplicationDbContext _applicationDbContext;
+        private readonly ApplicationDbContext _context;
 
-        public RealtorFirmRepository(ApplicationDbContext applicationDbContext)
+        public RealtorFirmRepository(ApplicationDbContext context)
         {
-            _applicationDbContext = applicationDbContext;
+            _context = context;
         }
 
-        public async Task<RealtorFirm> AddRealtorFirmAsync(RealtorFirm realtorFirm)
+        public async Task<RealtorFirm> AddAsync(RealtorFirm realtorFirm)
         {
-            await _applicationDbContext.AddAsync(realtorFirm);
+            await _context.AddAsync(realtorFirm);
             return realtorFirm;
         }
 
-        public async Task<IEnumerable<RealtorFirm>> GetAllRealtorFirmsAsync()
+        public async Task<IEnumerable<RealtorFirm>> GetAllAsync()
         {
-            return await _applicationDbContext.RealtorFirms
+            return await _context.RealtorFirms
                                                             .Include(rf => rf.Employees)
                                                             .Include(rf => rf.Estates)
                                                             .OrderBy(rf => rf.Name)
                                                             .ToListAsync();
         }
 
-        public async Task<RealtorFirm> GetRealtorFirmByIdAsync(int id)
+        public async Task<RealtorFirm> GetByIdAsync(int id)
         {
-            return await _applicationDbContext.RealtorFirms
+            return await _context.RealtorFirms
                                                             .Include(rf => rf.Employees)
                                                             .Include(rf => rf.Estates)
                                                             .FirstOrDefaultAsync(rf => rf.RealtorFirmId == id);
         }
 
-        public async Task<RealtorFirm> RemoveRealtorFirmAsync(RealtorFirm realtorFirm)
+        public async Task<RealtorFirm> RemoveAsync(RealtorFirm realtorFirm)
         {
-            _applicationDbContext.Remove(realtorFirm);
+            _context.Remove(realtorFirm);
             return realtorFirm;
         }
 
-        public async Task<RealtorFirm> UpdateRealtorFirmAsync(RealtorFirm realtorFirm)
+        public async Task<RealtorFirm> UpdateAsync(RealtorFirm realtorFirm)
         {
-            _applicationDbContext.Update(realtorFirm);
+            _context.Update(realtorFirm);
             return realtorFirm;
         }
 
         public async Task<IQueryable<RealtorFirm>> FindAsync(Expression<Func<RealtorFirm, bool>> predicate)
         {
-            IQueryable<RealtorFirm> entities = _applicationDbContext.RealtorFirms.Where(predicate).AsQueryable();
+            IQueryable<RealtorFirm> entities = _context.RealtorFirms.Where(predicate).AsQueryable();
             return entities;
         }
 
 
-        public void SaveChanges()
+        public async Task SaveChangesAsync()
         {
-            _applicationDbContext.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
     }

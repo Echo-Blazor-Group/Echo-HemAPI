@@ -45,9 +45,9 @@ namespace Echo_HemAPI.Data.Repositories.Repos
             return entity;
         }
 
-        public void SaveChanges()
+        public async Task SaveChangesAsync()
         {
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
         public async Task<Estate> UpdateAsync(Estate entity)
