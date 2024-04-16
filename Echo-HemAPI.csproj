@@ -9,13 +9,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Migrations\**" />
     <Compile Remove="TestGeneric Repository\**" />
-    <Content Remove="Migrations\**" />
     <Content Remove="TestGeneric Repository\**" />
-    <EmbeddedResource Remove="Migrations\**" />
     <EmbeddedResource Remove="TestGeneric Repository\**" />
-    <None Remove="Migrations\**" />
     <None Remove="TestGeneric Repository\**" />
   </ItemGroup>
 
