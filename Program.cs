@@ -16,9 +16,28 @@ namespace Echo_HemAPI
             // Add services to the container.
             builder.Services.AddDbContext<ApplicationDbContext>
             (options => options
-            .UseSqlServer(builder.Configuration.GetConnectionString("HomeDb")));
+            .UseSqlServer(builder.Configuration.GetConnectionString("EchoHomeDb")));
 
-            builder.Services.AddDefaultIdentity<Realtor>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<ApplicationDbContext>();
+            builder.Services.AddIdentity<Realtor, IdentityRole>(options =>
+            {
+                // Configure identity options here
+                options.SignIn.RequireConfirmedEmail = false;
+                options.SignIn.RequireConfirmedPhoneNumber = false;
+                options.SignIn.RequireConfirmedAccount = false;
+            })
+            .AddEntityFrameworkStores<ApplicationDbContext>()
+            .AddDefaultTokenProviders();
+
+            builder.Services.ConfigureApplicationCookie(options =>
+            {
+                options.ExpireTimeSpan = TimeSpan.FromHours(1); // logs user out automatically in 1 hour
+                options.SlidingExpiration = true; // post pones automatic log out when using the app
+
+                //3 options below = fix routing
+                options.LoginPath = $"/Identity/Account/Login";
+                options.LogoutPath = $"/Identity/Account/Logout";
+                options.AccessDeniedPath = $"/Identity/Account/AccessDenied";
+            });
 
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
@@ -26,6 +45,9 @@ namespace Echo_HemAPI
             builder.Services.AddScoped<IEstateRepository, EstateRepository>();
             builder.Services.AddScoped<IRealtorFirmRepository, RealtorFirmRepository>();
             builder.Services.AddScoped<IRealtorRepository, RealtorRepository>();
+            builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+            builder.Services.AddScoped<IPicturesReposetories, PictureRepository>();
+            builder.Services.AddRazorPages();
 
 
             var app = builder.Build();
@@ -39,10 +61,12 @@ namespace Echo_HemAPI
 
             app.UseHttpsRedirection();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
 
             app.MapControllers();
+            app.MapRazorPages();
 
             app.Run();
         }

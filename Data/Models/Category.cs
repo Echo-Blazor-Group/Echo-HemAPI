@@ -17,7 +17,7 @@
 
         Bostadsrättsradhus
 
-        Villacxdcdd
+        Villa
 
         Fritidshus
 

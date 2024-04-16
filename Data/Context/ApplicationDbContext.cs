@@ -18,6 +18,9 @@ namespace Echo_HemAPI.Data.Context
         public DbSet<Estate> Estates { get; set; }
         public DbSet<RealtorFirm> RealtorFirms { get; set; }
         public DbSet<Realtor> Realtors { get; set; }
+        public DbSet<Category> Category { get; set; }
+        public DbSet<Picture> Picture { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
