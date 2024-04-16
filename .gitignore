@@ -366,3 +366,6 @@ FodyWeavers.xsd
 /Migrations/ApplicationDbContextModelSnapshot.cs
 /Migrations/20240416100836_Initial.cs
 /Migrations/20240416100836_Initial.Designer.cs
+/Migrations/20240416101614_first ever.cs
+/Migrations/20240416113601_first ever.cs
+/Migrations/20240416113601_first ever.Designer.cs
