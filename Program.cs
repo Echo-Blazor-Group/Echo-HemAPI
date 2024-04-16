@@ -3,6 +3,7 @@ using Echo_HemAPI.Data.Models;
 using Echo_HemAPI.Data.Repositories.Interfaces;
 using Echo_HemAPI.Data.Repositories.Repos;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 namespace Echo_HemAPI
 {
@@ -16,6 +17,8 @@ namespace Echo_HemAPI
             builder.Services.AddDbContext<ApplicationDbContext>
             (options => options
             .UseSqlServer(builder.Configuration.GetConnectionString("HomeDb")));
+
+            builder.Services.AddDefaultIdentity<Realtor>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<ApplicationDbContext>();
 
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
