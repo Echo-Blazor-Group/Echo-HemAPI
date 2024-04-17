@@ -23,20 +23,52 @@ namespace Echo_HemAPI.Data.Repositories.Repos
             return entity;
         }
 
-        public async Task<IQueryable<Estate>> FindAsync(Expression<Func<Estate, bool>> predicate)
+        public async Task<IQueryable<Estate?>?> FindAsync(Expression<Func<Estate, bool>> predicate)
         {
-            var entity = await _context.Set<Estate>().FindAsync(predicate);
-            return (IQueryable<Estate>)entity;
+            var entity = await _context.Set<Estate>().Where(predicate).ToListAsync();
+            
+            if (entity.Count == 0)
+            {
+                return null;
+            }
+            else
+            {
+                return (IQueryable<Estate>)entity;
+            }
         }
 
-        public async Task<IEnumerable<Estate>> GetAllAsync()
+        public async Task<IEnumerable<Estate>?> GetAllAsync()
         {
-            return await _context.Set<Estate>().ToListAsync();
+            var estate = await _context.Set<Estate>()
+                .Include(c => c.Category)
+                .Include(p => p.Pictures)
+                .Include(r => r.Realtor)
+                .ToListAsync();
+            if (estate is null)
+            {
+                return null;
+            }
+            else
+            {
+                return estate;
+            }
         }
 
-        public async Task<Estate> GetByIdAsync(int id)
+        public async Task<Estate?> GetByIdAsync(int id)
         {
-            return await _context.Set<Estate>().FindAsync(id);
+            var estate = await _context.Set<Estate>()
+                .Include(c => c.Category)
+                .Include(p => p.Pictures)
+                .Include(r => r.Realtor)
+                .FirstOrDefaultAsync(e => e.Id == id);
+            if (estate is null)
+            {
+                return null;
+            }
+            else
+            {
+                return estate;
+            }
         }
 
         public async Task<Estate> RemoveAsync(Estate entity)
