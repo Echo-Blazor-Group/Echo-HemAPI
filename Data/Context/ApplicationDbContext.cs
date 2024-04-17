@@ -22,6 +22,7 @@ namespace Echo_HemAPI.Data.Context
         public DbSet<Category> Category { get; set; }
         public DbSet<Picture> Picture { get; set; }
 
+        //Author Seb
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -29,6 +30,9 @@ namespace Echo_HemAPI.Data.Context
             // Seed counties to db
             var counties = SeedCounties.GetCounties();
             modelBuilder.Entity<County>().HasData(counties);
+            var estates = SeedEstates.GetEstates();
+            modelBuilder.Entity<Estate>().HasData(counties);
+
 
             // TODO: Seeding not working because of nested classes (Picture inside RealtorFirm)
 

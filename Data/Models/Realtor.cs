@@ -7,6 +7,10 @@ namespace Echo_HemAPI.Data.Models
     //Author Seb
     public class Realtor : IdentityUser
     {
+        public Realtor()
+        {
+            
+        }
         [Required]
         [DisplayName("First Name")]
         public string FirstName { get; set; } = string.Empty;
