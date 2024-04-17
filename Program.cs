@@ -5,6 +5,7 @@ using Echo_HemAPI.Data.Repositories.Repos;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 
+
 namespace Echo_HemAPI
 {
     //Author All
@@ -18,6 +19,7 @@ namespace Echo_HemAPI
             builder.Services.AddDbContext<ApplicationDbContext>
             (options => options
             .UseSqlServer(builder.Configuration.GetConnectionString("EchoHomeDb")));
+
 
             builder.Services.AddIdentity<Realtor, IdentityRole>(options =>
             {
