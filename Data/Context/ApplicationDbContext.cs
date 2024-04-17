@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Echo_HemAPI.Data.Context
 {
-    //Author: All
+    //Author All
     public class ApplicationDbContext : IdentityDbContext<Realtor>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
