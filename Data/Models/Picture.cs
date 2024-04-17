@@ -2,6 +2,7 @@
 {
     public class Picture
     {
+        //Author Gustaf
         public int Id { get; set; }
         public string PictureUrl { get; set; }
         public virtual Estate? Estate { get; set; }

@@ -27,7 +27,9 @@ namespace Echo_HemAPI.Data.Context
             base.OnModelCreating(modelBuilder);
             var counties = SeedCounties.GetCounties();
             modelBuilder.Entity<County>().HasData(counties);
-            
+            var estates = SeedEstates.GetEstates();
+            modelBuilder.Entity<Estate>().HasData(counties);
+
         }
     }
 }
