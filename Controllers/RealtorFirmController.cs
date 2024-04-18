@@ -1,15 +1,19 @@
 ﻿using Echo_HemAPI.Data.Models;
 using Echo_HemAPI.Data.Repositories.Interfaces;
+using Humanizer;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Linq.Expressions;
 
 namespace Echo_HemAPI.Controllers
 {
     /// <summary>
     /// Author: Samed Salman
+    /// Se Microsofts dokumentation för detaljer: https://learn.microsoft.com/en-us/aspnet/core/tutorials/first-web-api?view=aspnetcore-8.0&tabs=visual-studio#routing-and-url-paths
     /// </summary>
 
-    [Route("api/[controller]")]
+    [Route("api/[controller]/")]
     [ApiController]
     public class RealtorFirmController : ControllerBase
     {
@@ -20,47 +24,100 @@ namespace Echo_HemAPI.Controllers
             _realtorFirmRepository = realtorFirmRepository;
         }
 
-        // TODO: Lägg till null-hantering, se dokumentationen: https://learn.microsoft.com/en-us/aspnet/core/tutorials/first-web-api?view=aspnetcore-8.0&tabs=visual-studio#routing-and-url-paths
-
-        // TODO: Hur göra med Post/put/remove-metoder och SaveChanges? Är nedanstående korrekt?
         [HttpPost]
-        public async Task<RealtorFirm> AddAsync(RealtorFirm realtorFirm)
+        public async Task<ActionResult<RealtorFirm>> AddAsync(RealtorFirm realtorFirm)
         {
+            if (realtorFirm == null)
+            {
+                return BadRequest();
+            }
             await _realtorFirmRepository.AddAsync(realtorFirm);
             await _realtorFirmRepository.SaveChangesAsync();
-            return realtorFirm;
+            // TODO: Välj vilken return vi ska köra med, om jag kan få CreatedAtAction att funka:
+            // Return success status code with a reference to the newly created object's URL
+            //return CreatedAtAction(nameof(AddAsync), new { id = realtorFirm.RealtorFirmId }, realtorFirm);
+            return Ok(realtorFirm);
         }
 
-        [HttpGet]
-        public async Task<IEnumerable<RealtorFirm>> GetAllAsync()
+        [HttpGet("all")]
+        public async Task<ActionResult<IEnumerable<RealtorFirm>>> GetAllAsync()
         {
-            return await _realtorFirmRepository.GetAllAsync();
+            IEnumerable<RealtorFirm> realtorFirmList = await _realtorFirmRepository.GetAllAsync();
+            
+            if (realtorFirmList == null)
+            {
+                return NotFound();
+            }
+            return Ok(realtorFirmList);
         }
 
-        [HttpGet("{id}")]
-        public async Task<RealtorFirm> GetByIdAsync(int id)
+        [HttpGet("id/{id}")]
+        public async Task<ActionResult<RealtorFirm>> GetByIdAsync(int id)
         {
-            return await _realtorFirmRepository.GetByIdAsync(id);
+            RealtorFirm realtorFirm = await _realtorFirmRepository.GetByIdAsync(id);
+            
+            if (realtorFirm == null)
+            {
+                return NotFound();
+            }            
+            return Ok(realtorFirm);
         }
 
-        [HttpDelete]
-        public async Task<RealtorFirm> RemoveAsync(RealtorFirm realtorFirm)
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> RemoveAsync(int id)
         {
+            RealtorFirm realtorFirm = await _realtorFirmRepository.GetByIdAsync(id);
+
+            if (realtorFirm == null)
+            {
+                return NotFound();
+            }
+
             await _realtorFirmRepository.RemoveAsync(realtorFirm);
             await _realtorFirmRepository.SaveChangesAsync();
-            return realtorFirm;
+
+            // TODO: Testa om det här funkar för våra syften eller om det är bättre att returnera hela objektet i svaret?
+            // Add a custom header with the updated item's id to the Http response
+            Response.Headers.Add("X-Removed-RealtorFirm-Successfully-Id", realtorFirm.RealtorFirmId.ToString());
+            // Return a lightweight success response
+            return NoContent();
         }
 
-        [HttpPut]
-        public async Task<RealtorFirm> UpdateAsync(RealtorFirm realtorFirm)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateAsync(int id, RealtorFirm realtorFirm)
         {
+            // If parameters don't match
+            if  (id != realtorFirm.RealtorFirmId)
+            {
+                return BadRequest("Id does not match");
+            }
+
             await _realtorFirmRepository.UpdateAsync(realtorFirm);
-            await _realtorFirmRepository.SaveChangesAsync();
-            return realtorFirm;
+
+            try
+            {
+                await _realtorFirmRepository.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if(_realtorFirmRepository.GetByIdAsync(id) == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+            // TODO: Funkar det här för våra syften eller är det bättre att returnera hela objektet i svaret?
+            // Add a custom header with the updated item's id to the Http response
+            Response.Headers.Add("X-Updated-RealtorFirm-Successfully-Id", realtorFirm.RealtorFirmId.ToString());
+            // Return a lightweight success response
+            return NoContent();
         }
 
-        // TODO: Osäker på den här metodens syntax och funktion
-        [HttpGet("{predicate}")]
+        // TODO: Osäker på den här metodens syntax och funktion - har inte testat ännu
+        [HttpGet("find/{predicate}")]
         public async Task<IQueryable<RealtorFirm>> FindAsync(Expression<Func<RealtorFirm, bool>> predicate)
         {
             return await _realtorFirmRepository.FindAsync(predicate);
