@@ -30,8 +30,8 @@ namespace Echo_HemAPI.Data.Context
             // Seed counties to db
             var counties = SeedCounties.GetCounties();
             modelBuilder.Entity<County>().HasData(counties);
-            //var estates = SeedEstates.GetEstates();
-            //modelBuilder.Entity<Estate>().HasData(counties);
+            var categories = SeedCategories.GetCategories();
+            modelBuilder.Entity<Category>().HasData(categories);
 
 
             // TODO: Seeding not working because of nested classes (Picture inside RealtorFirm)
