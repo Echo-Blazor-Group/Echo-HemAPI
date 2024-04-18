@@ -4,6 +4,8 @@ using Echo_HemAPI.Data.Repositories.Interfaces;
 using Echo_HemAPI.Data.Repositories.Repos;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
+using Echo_HemAPI.Helper;
+using System.Collections.Generic;
 
 
 namespace Echo_HemAPI
@@ -11,7 +13,7 @@ namespace Echo_HemAPI
     //Author All
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
@@ -54,6 +56,18 @@ namespace Echo_HemAPI
 
 
             var app = builder.Build();
+
+            using (var scope = app.Services.CreateScope())
+            {
+                var services = scope.ServiceProvider;
+
+                var context = services.GetRequiredService<ApplicationDbContext>();
+                var userManager = services.GetRequiredService<UserManager<Realtor>>();
+                var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+
+                var dbSeeder = new DbSeeder();
+                await dbSeeder.SeedAsync(userManager, roleManager, context);
+            }
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
