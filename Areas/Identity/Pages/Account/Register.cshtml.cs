@@ -25,6 +25,7 @@ namespace Echo_HemAPI.Areas.Identity.Pages.Account
     public class RegisterModel : PageModel
     {
         private readonly SignInManager<Realtor> _signInManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
         private readonly UserManager<Realtor> _userManager;
         private readonly IUserStore<Realtor> _userStore;
         private readonly IUserEmailStore<Realtor> _emailStore;
@@ -33,6 +34,7 @@ namespace Echo_HemAPI.Areas.Identity.Pages.Account
 
         public RegisterModel(
             UserManager<Realtor> userManager,
+            RoleManager<IdentityRole> roleManager,
             IUserStore<Realtor> userStore,
             SignInManager<Realtor> signInManager,
             ILogger<RegisterModel> logger,
@@ -44,6 +46,7 @@ namespace Echo_HemAPI.Areas.Identity.Pages.Account
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            _roleManager = roleManager;
         }
 
         /// <summary>

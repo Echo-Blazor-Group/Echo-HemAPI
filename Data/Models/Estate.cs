@@ -30,7 +30,7 @@ namespace Echo_HemAPI.Data.Models
         public string EstateDescription { get; set; } = string.Empty;
         [Required]
         public DateOnly? PublishDate { get; set; } = new DateOnly();
-   
+
 
         //Relational
         public County County { get; set; }
