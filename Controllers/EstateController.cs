@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq.Expressions;
 
+//Author Gustaf
+
 namespace Echo_HemAPI.Controllers
 {
     [Route("api/[controller]")]
@@ -16,33 +18,61 @@ namespace Echo_HemAPI.Controllers
         {
             _estateRepository = estateRepository;
         }
-
         [HttpPost]
         public async Task<Estate> AddAsync(Estate estate)
         {
-            await _estateRepository.AddAsync(estate);
-            await _estateRepository.SaveChangesAsync();
-            return estate;
+            if (estate == null)
+            {
+                return null;
+            }
+            else
+            {
+                await _estateRepository.AddAsync(estate);
+                await _estateRepository.SaveChangesAsync();
+                return estate;
+            }
         }
 
         [HttpGet]
         public async Task<IEnumerable<Estate>?> GetAllAsync()
         {
-            return await _estateRepository.GetAllAsync();
+            if (await _estateRepository.GetAllAsync() == null)
+            {
+                return Enumerable.Empty<Estate>();
+            }
+            else
+            {
+                return await _estateRepository.GetAllAsync();
+            }
         }
+
         [HttpGet("{id}")]
         public async Task<Estate> GetByIdAsync(int id)
         {
-            return await _estateRepository.GetByIdAsync(id);
+            if (await _estateRepository.GetByIdAsync(id) == null)
+            {
+                return null;
+            }
+            else
+            {
+                return await _estateRepository.GetByIdAsync(id);
+            }
         }
-
 
         [HttpDelete]
         public async Task<Estate> RemoveAsync(Estate estate)
         {
-            await _estateRepository.RemoveAsync(estate);
-            await _estateRepository.SaveChangesAsync();
-            return estate;
+            if (estate == null)
+            {
+                return null;
+            }
+            else
+            {
+                await _estateRepository.RemoveAsync(estate);
+                await _estateRepository.SaveChangesAsync();
+                return estate;
+            }
+
         }
 
         [HttpPut]
@@ -51,6 +81,6 @@ namespace Echo_HemAPI.Controllers
             await _estateRepository.UpdateAsync(estate);
             await _estateRepository.SaveChangesAsync();
             return estate;
-        }
+        } 
     }
 }

@@ -22,11 +22,9 @@ namespace Echo_HemAPI.Helper
                                              ApplicationDbContext context)
 
         {   //Check to see if data in pictures table, if so, do not seed.
-            if (await context.Pictures.AnyAsync())
+            if (!await context.Pictures.AnyAsync())
             {
-                await Task.CompletedTask;
-            }
-            var pictures = new List<Picture>
+                var pictures = new List<Picture>
         {
             //Logotyp Sverige Mäklarna [0]
             new Picture { PictureUrl = "https://shorturl.at/wKPQR"},
@@ -74,10 +72,17 @@ namespace Echo_HemAPI.Helper
 
         };
 
-            await context.Pictures.AddRangeAsync(pictures);
-            await context.SaveChangesAsync();
-            pictures = await context.Pictures.ToListAsync();
-            await SeedRealtorFirmsAsync(userManager, roleManager,context,pictures);
+                await context.Pictures.AddRangeAsync(pictures);
+                await context.SaveChangesAsync();
+                pictures = await context.Pictures.ToListAsync();
+                await SeedRealtorFirmsAsync(userManager, roleManager, context, pictures);
+                
+            }
+            else
+            {
+                await Task.CompletedTask;
+            }
+            
         }
 
         private async Task SeedRealtorFirmsAsync(UserManager<Realtor> userManager, RoleManager<IdentityRole> roleManager,
