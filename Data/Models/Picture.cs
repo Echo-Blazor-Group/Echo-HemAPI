@@ -6,7 +6,7 @@
         public int Id { get; set; }
         public string PictureUrl { get; set; } = string.Empty;
         public int? EstateId { get; set; }
-        public int? RealtorId { get; set; }
+        public string? RealtorId { get; set; }
         public int? RealtorFirmId { get; set; }
         
     }
