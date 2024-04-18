@@ -6,7 +6,7 @@ using System.Linq.Expressions;
 
 namespace Echo_HemAPI.Data.Repositories.Repos
 {
-    public class PictureRepository : IPicturesReposetories
+    public class PictureRepository : IPictureRepository
     {
         private readonly ApplicationDbContext _context;
 

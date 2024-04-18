@@ -51,7 +51,7 @@ namespace Echo_HemAPI
             builder.Services.AddScoped<IRealtorFirmRepository, RealtorFirmRepository>();
             builder.Services.AddScoped<IRealtorRepository, RealtorRepository>();
             builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
-            builder.Services.AddScoped<IPicturesReposetories, PictureRepository>();
+            builder.Services.AddScoped<IPictureRepository, PictureRepository>();
             builder.Services.AddRazorPages();
 
 

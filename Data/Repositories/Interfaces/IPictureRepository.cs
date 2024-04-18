@@ -3,7 +3,7 @@ using System.Linq.Expressions;
 
 namespace Echo_HemAPI.Data.Repositories.Interfaces
 {
-    public interface IPicturesReposetories
+    public interface IPictureRepository
     {
         Task<Picture> AddAsync(Picture entity);
         Task<Picture> UpdateAsync(Picture entity);
