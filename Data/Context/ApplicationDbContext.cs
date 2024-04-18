@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Echo_HemAPI.Data.Context
 {
-    //Author: All
+    //Author All
     public class ApplicationDbContext : IdentityDbContext<Realtor>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
@@ -19,8 +19,8 @@ namespace Echo_HemAPI.Data.Context
         public DbSet<Estate> Estates { get; set; }
         public DbSet<RealtorFirm> RealtorFirms { get; set; }
         public DbSet<Realtor> Realtors { get; set; }
-        public DbSet<Category> Category { get; set; }
-        public DbSet<Picture> Picture { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<Picture> Pictures { get; set; }
 
         //Author Seb
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -30,14 +30,10 @@ namespace Echo_HemAPI.Data.Context
             // Seed counties to db
             var counties = SeedCounties.GetCounties();
             modelBuilder.Entity<County>().HasData(counties);
-            //var estates = SeedEstates.GetEstates();
-            //modelBuilder.Entity<Estate>().HasData(counties);
-
-
-            //// Populate an array of RealtorFirm type, by calling helper class
-            //RealtorFirm[] realtorFirms = SeedRealtorFirms.GetRealtorFirms();
-            //// Seed realtor firms to db
-            //modelBuilder.Entity<RealtorFirm>().OwnsOne(rf => rf.Logotype).HasData(realtorFirms);
+            // Seed categories to db
+            var categories = SeedCategories.GetCategories();
+            modelBuilder.Entity<Category>().HasData(categories);
+            
         }
     }
 }

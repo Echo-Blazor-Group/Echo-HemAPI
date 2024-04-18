@@ -19,41 +19,70 @@ namespace Echo_HemAPI.Data.Repositories.Repos
         }
         public async Task<Estate> AddAsync(Estate entity)
         {
-            await _context.Set<Estate>().AddAsync(entity);
+            await _context.Estates.AddAsync(entity);
             return entity;
         }
-
-        public async Task<IQueryable<Estate>> FindAsync(Expression<Func<Estate, bool>> predicate)
+        public async Task<IEnumerable<Estate>?> GetAllAsync()
         {
-            var entity = await _context.Set<Estate>().FindAsync(predicate);
-            return (IQueryable<Estate>)entity;
+            var estate = await _context.Estates
+                .Include(c => c.Category)
+                .Include(p => p.Pictures)
+                .Include(r => r.Realtor)
+                .ToListAsync();
+            if (estate is null)
+            {
+                return null;
+            }
+            else
+            {
+                return estate;
+            }
         }
-
-        public async Task<IEnumerable<Estate>> GetAllAsync()
+        public async Task<Estate?> GetByIdAsync(int id)
         {
-            return await _context.Set<Estate>().ToListAsync();
+            var estate = await _context.Estates
+                .Include(c => c.Category)
+                .Include(p => p.Pictures)
+                .Include(r => r.Realtor)
+                .FirstOrDefaultAsync(e => e.Id == id);
+            if (estate is null)
+            {
+                return null;
+            }
+            else
+            {
+                return estate;
+            }
         }
-
-        public async Task<Estate> GetByIdAsync(int id)
+        public async Task<IQueryable<Estate?>?> FindAsync(Expression<Func<Estate, bool>> predicate)
         {
-            return await _context.Set<Estate>().FindAsync(id);
+            var entity = await _context.Estates.Where(predicate).ToListAsync();
+
+            if (entity.Count == 0)
+            {
+                return null;
+            }
+            else
+            {
+                return (IQueryable<Estate>)entity;
+            }
         }
 
         public async Task<Estate> RemoveAsync(Estate entity)
         {
-            _context.Remove(entity);
+            _context.Estates.Remove(entity);
             return entity;
         }
-
+        public async Task<Estate> UpdateAsync(Estate entity)
+        {
+            _context.Estates.Update(entity);
+            return entity;
+        }
         public async Task SaveChangesAsync()
         {
             await _context.SaveChangesAsync();
         }
 
-        public async Task<Estate> UpdateAsync(Estate entity)
-        {
-            _context.Set<Estate>().Update(entity);
-            return entity;
-        }
+
     }
 }

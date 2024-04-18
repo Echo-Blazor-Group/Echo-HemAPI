@@ -27,8 +27,8 @@ namespace Echo_HemAPI.Data.Models
         public async Task<IEnumerable<RealtorFirm>> GetAllAsync()
         {
             return await _context.RealtorFirms
-                                                            .Include(rf => rf.Employees)
-                                                            .Include(rf => rf.Estates)
+                                                            //.Include(rf => rf.Employees)
+                                                            //.Include(rf => rf.Estates)
                                                             .OrderBy(rf => rf.Name)
                                                             .ToListAsync();
         }
@@ -36,8 +36,8 @@ namespace Echo_HemAPI.Data.Models
         public async Task<RealtorFirm> GetByIdAsync(int id)
         {
             return await _context.RealtorFirms
-                                                            .Include(rf => rf.Employees)
-                                                            .Include(rf => rf.Estates)
+                                                            //.Include(rf => rf.Employees)
+                                                            //.Include(rf => rf.Estates)
                                                             .FirstOrDefaultAsync(rf => rf.RealtorFirmId == id);
         }
 
