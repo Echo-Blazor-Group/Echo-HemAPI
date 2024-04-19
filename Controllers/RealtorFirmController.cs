@@ -1,9 +1,7 @@
 ﻿using Echo_HemAPI.Data.Models;
 using Echo_HemAPI.Data.Repositories.Interfaces;
-using Humanizer;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Linq.Expressions;
 
 namespace Echo_HemAPI.Controllers
@@ -46,7 +44,7 @@ namespace Echo_HemAPI.Controllers
             
             if (realtorFirmList == null)
             {
-                return NotFound();
+                return NotFound("No Realtor firms registrated yet.");
             }
             return Ok(realtorFirmList);
         }
@@ -76,7 +74,7 @@ namespace Echo_HemAPI.Controllers
             await _realtorFirmRepository.RemoveAsync(realtorFirm);
             await _realtorFirmRepository.SaveChangesAsync();
 
-            // TODO: Testa om det här funkar för våra syften eller om det är bättre att returnera hela objektet i svaret?
+            // TODO: Funkar det här för våra syften eller är det bättre att returnera hela objektet i svaret?
             // Add a custom header with the updated item's id to the Http response
             Response.Headers.Add("X-Removed-RealtorFirm-Successfully-Id", realtorFirm.RealtorFirmId.ToString());
             // Return a lightweight success response
