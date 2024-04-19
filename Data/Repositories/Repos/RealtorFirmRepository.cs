@@ -27,18 +27,18 @@ namespace Echo_HemAPI.Data.Models
         public async Task<IEnumerable<RealtorFirm>> GetAllAsync()
         {
             return await _context.RealtorFirms
-                                                            //.Include(rf => rf.Employees)
-                                                            //.Include(rf => rf.Estates)
-                                                            .OrderBy(rf => rf.Name)
-                                                            .ToListAsync();
+                                            //.Include(rf => rf.Employees)
+                                            //.Include(rf => rf.Estates)
+                                            .OrderBy(rf => rf.Name)
+                                            .ToListAsync();
         }
 
         public async Task<RealtorFirm> GetByIdAsync(int id)
         {
             return await _context.RealtorFirms
-                                                            //.Include(rf => rf.Employees)
-                                                            //.Include(rf => rf.Estates)
-                                                            .FirstOrDefaultAsync(rf => rf.RealtorFirmId == id);
+                                            //.Include(rf => rf.Employees)
+                                            //.Include(rf => rf.Estates)
+                                            .FirstOrDefaultAsync(rf => rf.RealtorFirmId == id);
         }
 
         public async Task<RealtorFirm> RemoveAsync(RealtorFirm realtorFirm)
