@@ -13,7 +13,8 @@ using Echo_HemAPI.Data.Models;
             Task<RealtorFirm> GetByIdAsync(int id);
             Task<RealtorFirm> RemoveAsync(RealtorFirm realtorFirm);
             Task<RealtorFirm> UpdateAsync(RealtorFirm realtorFirm);
-            Task<IQueryable<RealtorFirm>> FindAsync(Expression<Func<RealtorFirm, bool>> predicate);
+            // TODO: (Samed) ev ta bort
+            // Task<IQueryable<RealtorFirm>> FindAsync(Expression<Func<RealtorFirm, bool>> predicate);
             Task SaveChangesAsync();
-    }
+        }
     }

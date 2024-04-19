@@ -53,17 +53,17 @@ namespace Echo_HemAPI.Data.Models
             return realtorFirm;
         }
 
-        public async Task<IQueryable<RealtorFirm>> FindAsync(Expression<Func<RealtorFirm, bool>> predicate)
-        {
-            IQueryable<RealtorFirm> entities = _context.RealtorFirms.Where(predicate).AsQueryable();
-            return entities;
-        }
+        // TODO:(Samed) Ev ta bort
+        //public async Task<IQueryable<RealtorFirm>> FindAsync(Expression<Func<RealtorFirm, bool>> predicate)
+        //{
+        //    IQueryable<RealtorFirm> entities = _context.RealtorFirms.Where(predicate).AsQueryable();
+        //    return entities;
+        //}
 
 
         public async Task SaveChangesAsync()
         {
             await _context.SaveChangesAsync();
         }
-
     }
 }
