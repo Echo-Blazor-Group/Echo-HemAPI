@@ -30,16 +30,13 @@ namespace Echo_HemAPI.Data.Context
             // Seed counties to db
             var counties = SeedCounties.GetCounties();
             modelBuilder.Entity<County>().HasData(counties);
+            
+            // Seed categories to db
+            var categories = SeedCategories.GetCategories();
+            modelBuilder.Entity<Category>().HasData(categories);
+
             //var estates = SeedEstates.GetEstates();
             //modelBuilder.Entity<Estate>().HasData(counties);
-
-
-            // TODO: Seeding not working because of nested classes (Picture inside RealtorFirm)
-
-            //// Populate an array of RealtorFirm type, by calling helper class
-            //RealtorFirm[] realtorFirms = SeedRealtorFirms.GetRealtorFirms();
-            //// Seed realtor firms to db
-            //modelBuilder.Entity<RealtorFirm>().OwnsOne(rf => rf.Logotype).HasData(realtorFirms);
         }
     }
 }

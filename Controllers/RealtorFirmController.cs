@@ -1,9 +1,7 @@
 ﻿using Echo_HemAPI.Data.Models;
 using Echo_HemAPI.Data.Repositories.Interfaces;
-using Humanizer;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Linq.Expressions;
 
 namespace Echo_HemAPI.Controllers
@@ -33,25 +31,25 @@ namespace Echo_HemAPI.Controllers
             }
             await _realtorFirmRepository.AddAsync(realtorFirm);
             await _realtorFirmRepository.SaveChangesAsync();
-            // TODO: Välj vilken return vi ska köra med, om jag kan få CreatedAtAction att funka:
+            // TODO: (Samed) Välj vilken return vi ska köra med, om jag kan få CreatedAtAction att funka:
             // Return success status code with a reference to the newly created object's URL
             //return CreatedAtAction(nameof(AddAsync), new { id = realtorFirm.RealtorFirmId }, realtorFirm);
             return Ok(realtorFirm);
         }
 
-        [HttpGet("all")]
+        [HttpGet]
         public async Task<ActionResult<IEnumerable<RealtorFirm>>> GetAllAsync()
         {
             IEnumerable<RealtorFirm> realtorFirmList = await _realtorFirmRepository.GetAllAsync();
             
             if (realtorFirmList == null)
             {
-                return NotFound();
+                return NotFound("No Realtor firms registrated yet.");
             }
             return Ok(realtorFirmList);
         }
 
-        [HttpGet("id/{id}")]
+        [HttpGet("{id}")]
         public async Task<ActionResult<RealtorFirm>> GetByIdAsync(int id)
         {
             RealtorFirm realtorFirm = await _realtorFirmRepository.GetByIdAsync(id);
@@ -76,9 +74,9 @@ namespace Echo_HemAPI.Controllers
             await _realtorFirmRepository.RemoveAsync(realtorFirm);
             await _realtorFirmRepository.SaveChangesAsync();
 
-            // TODO: Testa om det här funkar för våra syften eller om det är bättre att returnera hela objektet i svaret?
+            // TODO: (Samed) Funkar det här för våra syften eller är det bättre att returnera hela objektet i svaret?
             // Add a custom header with the updated item's id to the Http response
-            Response.Headers.Add("X-Removed-RealtorFirm-Successfully-Id", realtorFirm.RealtorFirmId.ToString());
+            // Response.Headers.Add("X-Removed-RealtorFirm-Successfully-Id", realtorFirm.RealtorFirmId.ToString());
             // Return a lightweight success response
             return NoContent();
         }
@@ -109,18 +107,18 @@ namespace Echo_HemAPI.Controllers
                     throw;
                 }
             }
-            // TODO: Funkar det här för våra syften eller är det bättre att returnera hela objektet i svaret?
+            // TODO: (Samed) Funkar det här för våra syften eller är det bättre att returnera hela objektet i svaret?
             // Add a custom header with the updated item's id to the Http response
             Response.Headers.Add("X-Updated-RealtorFirm-Successfully-Id", realtorFirm.RealtorFirmId.ToString());
             // Return a lightweight success response
             return NoContent();
         }
 
-        // TODO: Osäker på den här metodens syntax och funktion - har inte testat ännu
-        [HttpGet("find/{predicate}")]
-        public async Task<IQueryable<RealtorFirm>> FindAsync(Expression<Func<RealtorFirm, bool>> predicate)
-        {
-            return await _realtorFirmRepository.FindAsync(predicate);
-        }
+        // TODO: (Samed) Ev Ta bort?
+        //[HttpGet("find/{predicate}")]
+        //public async Task<IQueryable<RealtorFirm>> FindAsync(Expression<Func<RealtorFirm, bool>> predicate)
+        //{
+        //    return await _realtorFirmRepository.FindAsync(predicate);
+        //}
     }
 }
