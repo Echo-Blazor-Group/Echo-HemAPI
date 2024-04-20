@@ -13,7 +13,7 @@ namespace Echo_HemAPI.Helper
         public async Task SeedAsync(UserManager<Realtor> userManager, RoleManager<IdentityRole> roleManager,
                                     ApplicationDbContext context)
         {
-            //SeedPicturesAsync calls the other methods in order to pass the needed paramaters and seed all models.
+            //SeedPicturesAsync calls the other methods in order to pass the needed parameters and seed all models.
             await SeedPicturesAsync(userManager,roleManager, context);
             await context.SaveChangesAsync();
         }
