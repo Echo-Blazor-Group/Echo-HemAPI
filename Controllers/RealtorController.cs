@@ -16,13 +16,11 @@ namespace Echo_HemAPI.Controllers
     {
         private readonly UserManager<Realtor> _userManager;
         private readonly ApplicationDbContext _context;
-        private readonly IEstateRepository _estateRepo;
 
-        public RealtorController(UserManager<Realtor> userManager, ApplicationDbContext context, IEstateRepository estateRepo)
+        public RealtorController(UserManager<Realtor> userManager, ApplicationDbContext context)
         {
             _userManager = userManager;
             _context = context;
-            _estateRepo = estateRepo;
         }
         // GET: api/<RealtorController>
         [HttpGet]
@@ -147,7 +145,7 @@ namespace Echo_HemAPI.Controllers
             {
                 var estatesMatchingRealtorId = await _context.Estates.Where(e => e.Realtor.Id == user.Id).ToListAsync();
                 Picture? profilePictureAttachedToUser = await _context.Pictures.Where(p => p.RealtorId == user.Id).FirstOrDefaultAsync();
-                //await _estateRepo.FindAsync(e => e.Realtor.Id == user.Id);API error saying cant set up service estaterepo
+
                 if (estatesMatchingRealtorId.Count > 0)
                 {
                     foreach (var estate in estatesMatchingRealtorId)

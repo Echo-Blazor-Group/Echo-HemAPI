@@ -34,9 +34,6 @@ namespace Echo_HemAPI.Data.Context
             // Seed categories to db
             var categories = SeedCategories.GetCategories();
             modelBuilder.Entity<Category>().HasData(categories);
-
-            //var estates = SeedEstates.GetEstates();
-            //modelBuilder.Entity<Estate>().HasData(counties);
         }
     }
 }
