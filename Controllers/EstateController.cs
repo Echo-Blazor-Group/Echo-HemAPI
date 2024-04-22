@@ -12,7 +12,7 @@ namespace Echo_HemAPI.Controllers
     [ApiController]
     public class EstateController : ControllerBase
     {
-        IEstateRepository _estateRepository;
+       private readonly IEstateRepository _estateRepository;
 
         public EstateController(IEstateRepository estateRepository)
         {
