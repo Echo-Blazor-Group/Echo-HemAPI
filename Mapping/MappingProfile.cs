@@ -9,12 +9,15 @@ namespace Echo_HemAPI.Mapping
     {
         public MappingProfile() 
         {
+            // Author: Gustaf Von Schélee
             CreateMap<Estate, EstateDto>().ReverseMap();
             CreateMap<InsertEstateDto, Estate>().ReverseMap();
             CreateMap<UpdateEstateDto, Estate>().ReverseMap();
 
-
-
+            // Author: Samed Salman
+            CreateMap<RealtorFirm, RealtorFirmGetDTO>().ReverseMap();
+            CreateMap<RealtorFirm, RealtorFirmPostDTO>().ReverseMap();
+            CreateMap<RealtorFirm, RealtorFirmPutDTO>().ReverseMap();
         }
 
 
