@@ -1,4 +1,5 @@
-﻿using Echo_HemAPI.Data.Context;
+﻿using AutoMapper;
+using Echo_HemAPI.Data.Context;
 using Echo_HemAPI.Data.Models;
 using Echo_HemAPI.Data.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -13,9 +14,11 @@ namespace Echo_HemAPI.Data.Repositories.Repos
 
         private readonly ApplicationDbContext _context;
 
+
         public EstateRepository(ApplicationDbContext context)
         {
             _context = context;
+ 
         }
         public async Task<Estate> AddAsync(Estate entity)
         {

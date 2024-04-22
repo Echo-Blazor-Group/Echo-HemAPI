@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Echo_HemAPI.Data.Models;
+using Echo_HemAPI.Data.Models.DTOs;
 using Echo_HemAPI.Data.Repositories.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -39,6 +40,8 @@ namespace Echo_HemAPI.Controllers
         [HttpGet]
         public async Task<IEnumerable<Estate>?> GetAllAsync()
         {
+            var estates = await _estateRepository.GetAllAsync();
+            var estateDto = mapper.Map<List<EstateDto>>(estates); 
             if (await _estateRepository.GetAllAsync() == null)
             {
                 return Enumerable.Empty<Estate>();
@@ -47,6 +50,7 @@ namespace Echo_HemAPI.Controllers
             {
                 return await _estateRepository.GetAllAsync();
             }
+            
         }
 
         [HttpGet("{id}")]

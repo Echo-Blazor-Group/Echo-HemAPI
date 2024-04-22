@@ -38,7 +38,7 @@ namespace Echo_HemAPI.Data.Models
             return await _context.RealtorFirms
                                             //.Include(rf => rf.Employees)
                                             //.Include(rf => rf.Estates)
-                                            .FirstOrDefaultAsync(rf => rf.RealtorFirmId == id);
+                                            .FirstOrDefaultAsync(rf => rf.Id == id);
         }
 
         public async Task<RealtorFirm> RemoveAsync(RealtorFirm realtorFirm)

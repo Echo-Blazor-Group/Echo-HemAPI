@@ -1,8 +1,7 @@
 ﻿namespace Echo_HemAPI.Data.Models.DTOs
 {
-    public class EstateDto
+    public class UpdateEstateDto
     {
-        public int Id { get; set; }
         
         public string Address { get; set; } = string.Empty;
        
@@ -26,9 +25,9 @@
        
         public DateOnly? PublishDate { get; set; } = new DateOnly();
         //Relational
+        public int CountyId { get; set; }
+        public Guid UserId { get; set; }
+        public int CategoryId { get; set; }
 
-        public Realtor? Realtor { get; set; }
-        public Category? Category { get; set; }
-        public List<Picture?>? Pictures { get; set; }
     }
 }

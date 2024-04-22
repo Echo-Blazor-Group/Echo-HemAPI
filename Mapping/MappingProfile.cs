@@ -9,11 +9,9 @@ namespace Echo_HemAPI.Mapping
     {
         public MappingProfile() 
         {
-            // Author: Gustaf Von Schélee
-            CreateMap<Estate, EstateDto>()
-                .ForMember(s => s.Address, o => o.MapFrom(svm => svm.Address))
-                .ForMember(s => s.NumberOfRooms, o => o.MapFrom(svm => svm.NumberOfRooms))
-                .ReverseMap();
+            CreateMap<Estate, EstateDto>().ReverseMap();
+            CreateMap<InsertEstateDto, Estate>().ReverseMap();
+            CreateMap<UpdateEstateDto, Estate>().ReverseMap();
 
             // Author: Samed Salman
             CreateMap<RealtorFirm, RealtorFirmGetDTO>().ReverseMap();
@@ -24,3 +22,26 @@ namespace Echo_HemAPI.Mapping
 
     }
 }
+//public County? County { get; set; }
+
+//public string Address { get; set; } = string.Empty;
+
+//public int StartingPrice { get; set; }
+
+//public string LivingAreaKvm { get; set; } = string.Empty;
+
+//public string NumberOfRooms { get; set; } = string.Empty;
+
+//public string BiAreaKvm { get; set; } = string.Empty;
+
+//public string EstateAreaKvm { get; set; } = string.Empty;
+
+//public string MonthlyFee { get; set; } = string.Empty;
+
+//public string RunningCosts { get; set; } = string.Empty;
+
+//public string ConstructionDate { get; set; } = string.Empty;
+
+//public string EstateDescription { get; set; } = string.Empty;
+
+//public DateOnly? PublishDate { get; set; } = new DateOnly();
