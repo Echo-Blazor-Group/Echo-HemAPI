@@ -9,6 +9,7 @@ namespace Echo_HemAPI.Mapping
     {
         public MappingProfile() 
         {
+            // Author: Gustaf Von Schélee
             CreateMap<Estate, EstateDto>().ReverseMap();
             CreateMap<InsertEstateDto, Estate>().ReverseMap();
             CreateMap<UpdateEstateDto, Estate>().ReverseMap();
