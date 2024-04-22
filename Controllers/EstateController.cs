@@ -1,4 +1,5 @@
-﻿using Echo_HemAPI.Data.Models;
+﻿using AutoMapper;
+using Echo_HemAPI.Data.Models;
 using Echo_HemAPI.Data.Repositories.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -12,11 +13,13 @@ namespace Echo_HemAPI.Controllers
     [ApiController]
     public class EstateController : ControllerBase
     {
-       private readonly IEstateRepository _estateRepository;
+        private readonly IEstateRepository _estateRepository;
+        private readonly IMapper mapper;
 
-        public EstateController(IEstateRepository estateRepository)
+        public EstateController(IEstateRepository estateRepository, IMapper mapper)
         {
             _estateRepository = estateRepository;
+            this.mapper = mapper;
         }
         [HttpPost]
         public async Task<Estate> AddAsync(Estate estate)
