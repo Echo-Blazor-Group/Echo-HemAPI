@@ -33,10 +33,10 @@ namespace Echo_HemAPI.Data.Models
 
 
         //Relational
-        public County County { get; set; }
-        public Realtor Realtor { get; set; }
-        public Category Category { get; set; }
-        public List<Picture> Pictures { get; set; }
+        public County? County { get; set; }
+        public Realtor? Realtor { get; set; }
+        public Category? Category { get; set; }
+        public List<Picture?>? Pictures { get; set; }
 
 
     }
