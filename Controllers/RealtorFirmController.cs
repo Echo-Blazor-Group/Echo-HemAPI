@@ -37,9 +37,9 @@ namespace Echo_HemAPI.Controllers
             RealtorFirm realtorFirm = await _realtorFirmRepository.AddAsync(_mapper.Map<RealtorFirm>(realtorFirmPostDTO));
             // Save entity to db
             await _realtorFirmRepository.SaveChangesAsync();
-            // TODO: (Samed) Välj vilken return vi ska köra med, om jag kan få CreatedAtAction att funka:
+            // TODO: (PRIO 1) (Samed) Välj vilken return vi ska köra med, om jag kan få CreatedAtAction att funka:
             // Return success status code with a reference to the newly created object's URL
-            return CreatedAtAction(nameof(this.GetByIdAsync), new { id = realtorFirm.RealtorFirmId }, realtorFirm);
+            return CreatedAtAction(nameof(this.GetByIdAsync), new { id = realtorFirm.Id }, realtorFirm);
             // return Ok(realtorFirmPostDTO);
         }
 
@@ -89,7 +89,7 @@ namespace Echo_HemAPI.Controllers
 
             // TODO: (Samed) Funkar det här för våra syften eller är det bättre att returnera hela objektet i svaret?
             // Add a custom header with the updated item's id to the Http response
-            Response.Headers.Add("X-Removed-RealtorFirm-Successfully-Id", realtorFirm.RealtorFirmId.ToString());
+            Response.Headers.Add("X-Removed-RealtorFirm-Successfully-Id", realtorFirm.Id.ToString());
             // Return a lightweight success response
             return NoContent();
         }
