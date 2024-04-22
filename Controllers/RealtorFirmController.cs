@@ -85,7 +85,7 @@ namespace Echo_HemAPI.Controllers
         public async Task<IActionResult> UpdateAsync(int id, RealtorFirm realtorFirm)
         {
             // If parameters don't match
-            if  (id != realtorFirm.RealtorFirmId)
+            if  (id != realtorFirm.Id)
             {
                 return BadRequest("Id does not match");
             }
@@ -109,7 +109,7 @@ namespace Echo_HemAPI.Controllers
             }
             // TODO: (Samed) Funkar det här för våra syften eller är det bättre att returnera hela objektet i svaret?
             // Add a custom header with the updated item's id to the Http response
-            Response.Headers.Add("X-Updated-RealtorFirm-Successfully-Id", realtorFirm.RealtorFirmId.ToString());
+            Response.Headers.Add("X-Updated-RealtorFirm-Successfully-Id", realtorFirm.Id.ToString());
             // Return a lightweight success response
             return NoContent();
         }

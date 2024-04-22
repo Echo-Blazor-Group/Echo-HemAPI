@@ -9,7 +9,7 @@ namespace Echo_HemAPI.Data.Models
     /// </summary>
     public class RealtorFirm
     {
-        public int RealtorFirmId { get; set; }
+        public int Id { get; set; }
         [Required]
         public string Name { get; set; } = string.Empty;
         [Required, DisplayName("About this firm")]
