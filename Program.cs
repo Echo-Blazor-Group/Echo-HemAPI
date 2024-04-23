@@ -44,6 +44,12 @@ namespace Echo_HemAPI
                 options.AccessDeniedPath = $"/Identity/Account/AccessDenied";
             });
 
+            // Makes sure .NET doesn't trim the "Async"-suffix in async method names in routing and link generation
+            builder.Services.AddMvc(options =>
+            {
+                options.SuppressAsyncSuffixInActionNames = false;
+            });
+
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
