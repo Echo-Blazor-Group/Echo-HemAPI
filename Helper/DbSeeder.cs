@@ -92,11 +92,11 @@ namespace Echo_HemAPI.Helper
         {
             var firms = new List<RealtorFirm>
         {
-            new RealtorFirm { Name = "Sverige Mäklarna", RealtorFirmPresentation = "Vi har de bästa mäklarna i Sverige.", Logotype = pictures[0]},
-            new RealtorFirm { Name = "Skandinaviens Mäklarna", RealtorFirmPresentation = "Efter 79 år i branschen så hjälper vi dig att hitta ditt nya hem.", Logotype = pictures[1]},
-            new RealtorFirm { Name = "Länets Mäklare", RealtorFirmPresentation = "Vi tror på att jobba lokalt.", Logotype = pictures[2]},
-            new RealtorFirm { Name = "Hemma Mäklarna", RealtorFirmPresentation = "Borta bra, hemma bäst.", Logotype = pictures[3]},
-            new RealtorFirm { Name = "Fastighetsbyrån", RealtorFirmPresentation = "Vi kan fastigheter.", Logotype = pictures[4]}
+            new RealtorFirm { Name = "Sverige Mäklarna", RealtorFirmPresentation = "Vi har de bästa mäklarna i Sverige.", Logotype = "https://shorturl.at/wKPQR"},
+            new RealtorFirm { Name = "Skandinaviens Mäklarna", RealtorFirmPresentation = "Efter 79 år i branschen så hjälper vi dig att hitta ditt nya hem.", Logotype = "https://shorturl.at/ltDNT"},
+            new RealtorFirm { Name = "Länets Mäklare", RealtorFirmPresentation = "Vi tror på att jobba lokalt.", Logotype = "https://shorturl.at/bgvwF"},
+            new RealtorFirm { Name = "Hemma Mäklarna", RealtorFirmPresentation = "Borta bra, hemma bäst.", Logotype = "https://shorturl.at/iFMVX"},
+            new RealtorFirm { Name = "Fastighetsbyrån", RealtorFirmPresentation = "Vi kan fastigheter.", Logotype = "https://shorturl.at/iHKUZ"}
 
         };
 
@@ -111,19 +111,19 @@ namespace Echo_HemAPI.Helper
         {
             var realtors = new List<Realtor>
         {
-            new Realtor { FirstName = "John", LastName = "Doe", RealtorFirm = firms[0], ProfilePicture = pictures[5]
+            new Realtor { FirstName = "John", LastName = "Doe", RealtorFirm = firms[0], ProfilePicture = "https://shorturl.at/cIY05"
             ,Email ="Johndoe@hotmail.com", UserName ="Johndoe@hotmail.com", PhoneNumber ="0762255184"},
 
-            new Realtor { FirstName = "Jane", LastName = "Smith", RealtorFirm = firms[1], ProfilePicture = pictures[6]
+            new Realtor { FirstName = "Jane", LastName = "Smith", RealtorFirm = firms[1], ProfilePicture = "https://shorturl.at/eDGY6"
             ,Email ="Janesmith@hotmail.com", UserName ="Janesmith@hotmail.com", PhoneNumber ="0762255185"},
 
-            new Realtor { FirstName = "Kalle", LastName = "Kula",RealtorFirm = firms[2], ProfilePicture = pictures[7]
+            new Realtor { FirstName = "Kalle", LastName = "Kula",RealtorFirm = firms[2], ProfilePicture = "https://shorturl.at/bjwAP"
             ,Email ="Kallekula@hotmail.com", UserName ="Kallekula@hotmail.com", PhoneNumber ="0762255186"},
 
-            new Realtor { FirstName = "Samed", LastName = "Salman",RealtorFirm = firms[3], ProfilePicture = pictures[8]
+            new Realtor { FirstName = "Samed", LastName = "Salman",RealtorFirm = firms[3], ProfilePicture = "https://shorturl.at/yMQ57"
             ,Email ="Samedsalman@hotmail.com", UserName ="Samedsalman@hotmail.com", PhoneNumber ="0762255187"},
 
-            new Realtor { FirstName = "Gustaf", LastName = "VSF", RealtorFirm = firms[4], ProfilePicture = pictures[9]
+            new Realtor { FirstName = "Gustaf", LastName = "VSF", RealtorFirm = firms[4], ProfilePicture = "https://shorturl.at/airKP"
             ,Email ="Gustafvsf@hotmail.com", UserName ="Gustafvsf@hotmail.com", PhoneNumber ="0762255188"}
 
         };

@@ -1,4 +1,6 @@
-﻿namespace Echo_HemAPI.Data.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Echo_HemAPI.Data.Models
 {
     public class Picture
     {
@@ -6,6 +8,5 @@
         public int Id { get; set; }
         public string PictureUrl { get; set; } = string.Empty;
         public virtual Estate? Estate { get; set; }
-        
     }
 }

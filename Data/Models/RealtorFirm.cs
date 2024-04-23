@@ -15,5 +15,6 @@ namespace Echo_HemAPI.Data.Models
         [Required, DisplayName("About this firm")]
         public string RealtorFirmPresentation { get; set; } = string.Empty;
         public string? Logotype { get; set; }
+
     }
 }

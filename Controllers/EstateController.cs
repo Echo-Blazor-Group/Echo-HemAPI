@@ -38,18 +38,11 @@ namespace Echo_HemAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<Estate>?> GetAllAsync()
+        public async Task<IActionResult> GetAllAsync()
         {
             var estates = await _estateRepository.GetAllAsync();
             var estateDto = mapper.Map<List<EstateDto>>(estates); 
-            if (await _estateRepository.GetAllAsync() == null)
-            {
-                return Enumerable.Empty<Estate>();
-            }
-            else
-            {
-                return await _estateRepository.GetAllAsync();
-            }
+            return Ok(estateDto);
             
         }
 
