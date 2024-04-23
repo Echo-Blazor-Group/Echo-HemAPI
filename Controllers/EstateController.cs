@@ -4,6 +4,7 @@ using Echo_HemAPI.Data.Models.DTOs;
 using Echo_HemAPI.Data.Repositories.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 using System.Linq.Expressions;
 
 //Author Gustaf
@@ -23,23 +24,30 @@ namespace Echo_HemAPI.Controllers
             this.mapper = mapper;
         }
         [HttpPost]
-        public async Task<Estate> AddAsync(Estate estate)
+        public async Task<IActionResult> AddAsync(InsertEstateDto insertEstateDto)
         {
-            if (estate == null)
+              var estate = mapper.Map<Estate>(insertEstateDto);
+            var validationContext = new ValidationContext(estate);
+            var validationResult = new List<ValidationResult>();
+
+            if (!Validator.TryValidateObject(estate, validationContext, validationResult, true))
             {
-                return null;
+                return BadRequest(new {Message = "Custom Validation Error", Errors = validationResult.Select(r=>r.ErrorMessage)});
             }
-            else
-            {
-                await _estateRepository.AddAsync(estate);
-                await _estateRepository.SaveChangesAsync();
-                return estate;
-            }
+            estate = await _estateRepository.UpdateAsync(estate);
+            var estateDto = mapper.Map<EstateDto>(estate);
+            await _estateRepository.SaveChangesAsync();
+            return Created("/api/estate" + estate.Id, new { Message = "estate created!", Data = estateDto });
+               
+
+               //Estate = await _estateRepository.AddAsync(estate);
+   
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAllAsync()
         {
+           
             var estates = await _estateRepository.GetAllAsync();
             var estateDto = mapper.Map<List<EstateDto>>(estates); 
             return Ok(estateDto);
