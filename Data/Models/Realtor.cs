@@ -25,7 +25,7 @@ namespace Echo_HemAPI.Data.Models
         public RealtorFirm? RealtorFirm { get; set; }
 
         [DisplayName("Profile Picture")]
-        public Picture? ProfilePicture { get; set; }
+        public string? ProfilePicture { get; set; }
 
         
 

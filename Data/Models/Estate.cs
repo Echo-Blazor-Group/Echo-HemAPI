@@ -33,11 +33,8 @@ namespace Echo_HemAPI.Data.Models
 
         //Relational
         public County? County { get; set; }
-        public int CountyId { get; set; }
         public Realtor? Realtor { get; set; }
-        public Guid UserId { get; set; }
         public Category? Category { get; set; }
-        public int CategoryId { get; set; }
         public List<Picture?>? Pictures { get; set; }
 
 
