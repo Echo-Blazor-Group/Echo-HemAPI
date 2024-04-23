@@ -37,10 +37,8 @@ namespace Echo_HemAPI.Controllers
             RealtorFirm realtorFirm = await _realtorFirmRepository.AddAsync(_mapper.Map<RealtorFirm>(realtorFirmPostDTO));
             // Save entity to db
             await _realtorFirmRepository.SaveChangesAsync();
-            // TODO: (PRIO 1) (Samed) Välj vilken return vi ska köra med, om jag kan få CreatedAtAction att funka:
-            // Return success status code with a reference to the newly created object's URL
-            return CreatedAtAction(nameof(this.GetByIdAsync), new { id = realtorFirm.Id }, realtorFirm);
-            // return Ok(realtorFirmPostDTO);
+            // Return success status code 201 with a reference to the newly created object's URL
+            return CreatedAtAction(nameof(GetByIdAsync), new { id = realtorFirm.Id }, realtorFirm);
         }
 
         [HttpGet]
@@ -54,7 +52,6 @@ namespace Echo_HemAPI.Controllers
             {
                 return NotFound("No Realtor firms registrated yet.");
             }
-
             // Map list of entities to list of DTO:s
             return Ok(_mapper.Map<List<RealtorFirmGetDTO>>(realtorFirmList));
         }
@@ -70,7 +67,7 @@ namespace Echo_HemAPI.Controllers
             {
                 return NotFound();
             }
-            // Map entity to return only DTO
+            // Map entity and return only DTO
             return Ok(_mapper.Map<RealtorFirmGetDTO>(realtorFirm));
         }
 
@@ -87,9 +84,8 @@ namespace Echo_HemAPI.Controllers
             await _realtorFirmRepository.RemoveAsync(realtorFirm);
             await _realtorFirmRepository.SaveChangesAsync();
 
-            // TODO: (Samed) Funkar det här för våra syften eller är det bättre att returnera hela objektet i svaret?
             // Add a custom header with the updated item's id to the Http response
-            Response.Headers.Add("X-Removed-RealtorFirm-Successfully-Id", realtorFirm.Id.ToString());
+            Response.Headers.Append("Removed-Realtor-Firm-Id", realtorFirm.Id.ToString());
             // Return a lightweight success response
             return NoContent();
         }
@@ -120,18 +116,10 @@ namespace Echo_HemAPI.Controllers
                     throw;
                 }
             }
-            // TODO: (Samed) Funkar det här för våra syften eller är det bättre att returnera hela objektet i svaret?
             // Add a custom header with the updated item's id to the Http response
-            Response.Headers.Add("X-Updated-RealtorFirm-Successfully-Id", realtorFirm.Id.ToString());
+            Response.Headers.Append("Updated-Realtor-Firm-Id", realtorFirm.Id.ToString());
             // Return a lightweight success response
             return NoContent();
         }
-
-        // TODO: (Samed) Ev Ta bort?
-        //[HttpGet("find/{predicate}")]
-        //public async Task<IQueryable<RealtorFirm>> FindAsync(Expression<Func<RealtorFirm, bool>> predicate)
-        //{
-        //    return await _realtorFirmRepository.FindAsync(predicate);
-        //}
     }
 }

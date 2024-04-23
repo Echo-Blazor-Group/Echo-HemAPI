@@ -8,6 +8,8 @@ namespace Echo_HemAPI.Data.Models.DTOs
     /// File contains several DTO-classes for different uses.
     /// </summary> 
 
+
+    // TODO: (Samed) Se över vilka properties ska vara med här
     // No id in Post class because it is automatically set by EF Core
     public class RealtorFirmPostDTO
     {
@@ -20,7 +22,7 @@ namespace Echo_HemAPI.Data.Models.DTOs
     // Get class has id
     public class RealtorFirmGetDTO
     {
-        public int RealtorFirmId { get; set; }
+        public int Id { get; set; }
         [Required]
         public string Name { get; set; } = string.Empty;
         [Required, DisplayName("About this firm")]
@@ -30,7 +32,7 @@ namespace Echo_HemAPI.Data.Models.DTOs
     // Put class has id
     public class RealtorFirmPutDTO
     {
-        public int RealtorFirmId { get; set; }
+        public int Id { get; set; }
         [Required]
         public string Name { get; set; } = string.Empty;
         [Required, DisplayName("About this firm")]
