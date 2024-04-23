@@ -18,6 +18,9 @@ namespace Echo_HemAPI.Mapping
             CreateMap<RealtorFirm, RealtorFirmGetDTO>().ReverseMap();
             CreateMap<RealtorFirm, RealtorFirmPostDTO>().ReverseMap();
             CreateMap<RealtorFirm, RealtorFirmPutDTO>().ReverseMap();
+
+            // Author: Seb
+            CreateMap<RealtorDto, Realtor>().ReverseMap();
         }
 
 

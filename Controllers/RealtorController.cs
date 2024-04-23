@@ -143,7 +143,9 @@ namespace Echo_HemAPI.Controllers
             var user = await _userManager.Users.Where(u => u.Id == id).FirstOrDefaultAsync();
             if (user is not null)
             {
-                var estatesMatchingRealtorId = await _context.Estates.Where(e => e.Realtor.Id == user.Id).ToListAsync();
+               var estatesMatchingRealtorId = await _context.Estates
+                                                     .Where(e => e.Realtor != null && e.Realtor.Id == user.Id)
+                                                     .ToListAsync();
                 Picture? profilePictureAttachedToUser = await _context.Pictures.Where(p => p.RealtorId == user.Id).FirstOrDefaultAsync();
 
                 if (estatesMatchingRealtorId.Count > 0)
