@@ -118,7 +118,7 @@ namespace Echo_HemAPI.Helper
             ,Email ="Janesmith@hotmail.com", UserName ="Janesmith@hotmail.com", PhoneNumber ="0762255185", IsActive = true},
 
             new Realtor { FirstName = "Sebastian", LastName = "Falt",RealtorFirm = firms[2], ProfilePicture = "https://shorturl.at/bjwAP"
-            ,Email ="Sebastainfalt@hotmail.com", UserName ="Sebastianfalt@hotmail.com", PhoneNumber ="0762255186", IsActive = true},
+            ,Email ="Sebastianfalt@hotmail.com", UserName ="Sebastianfalt@hotmail.com", PhoneNumber ="0762255186", IsActive = true},
 
             new Realtor { FirstName = "Samed", LastName = "Salman",RealtorFirm = firms[3], ProfilePicture = "https://shorturl.at/yMQ57"
             ,Email ="Samedsalman@hotmail.com", UserName ="Samedsalman@hotmail.com", PhoneNumber ="0762255187", IsActive = true},

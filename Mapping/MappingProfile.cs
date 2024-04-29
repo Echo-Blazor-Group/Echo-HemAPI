@@ -22,7 +22,9 @@ namespace Echo_HemAPI.Mapping
 
             // Author: Seb
             CreateMap<Realtor, RealtorGetDTO>().ForMember(dest => dest.RealtorFirmName,
-                                             opt => opt.MapFrom(src => src.RealtorFirm.Name));
+                                      opt => opt.MapFrom(src => src.RealtorFirm.Name)).ReverseMap();
+            CreateMap<Realtor, RealtorCreateDTO>().ForMember(dest => dest.RealtorFirmName,
+                                      opt => opt.MapFrom(src => src.RealtorFirm.Name)).ReverseMap();
         }
 
 

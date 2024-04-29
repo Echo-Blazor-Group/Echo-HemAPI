@@ -4,6 +4,7 @@ using Echo_HemAPI.Data.Models;
 using Echo_HemAPI.Data.Models.DTOs.RealtorDTOs;
 using Echo_HemAPI.Data.Repositories.Interfaces;
 using Echo_HemAPI.Data.Repositories.Repos;
+using Echo_HemAPI.Helper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -28,17 +29,25 @@ namespace Echo_HemAPI.Controllers
         }
         // GET: api/<RealtorController>
         [HttpGet]
-        public async Task<IActionResult> GetAllAsync()
+        public async Task<IActionResult> GetAllAsync([FromQuery] QueryObject query)
         {
-            var users = await _userManager.Users.Include(u => u.RealtorFirm).ToListAsync();
-            if (users is not null && users.Count > 0)
+            var users = _userManager.Users.Include(u => u.RealtorFirm).AsQueryable();
+
+            if (!users.Any())
             {
-                var usersToDTOs = _mapper.Map<List<RealtorGetDTO>>(users);
+                return NotFound("There are no registered users yet.");
+            }
+
+            var filteredList = await QueryObject.FilterByQuery(users, query);
+
+            if (filteredList is not null)
+            {
+                var usersToDTOs = _mapper.Map<List<RealtorGetDTO>>(filteredList);
                 return Ok(usersToDTOs);
             }
             else
             {
-                return NotFound("There are no registered users yet.");
+                return NotFound("No users match the filter.");
             }
         }
 
@@ -160,7 +169,7 @@ namespace Echo_HemAPI.Controllers
                         estate.Realtor = null;
                     }
                 }
-                
+
                 user.RealtorFirm = null;
                 user.ProfilePicture = null;
 
