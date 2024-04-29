@@ -90,7 +90,7 @@ namespace Echo_HemAPI.Controllers
         public async Task<IActionResult> UpdateAsync(int id,UpdateEstateDto updateEstateDto)
         {
             var estate = await _estateRepository.GetByIdAsync(id);
-            if (id != updateEstateDto.Id) return NotFound("Estate not found");
+            if (id != null) return NotFound("Estate not found");
 
             var updateEstate = mapper.Map<EstateDto>(estate);
             await _estateRepository.UpdateAsync(estate);

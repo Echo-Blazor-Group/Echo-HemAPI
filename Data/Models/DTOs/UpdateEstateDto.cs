@@ -2,7 +2,7 @@
 {
     public class UpdateEstateDto
     {
-        public int Id { get; set; }
+      
         public string Address { get; set; } = string.Empty;
        
         public int StartingPrice { get; set; }
@@ -25,9 +25,10 @@
        
         public DateOnly? PublishDate { get; set; } = new DateOnly();
         //Relational
-        public int CountyId { get; set; }
-        public Guid UserId { get; set; }
-        public int CategoryId { get; set; }
+        public Realtor? Realtor { get; set; }
+        public County? County { get; set; }
+        public Category? Category { get; set; }
+        public List<Picture?>? Pictures { get; set; }
 
     }
 }
