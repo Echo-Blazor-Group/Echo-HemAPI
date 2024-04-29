@@ -82,6 +82,15 @@ namespace Echo_HemAPI
                 var userManager = services.GetRequiredService<UserManager<Realtor>>();
                 var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
 
+                if (!await roleManager.RoleExistsAsync(SD.SuperAdmin))
+                {
+                    await roleManager.CreateAsync(new IdentityRole(SD.SuperAdmin));
+                }
+                if (!await roleManager.RoleExistsAsync(SD.Realtor))
+                {
+                    await roleManager.CreateAsync(new IdentityRole(SD.Realtor));
+                }
+
                 var dbSeeder = new DbSeeder();
                 await dbSeeder.SeedAsync(userManager, roleManager, context);
             }

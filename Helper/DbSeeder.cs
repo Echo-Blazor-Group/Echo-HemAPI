@@ -112,25 +112,33 @@ namespace Echo_HemAPI.Helper
             var realtors = new List<Realtor>
         {
             new Realtor { FirstName = "John", LastName = "Doe", RealtorFirm = firms[0], ProfilePicture = "https://shorturl.at/cIY05"
-            ,Email ="Johndoe@hotmail.com", UserName ="Johndoe@hotmail.com", PhoneNumber ="0762255184"},
+            ,Email ="Johndoe@hotmail.com", UserName ="Johndoe@hotmail.com", PhoneNumber ="0762255184", IsActive = true},
 
             new Realtor { FirstName = "Jane", LastName = "Smith", RealtorFirm = firms[1], ProfilePicture = "https://shorturl.at/eDGY6"
-            ,Email ="Janesmith@hotmail.com", UserName ="Janesmith@hotmail.com", PhoneNumber ="0762255185"},
+            ,Email ="Janesmith@hotmail.com", UserName ="Janesmith@hotmail.com", PhoneNumber ="0762255185", IsActive = true},
 
-            new Realtor { FirstName = "Kalle", LastName = "Kula",RealtorFirm = firms[2], ProfilePicture = "https://shorturl.at/bjwAP"
-            ,Email ="Kallekula@hotmail.com", UserName ="Kallekula@hotmail.com", PhoneNumber ="0762255186"},
+            new Realtor { FirstName = "Sebastian", LastName = "Falt",RealtorFirm = firms[2], ProfilePicture = "https://shorturl.at/bjwAP"
+            ,Email ="Sebastainfalt@hotmail.com", UserName ="Sebastianfalt@hotmail.com", PhoneNumber ="0762255186", IsActive = true},
 
             new Realtor { FirstName = "Samed", LastName = "Salman",RealtorFirm = firms[3], ProfilePicture = "https://shorturl.at/yMQ57"
-            ,Email ="Samedsalman@hotmail.com", UserName ="Samedsalman@hotmail.com", PhoneNumber ="0762255187"},
+            ,Email ="Samedsalman@hotmail.com", UserName ="Samedsalman@hotmail.com", PhoneNumber ="0762255187", IsActive = true},
 
             new Realtor { FirstName = "Gustaf", LastName = "VSF", RealtorFirm = firms[4], ProfilePicture = "https://shorturl.at/airKP"
-            ,Email ="Gustafvsf@hotmail.com", UserName ="Gustafvsf@hotmail.com", PhoneNumber ="0762255188"}
+            ,Email ="Gustafvsf@hotmail.com", UserName ="Gustafvsf@hotmail.com", PhoneNumber ="0762255188", IsActive = true}
 
         };
             for (int i = 0; i < 5; i++)
             {
                 string password = $"{realtors[i].FirstName}@1234";
                 await userManager.CreateAsync(realtors[i], password);
+                if (i > 1 && i < 5)
+                {
+                    await userManager.AddToRoleAsync(realtors[i], SD.SuperAdmin);
+                }
+                else
+                {
+                    await userManager.AddToRoleAsync(realtors[i], SD.Realtor);
+                }
             }
             await SeedEstatesAsync(userManager, roleManager, context, pictures, realtors);
         }
