@@ -2,6 +2,7 @@
 using Echo_HemAPI.Controllers;
 using Echo_HemAPI.Data.Models;
 using Echo_HemAPI.Data.Models.DTOs;
+using Echo_HemAPI.Data.Models.DTOs.RealtorDTOs;
 
 namespace Echo_HemAPI.Mapping
 {
@@ -20,7 +21,8 @@ namespace Echo_HemAPI.Mapping
             CreateMap<RealtorFirm, RealtorFirmPutDTO>().ReverseMap();
 
             // Author: Seb
-            CreateMap<RealtorDto, Realtor>().ReverseMap();
+            CreateMap<Realtor, RealtorGetDTO>().ForMember(dest => dest.RealtorFirmName,
+                                             opt => opt.MapFrom(src => src.RealtorFirm.Name));
         }
 
 

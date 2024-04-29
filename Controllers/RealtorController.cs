@@ -1,5 +1,7 @@
-﻿using Echo_HemAPI.Data.Context;
+﻿using AutoMapper;
+using Echo_HemAPI.Data.Context;
 using Echo_HemAPI.Data.Models;
+using Echo_HemAPI.Data.Models.DTOs.RealtorDTOs;
 using Echo_HemAPI.Data.Repositories.Interfaces;
 using Echo_HemAPI.Data.Repositories.Repos;
 using Microsoft.AspNetCore.Identity;
@@ -16,20 +18,23 @@ namespace Echo_HemAPI.Controllers
     {
         private readonly UserManager<Realtor> _userManager;
         private readonly ApplicationDbContext _context;
+        private readonly IMapper _mapper;
 
-        public RealtorController(UserManager<Realtor> userManager, ApplicationDbContext context)
+        public RealtorController(UserManager<Realtor> userManager, ApplicationDbContext context, IMapper mapper)
         {
             _userManager = userManager;
+            _mapper = mapper;
             _context = context;
         }
         // GET: api/<RealtorController>
         [HttpGet]
         public async Task<IActionResult> GetAllAsync()
         {
-            var users = await _userManager.Users.ToListAsync();
+            var users = await _userManager.Users.Include(u => u.RealtorFirm).ToListAsync();
             if (users is not null && users.Count > 0)
             {
-                return Ok(users);
+                var usersToDTOs = _mapper.Map<List<RealtorGetDTO>>(users);
+                return Ok(usersToDTOs);
             }
             else
             {
@@ -39,7 +44,7 @@ namespace Echo_HemAPI.Controllers
 
         // GET api/<RealtorController>/5
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetByIdAsync(string id)
+        public async Task<IActionResult> GetByIdAsync([FromRoute] string id)
         {
             if (id.IsNullOrEmpty())
             {
@@ -47,10 +52,13 @@ namespace Echo_HemAPI.Controllers
             }
 
 
-            var user = await _userManager.Users.Where(u => u.Id == id).FirstOrDefaultAsync();
+            var user = await _userManager.Users.Include(u => u.RealtorFirm)
+                                               .Where(u => u.Id == id)
+                                               .FirstOrDefaultAsync();
             if (user is not null)
             {
-                return Ok(user);
+                var userToDto = _mapper.Map<RealtorGetDTO>(user);
+                return Ok(userToDto);
             }
             else
             {
@@ -95,7 +103,7 @@ namespace Echo_HemAPI.Controllers
 
         // PUT api/<RealtorController>/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> EditAsync(string id, [FromBody] Realtor user)
+        public async Task<IActionResult> EditAsync([FromRoute] string id, [FromBody] Realtor user)
         {
             if (id != user.Id)
             {
@@ -132,7 +140,7 @@ namespace Echo_HemAPI.Controllers
 
         // DELETE api/<RealtorController>/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> RemoveAsync(string id)
+        public async Task<IActionResult> RemoveAsync([FromRoute] string id)
         {
             if (id.IsNullOrEmpty())
             {
@@ -158,7 +166,7 @@ namespace Echo_HemAPI.Controllers
 
                 await _context.SaveChangesAsync();
                 await _userManager.DeleteAsync(user);
-                return Ok(user);
+                return Ok(user); //can return NoContent() which is a successcode 204 for deletion
 
             }
             else
