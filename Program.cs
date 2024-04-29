@@ -21,7 +21,18 @@ namespace Echo_HemAPI
             builder.Services.AddDbContext<ApplicationDbContext>
             (options => options
             .UseSqlServer(builder.Configuration.GetConnectionString("EchoHomeDb")));
+            builder.Services.AddCors(options =>
+            {
 
+                options.AddDefaultPolicy(
+                    policyBuilder =>
+                    {
+                        policyBuilder.AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader();
+                        
+                    });
+            });
 
             builder.Services.AddIdentity<Realtor, IdentityRole>(options =>
             {
@@ -86,7 +97,7 @@ namespace Echo_HemAPI
 
             app.UseAuthentication();
             app.UseAuthorization();
-
+            app.UseCors();
 
             app.MapControllers();
             app.MapRazorPages();

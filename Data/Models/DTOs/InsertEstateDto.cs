@@ -24,8 +24,8 @@
        
         public DateOnly? PublishDate { get; set; } = new DateOnly();
         //Relational
-        public int CountyId { get; set; }
-        public Guid UserId { get; set; }
-        public int CategoryId { get; set; }
+        public int? CountyId { get; set; }
+        public Guid? UserId { get; set; }
+        public int? CategoryId { get; set; }
     }
 }

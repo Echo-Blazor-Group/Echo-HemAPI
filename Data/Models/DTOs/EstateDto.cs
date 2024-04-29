@@ -1,9 +1,9 @@
 ﻿namespace Echo_HemAPI.Data.Models.DTOs
 {
+    //Author Gustaf
     public class EstateDto
     {
         public int Id { get; set; }
-        
         public string Address { get; set; } = string.Empty;
        
         public int StartingPrice { get; set; }
@@ -28,6 +28,7 @@
         //Relational
 
         public Realtor? Realtor { get; set; }
+        public County? County { get; set; } 
         public Category? Category { get; set; }
         public List<Picture?>? Pictures { get; set; }
     }

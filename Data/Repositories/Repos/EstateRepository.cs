@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
 using Echo_HemAPI.Data.Context;
 using Echo_HemAPI.Data.Models;
+using Echo_HemAPI.Data.Models.DTOs;
 using Echo_HemAPI.Data.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using Mono.TextTemplating;
 using System.Linq.Expressions;
 
 namespace Echo_HemAPI.Data.Repositories.Repos
@@ -29,7 +31,7 @@ namespace Echo_HemAPI.Data.Repositories.Repos
         {
             var estate = await _context.Estates
                 .Include(c => c.Category)
-                .Include(p => p.Pictures)
+                .Include(c => c.County)
                 .Include(r => r.Realtor)
                 .ToListAsync();
             if (estate is null)
@@ -45,7 +47,7 @@ namespace Echo_HemAPI.Data.Repositories.Repos
         {
             var estate = await _context.Estates
                 .Include(c => c.Category)
-                .Include(p => p.Pictures)
+                .Include(c => c.County)
                 .Include(r => r.Realtor)
                 .FirstOrDefaultAsync(e => e.Id == id);
             if (estate is null)
@@ -57,7 +59,7 @@ namespace Echo_HemAPI.Data.Repositories.Repos
                 return estate;
             }
         }
-        public async Task<IQueryable<Estate?>?> FindAsync(Expression<Func<Estate, bool>> predicate)
+    public async Task<IQueryable<Estate?>?> FindAsync(Expression<Func<Estate, bool>> predicate)
         {
             var entity = await _context.Estates.Where(predicate).ToListAsync();
 

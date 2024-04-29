@@ -4,6 +4,9 @@ using Echo_HemAPI.Data.Models.DTOs;
 using Echo_HemAPI.Data.Repositories.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Mono.TextTemplating;
+using System.ComponentModel.DataAnnotations;
 using System.Linq.Expressions;
 
 //Author Gustaf
@@ -23,23 +26,30 @@ namespace Echo_HemAPI.Controllers
             this.mapper = mapper;
         }
         [HttpPost]
-        public async Task<Estate> AddAsync(Estate estate)
+        public async Task<IActionResult> AddAsync(InsertEstateDto insertEstateDto)
         {
-            if (estate == null)
+              var estate = mapper.Map<Estate>(insertEstateDto);
+            var validationContext = new ValidationContext(estate);
+            var validationResult = new List<ValidationResult>();
+
+            if (!Validator.TryValidateObject(estate, validationContext, validationResult, true))
             {
-                return null;
+                return BadRequest(new {Message = "Custom Validation Error", Errors = validationResult.Select(r=>r.ErrorMessage)});
             }
-            else
-            {
-                await _estateRepository.AddAsync(estate);
-                await _estateRepository.SaveChangesAsync();
-                return estate;
-            }
+            estate = await _estateRepository.UpdateAsync(estate);
+            var estateDto = mapper.Map<EstateDto>(estate);
+            await _estateRepository.SaveChangesAsync();
+            return Created("/api/estate" + estate.Id, new { Message = "estate created!", Data = estateDto });
+               
+
+               //Estate = await _estateRepository.AddAsync(estate);
+   
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAllAsync()
         {
+           
             var estates = await _estateRepository.GetAllAsync();
             var estateDto = mapper.Map<List<EstateDto>>(estates); 
             return Ok(estateDto);
@@ -47,16 +57,17 @@ namespace Echo_HemAPI.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<Estate> GetByIdAsync(int id)
+        public async Task<ActionResult<EstateDto>> GetByIdAsync(int id)
         {
             if (await _estateRepository.GetByIdAsync(id) == null)
             {
                 return null;
             }
-            else
-            {
-                return await _estateRepository.GetByIdAsync(id);
-            }
+ 
+                var estates = await _estateRepository.GetByIdAsync(id);
+                var estateDto = mapper.Map<EstateDto>(estates);
+                return Ok(estateDto);
+
         }
 
         [HttpDelete]
@@ -75,12 +86,31 @@ namespace Echo_HemAPI.Controllers
 
         }
 
-        [HttpPut]
-        public async Task<Estate> UpdateAsync(Estate estate)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateAsync(int id,UpdateEstateDto updateEstateDto)
         {
+            var estate = await _estateRepository.GetByIdAsync(id);
+            if (id != updateEstateDto.Id) return NotFound("Estate not found");
+
+            var updateEstate = mapper.Map<EstateDto>(estate);
             await _estateRepository.UpdateAsync(estate);
-            await _estateRepository.SaveChangesAsync();
-            return estate;
+
+            try
+            { 
+                await _estateRepository.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (_estateRepository.GetByIdAsync(id) == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+            return NoContent();
         } 
     }
 }

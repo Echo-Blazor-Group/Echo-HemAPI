@@ -16,13 +16,13 @@ namespace Echo_HemAPI.Data.Repositories.Repos
         }
         public async Task<Picture> AddAsync(Picture entity)
         {
-            await _context.Set<Picture>().AddAsync(entity);
+            await _context.Pictures.AddAsync(entity);
             return entity;
         }
 
         public async Task<IQueryable<Picture>> FindAsync(Expression<Func<Picture, bool>> predicate)
         {
-            var entity = await _context.Set<Picture>().FindAsync(predicate);
+            var entity = await _context.Pictures.FindAsync(predicate);
             return (IQueryable<Picture>)entity;
         }
 
@@ -49,7 +49,7 @@ namespace Echo_HemAPI.Data.Repositories.Repos
 
         public async Task<Picture> UpdateAsync(Picture entity)
         {
-            _context.Set<Picture>().Update(entity);
+            _context.Pictures.Update(entity);
             return entity;
         }
     }
