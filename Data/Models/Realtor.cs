@@ -27,7 +27,11 @@ namespace Echo_HemAPI.Data.Models
         [DisplayName("Profile Picture")]
         public string? ProfilePicture { get; set; }
 
-        
+        [Required]
+        [DisplayName("Active")]
+        public bool IsActive { get; set; } = false;
+
+
 
     }
 }
