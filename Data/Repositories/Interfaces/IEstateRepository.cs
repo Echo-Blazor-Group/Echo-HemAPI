@@ -1,4 +1,5 @@
 ﻿using Echo_HemAPI.Data.Models;
+using Echo_HemAPI.Data.Models.DTOs;
 using System.Linq.Expressions;
 
 namespace Echo_HemAPI.Data.Repositories.Interfaces
@@ -13,5 +14,6 @@ namespace Echo_HemAPI.Data.Repositories.Interfaces
         Task<IEnumerable<Estate>?> GetAllAsync();
         Task<IQueryable<Estate?>?> FindAsync(Expression<Func<Estate, bool>> predicate);
         Task SaveChangesAsync();
+   
     }
 }
