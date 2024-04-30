@@ -6,6 +6,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Echo_HemAPI.Helper;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 
 
 namespace Echo_HemAPI
@@ -21,6 +23,7 @@ namespace Echo_HemAPI
             builder.Services.AddDbContext<ApplicationDbContext>
             (options => options
             .UseSqlServer(builder.Configuration.GetConnectionString("EchoHomeDb")));
+
             builder.Services.AddCors(options =>
             {
 
@@ -43,6 +46,32 @@ namespace Echo_HemAPI
             })
             .AddEntityFrameworkStores<ApplicationDbContext>()
             .AddDefaultTokenProviders();
+
+            builder.Services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme =
+                options.DefaultChallengeScheme =
+                options.DefaultForbidScheme =
+                options.DefaultScheme =
+                options.DefaultSignInScheme =
+                options.DefaultSignOutScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidIssuers = builder.Configuration.GetSection("JWT:Issuers").Get<string[]>(),
+                    ValidateAudience = true,
+                    ValidAudiences = builder.Configuration.GetSection("JWT:Audiences").Get<string[]>(),
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey
+                    (
+                        System.Text.Encoding.UTF8.GetBytes(builder.Configuration["JWT:SigningKey"])
+                    )
+
+                };
+            });
+
 
             builder.Services.ConfigureApplicationCookie(options =>
             {
