@@ -28,7 +28,7 @@ namespace Echo_HemAPI.Controllers
         [HttpPost]
         public async Task<IActionResult> AddAsync(InsertEstateDto insertEstateDto)
         {
-              var estate = mapper.Map<Estate>(insertEstateDto);
+            var estate = mapper.Map<Estate>(insertEstateDto);
             var validationContext = new ValidationContext(estate);
             var validationResult = new List<ValidationResult>();
 
@@ -51,7 +51,7 @@ namespace Echo_HemAPI.Controllers
         {
            
             var estates = await _estateRepository.GetAllAsync();
-            var estateDto = mapper.Map<List<EstateDto>>(estates); 
+            var estateDto = mapper.Map<List<Estate>>(estates); 
             return Ok(estateDto);
             
         }
@@ -92,8 +92,8 @@ namespace Echo_HemAPI.Controllers
             var estate = await _estateRepository.GetByIdAsync(id);
             if (id != null) return NotFound("Estate not found");
 
-            var updateEstate = mapper.Map<EstateDto>(estate);
-            await _estateRepository.UpdateAsync(estate);
+            var estateObject = mapper.Map<Estate>(updateEstateDto);
+            await _estateRepository.UpdateAsync(estateObject);
 
             try
             { 

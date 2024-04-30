@@ -32,4 +32,18 @@
         public Category? Category { get; set; }
         public List<Picture?>? Pictures { get; set; }
     }
+
+    public class EstatePutDto
+    {
+
+    }
+
+    public class EstatePostDto
+    {
+
+    }
+    public class EstateDeleteDto
+    {
+
+    }
 }
