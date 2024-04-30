@@ -61,7 +61,6 @@ namespace Echo_HemAPI.Controllers
 
             var estates = await _estateRepository.GetAllAsync();
             var estateDto = mapper.Map<List<EstateDto>>(estates); 
-            var estateDto = Mapper.Map<List<Estate>>(estates);
             return Ok(estateDto);
 
         }
@@ -125,8 +124,8 @@ namespace Echo_HemAPI.Controllers
                 if (updateEstateDto == null)
                     return BadRequest(ModelState);
 
-            var updateEstate = mapper.Map<EstateDto>(estate);
-            await _estateRepository.UpdateAsync(estate);
+            var estateObject = mapper.Map<Estate>(updateEstateDto);
+            await _estateRepository.UpdateAsync(estateObject);
 
             try
             { 
