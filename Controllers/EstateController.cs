@@ -56,7 +56,7 @@ namespace Echo_HemAPI.Controllers
             
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{Id}")]
         public async Task<ActionResult<EstateDto>> GetByIdAsync(int id)
         {
             if (await _estateRepository.GetByIdAsync(id) == null)
@@ -86,11 +86,13 @@ namespace Echo_HemAPI.Controllers
 
         }
 
-        [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateAsync(int id,UpdateEstateDto updateEstateDto)
+        [HttpPatch("{Id}")]
+        public async Task<IActionResult> UpdateAsync(int id, [FromBody]UpdateEstateDto updateEstateDto)
         {
-            var estate = await _estateRepository.GetByIdAsync(id);
-            if (id != null) return NotFound("Estate not found");
+            try
+            {
+                if (updateEstateDto == null)
+                    return BadRequest(ModelState);
 
             var updateEstate = mapper.Map<EstateDto>(estate);
             await _estateRepository.UpdateAsync(estate);
