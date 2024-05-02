@@ -26,10 +26,10 @@
        
         public DateOnly? PublishDate { get; set; } = new DateOnly();
         //Relational
-        //public Guid RealtorId { get; set; }
         public int CountyId { get; set; }
         public int CategoryId { get; set; }
-        
+        public string? RealtorFirmId { get; set; }
+
         //public Realtor? Realtor { get; set; }
         //public County? County { get; set; }
         //public Category? Category { get; set; }
