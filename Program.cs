@@ -71,7 +71,7 @@ namespace Echo_HemAPI
             builder.Services.AddScoped<IPictureRepository, PictureRepository>();
             builder.Services.AddRazorPages();
             builder.Services.AddAutoMapper(typeof(Program));
-
+           
 
             var app = builder.Build();
 

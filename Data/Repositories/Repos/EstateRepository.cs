@@ -33,6 +33,7 @@ namespace Echo_HemAPI.Data.Repositories.Repos
                 .Include(c => c.Category)
                 .Include(c => c.County)
                 .Include(r => r.Realtor)
+                
                 .ToListAsync();
             if (estate is null)
             {
@@ -48,7 +49,7 @@ namespace Echo_HemAPI.Data.Repositories.Repos
             var estate = await _context.Estates
                 .Include(c => c.Category)
                 .Include(c => c.County)
-                .Include(r => r.Realtor)
+                .Include(r => r.Realtor) 
                 .FirstOrDefaultAsync(e => e.Id == id);
             if (estate is null)
             {

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel;
 
 namespace Echo_HemAPI.Data.Models.DTOs.RealtorDTOs
 {
@@ -10,5 +11,6 @@ namespace Echo_HemAPI.Data.Models.DTOs.RealtorDTOs
         public string Email { get; set; } = string.Empty;
         public string PhoneNumber { get; set; } = string.Empty;
         public bool IsActive { get; set; }
+
     }
 }

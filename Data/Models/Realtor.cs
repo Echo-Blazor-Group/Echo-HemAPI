@@ -31,7 +31,7 @@ namespace Echo_HemAPI.Data.Models
         [DisplayName("Active")]
         public bool IsActive { get; set; } = false;
 
-
+        
 
     }
 }
