@@ -35,17 +35,4 @@ namespace Echo_HemAPI.Data.Models.DTOs
         public List<Picture?>? Pictures { get; set; }
     }
 
-    public class EstatePutDto
-    {
-
-    }
-
-    public class EstatePostDto
-    {
-
-    }
-    public class EstateDeleteDto
-    {
-
-    }
 }

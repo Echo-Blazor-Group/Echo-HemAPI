@@ -28,7 +28,7 @@
         //Relational
         public int CountyId { get; set; }
         public int CategoryId { get; set; }
-        public string? RealtorFirmId { get; set; }
+        public string? RealtorId { get; set; }
 
         //public Realtor? Realtor { get; set; }
         //public County? County { get; set; }

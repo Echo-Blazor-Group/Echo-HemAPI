@@ -55,7 +55,7 @@ namespace Echo_HemAPI.Controllers
                 return BadRequest(new { Message = "Custom Validation Error", Errors = validationResult.Select(r => r.ErrorMessage) });
             }
             estate = await _estateRepository.UpdateAsync(estate);
-            var estateDto = Mapper.Map<EstateDto>(estate);
+            var estateDto = mapper.Map<EstateDto>(estate);
             await _estateRepository.SaveChangesAsync();
             return Created("/api/estate" + estate.Id, new { Message = "estate created!", Data = estateDto });
 
