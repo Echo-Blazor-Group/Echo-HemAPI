@@ -5,6 +5,8 @@ using Echo_HemAPI.Data.Models.DTOs.RealtorDTOs;
 using Echo_HemAPI.Data.Repositories.Interfaces;
 using Echo_HemAPI.Data.Repositories.Repos;
 using Echo_HemAPI.Helper;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -14,22 +16,27 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Echo_HemAPI.Controllers
 {
+    //Author: Seb
+
     [Route("api/[controller]")]
     [ApiController]
     public class RealtorController : ControllerBase
     {
         private readonly UserManager<Realtor> _userManager;
-        private readonly ApplicationDbContext _context;
+        private readonly SignInManager<Realtor> _signInManager;
+        private readonly ITokenService _tokenService;
         private readonly IRealtorFirmRepository _realtorFirmRepo;
         private readonly IEstateRepository _estateRepo;
         private readonly IMapper _mapper;
 
-        public RealtorController(UserManager<Realtor> userManager, ApplicationDbContext context, IMapper mapper,
+        public RealtorController(UserManager<Realtor> userManager, SignInManager<Realtor> signInManager,
+                                 ITokenService tokenService, IMapper mapper,
                                  IRealtorFirmRepository realtorFirmRepo, IEstateRepository estateRepo)
         {
             _userManager = userManager;
+            _signInManager = signInManager;
             _mapper = mapper;
-            _context = context;
+            _tokenService = tokenService;
             _realtorFirmRepo = realtorFirmRepo;
             _estateRepo = estateRepo;
         }
@@ -81,7 +88,44 @@ namespace Echo_HemAPI.Controllers
             }
         }
         // POST api/<RealtorController>
-        [HttpPost]
+        [HttpPost("login")]
+
+        public async Task<IActionResult> Login(RealtorLoginDTO loginDTO)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var realtor = await _userManager.Users.Include(r => r.RealtorFirm).Where(r => r.Email == loginDTO.Email.ToLower()).FirstOrDefaultAsync();
+
+            if (realtor is null)
+                return Unauthorized("Invalid email.");
+
+           var result = await _signInManager.CheckPasswordSignInAsync(realtor, loginDTO.Password, false);
+            if (result.Succeeded)
+            {
+                var roles = await _userManager.GetRolesAsync(realtor);
+                var role = roles.FirstOrDefault();
+                return Ok(new NewUserShowClaimsDTO
+                {
+                    Email = realtor.Email,
+                    UserName = realtor.Email,
+                    RealtorFirmId = realtor.RealtorFirm!.Id,
+                    Role = role,
+                    Token = _tokenService.CreateToken(realtor,realtor.RealtorFirm.Id, role)
+                });
+            }
+            else
+            {
+                return Unauthorized("Invalid email and/or password.");
+            }
+        }
+
+
+
+
+        // POST api/<RealtorController>
+        [Authorize]
+        [HttpPost("register")]
         public async Task<IActionResult> AddAsync([FromBody] RealtorCreateDTO createDTO)
         {
             try
@@ -109,7 +153,19 @@ namespace Echo_HemAPI.Controllers
                     var roleResult = await _userManager.AddToRoleAsync(realtorFromDto, SD.Realtor);
                     if (roleResult.Succeeded)
                     {
-                        return Ok("User created succesfully.");
+                        var roles = await _userManager.GetRolesAsync(realtorFromDto);
+                        var role = roles.FirstOrDefault();
+                        return Ok(
+                            new NewUserShowClaimsDTO
+                            {
+                                Email = realtorFromDto.Email,
+                                UserName = realtorFromDto.Email,
+                                RealtorFirmId = realtorFromDto.RealtorFirm.Id,
+                                Role = role,
+                                Token = _tokenService.CreateToken(realtorFromDto,
+                                                      realtorFromDto.RealtorFirm.Id, role)
+                            }
+                         );
                     }
                     else
                     {
@@ -210,7 +266,7 @@ namespace Echo_HemAPI.Controllers
 
             var user = await _userManager.FindByIdAsync(id);
 
-            if (user != null && query.Remove == false)
+            if (user is not null && query.Remove is false)
             {
                 user.IsActive = false;
                 var saveResult = await _userManager.UpdateAsync(user);
@@ -226,7 +282,7 @@ namespace Echo_HemAPI.Controllers
             }
 
 
-            if (user is not null && query.Remove == true)
+            if (user is not null && query.Remove is true)
             {
                 var estatesMatchingThisRealtorId = await _estateRepo.GetAllAsync();
 
