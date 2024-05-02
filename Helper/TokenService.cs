@@ -26,8 +26,6 @@ namespace Echo_HemAPI.Helper
             {
                 new Claim(JwtRegisteredClaimNames.Email, realtor.Email!),
                 new Claim(JwtRegisteredClaimNames.GivenName, realtor.Email!),
-                //new Claim(JwtRegisteredClaimNames.Iss, _config["JWT:Issuer"]!),
-                //new Claim(JwtRegisteredClaimNames.Aud, _config["JWT:Audience"]!),
                 new Claim("RealtorFirmId", realtorFirmId.ToString())
             };
 
