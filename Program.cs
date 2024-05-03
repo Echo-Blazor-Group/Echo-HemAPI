@@ -14,7 +14,9 @@ using System.Configuration;
 
 namespace Echo_HemAPI
 {
-    //Author All
+    /// <summary>
+    /// Author: All
+    /// </summary>
     public class Program
     {
         public static async Task Main(string[] args)
@@ -88,7 +90,7 @@ namespace Echo_HemAPI
                 options.AccessDeniedPath = $"/Identity/Account/AccessDenied";
             });
 
-            // Makes sure .NET doesn't trim the "Async"-suffix from async method names in routing and link generation
+            // Samed: Makes sure .NET doesn't trim the "Async"-suffix from async method names in routing and link generation
             builder.Services.AddMvc(options =>
             {
                 options.SuppressAsyncSuffixInActionNames = false;
