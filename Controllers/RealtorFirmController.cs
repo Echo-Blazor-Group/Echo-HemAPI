@@ -2,6 +2,8 @@
 using Echo_HemAPI.Data.Models;
 using Echo_HemAPI.Data.Models.DTOs;
 using Echo_HemAPI.Data.Repositories.Interfaces;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
@@ -41,6 +43,8 @@ namespace Echo_HemAPI.Controllers
             return CreatedAtAction(nameof(GetByIdAsync), new { id = realtorFirm.Id }, realtorFirm);
         }
 
+
+        [Authorize]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<RealtorFirmGetDTO>>> GetAllAsync()
         {
