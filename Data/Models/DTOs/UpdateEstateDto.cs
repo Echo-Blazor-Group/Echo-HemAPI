@@ -1,4 +1,6 @@
-﻿namespace Echo_HemAPI.Data.Models.DTOs
+﻿using Microsoft.AspNetCore.Identity;
+
+namespace Echo_HemAPI.Data.Models.DTOs
 {
     public class UpdateEstateDto
     {
@@ -30,6 +32,7 @@
         public int CategoryId { get; set; }
         public string? RealtorId { get; set; }
 
+        //AspNetUserManager<Realtor> RealtorId { get; set; }
         //public Realtor? Realtor { get; set; }
         //public County? County { get; set; }
         //public Category? Category { get; set; }

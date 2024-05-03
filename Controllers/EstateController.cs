@@ -69,7 +69,7 @@ namespace Echo_HemAPI.Controllers
         {
 
             var estates = await _estateRepository.GetAllAsync();
-            var estateDto = mapper.Map<List<EstateDto>>(estates);
+            var estateDto = mapper.Map<List<Estate>>(estates);
 
             return Ok(estateDto);
 
