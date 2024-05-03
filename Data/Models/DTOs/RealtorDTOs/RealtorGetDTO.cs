@@ -1,18 +1,14 @@
-﻿using Microsoft.AspNetCore.Identity;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 
 namespace Echo_HemAPI.Data.Models.DTOs.RealtorDTOs
 {
     public class RealtorGetDTO
     {
-        //AspNetUserManager<Realtor> Id {  get; set; }
-        public string Id { get; set; } 
         public string FirstName { get; set; } = string.Empty;
         public string LastName { get; set; } = string.Empty;
         public string RealtorFirmName { get; set; } = string.Empty;
         public string Email { get; set; } = string.Empty;
         public string PhoneNumber { get; set; } = string.Empty;
         public bool IsActive { get; set; }
-
     }
 }

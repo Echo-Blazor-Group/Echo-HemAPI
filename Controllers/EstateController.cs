@@ -1,4 +1,4 @@
-﻿
+﻿using AspNetCore;
 using AutoMapper;
 using Echo_HemAPI.Data.Models;
 using Echo_HemAPI.Data.Models.DTOs;
@@ -9,7 +9,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Mono.TextTemplating;
-using NuGet.Protocol;
 using System.ComponentModel.DataAnnotations;
 using System.Linq.Expressions;
 
@@ -24,29 +23,21 @@ namespace Echo_HemAPI.Controllers
         private readonly IEstateRepository _estateRepository;
         private readonly ICategoryRepository _categoryRepository;
         private readonly ICountyRepository _countyRepository;
-        private readonly UserManager<Realtor> _userManager;
         private readonly IMapper mapper;
 
-        public EstateController(IEstateRepository estateRepository, 
-            IMapper mapper, 
-            ICategoryRepository categoryRepository, 
-            ICountyRepository countyRepository, 
-            UserManager<Realtor> userManager)
+        public EstateController(IEstateRepository estateRepository, IMapper mapper)
         {
             _estateRepository = estateRepository;
             this.mapper = mapper;
-            _categoryRepository = categoryRepository;
-            _countyRepository = countyRepository;
-            _userManager = userManager;
         }
 
-       
+        public IMapper Mapper => mapper;
 
         [HttpPost]
         public async Task<IActionResult> AddAsync(InsertEstateDto insertEstateDto)
         {
-            var estate = mapper.Map<Estate>(insertEstateDto);
-
+              var estate = mapper.Map<Estate>(insertEstateDto);
+            var estate = Mapper.Map<Estate>(insertEstateDto);
             var validationContext = new ValidationContext(estate);
             var validationResult = new List<ValidationResult>();
 
@@ -55,7 +46,7 @@ namespace Echo_HemAPI.Controllers
                 return BadRequest(new { Message = "Custom Validation Error", Errors = validationResult.Select(r => r.ErrorMessage) });
             }
             estate = await _estateRepository.UpdateAsync(estate);
-            var estateDto = mapper.Map<EstateDto>(estate);
+            var estateDto = Mapper.Map<EstateDto>(estate);
             await _estateRepository.SaveChangesAsync();
             return Created("/api/estate" + estate.Id, new { Message = "estate created!", Data = estateDto });
 
@@ -69,8 +60,8 @@ namespace Echo_HemAPI.Controllers
         {
 
             var estates = await _estateRepository.GetAllAsync();
-            var estateDto = mapper.Map<List<Estate>>(estates);
-
+            var estateDto = mapper.Map<List<EstateDto>>(estates); 
+            var estateDto = Mapper.Map<List<Estate>>(estates);
             return Ok(estateDto);
 
         }
@@ -78,19 +69,34 @@ namespace Echo_HemAPI.Controllers
         [HttpGet("{Id}")]
         public async Task<ActionResult<EstateDto>> GetByIdAsync(int id)
         {
-
+   
             var estate = await _estateRepository.GetByIdAsync(id);
-
+            //var user = await _userManager.Users.Include(u => u.RealtorFirm)
+            //                                   .Where(u => u.Id == id)
+            //                                   .FirstOrDefaultAsync();
             if (estate is not null)
             {
-                var EstateToDto = mapper.Map<EstateDto>(estate);
+                var EstateToDto = Mapper.Map<EstateDto>(estate);
                 return Ok(EstateToDto);
+
             }
+            //if (user is not null)
+            //{
+            //    var userToDto = _mapper.Map<RealtorGetDTO>(user);
+            //    return Ok(userToDto);
+            //}
             else
             {
                 return NotFound("Invalid id.");
             }
+            //if (await _estateRepository.GetByIdAsync(id) == null)
+            //{
+            //    return null;
+            //}
 
+            //var estateObject = await _estateRepository.GetByIdAsync(id);
+            //var estateDto = _mapper.Map<Estate>(estateObject);
+            //return Ok(estateDto);
 
         }
 
@@ -110,43 +116,36 @@ namespace Echo_HemAPI.Controllers
 
         }
 
-        [HttpPut("{id}")]
-        [ProducesResponseType(400)]
-        [ProducesResponseType(204)]
-        [ProducesResponseType(404)]
-        public async Task<ActionResult> UpdateAsync(int id, [FromBody] UpdateEstateDto updateEstateDto)
+        [HttpPatch("{Id}")]
+        public async Task<IActionResult> UpdateAsync(int id, [FromBody] UpdateEstateDto updateEstateDto)
         {
-                var dbEstate = await _estateRepository.GetByIdAsync(id);
+
+            try
+            {
                 if (updateEstateDto == null)
                     return BadRequest(ModelState);
-                if (id != updateEstateDto.Id)
-                    return BadRequest(ModelState);
-                if (!ModelState.IsValid)
-                    return BadRequest(ModelState);
-                //var estateMap = mapper.Map<Estate>(updateEstateDto);
 
-                dbEstate.Address = updateEstateDto.Address;
-                dbEstate.StartingPrice = updateEstateDto.StartingPrice;
-                dbEstate.LivingAreaKvm = updateEstateDto.LivingAreaKvm;
-                dbEstate.NumberOfRooms = updateEstateDto.NumberOfRooms;
-                dbEstate.BiAreaKvm = updateEstateDto.BiAreaKvm;
-                dbEstate.EstateAreaKvm = updateEstateDto.EstateAreaKvm;
-                dbEstate.MonthlyFee = updateEstateDto.MonthlyFee;
-                dbEstate.RunningCosts = updateEstateDto.RunningCosts;
-                dbEstate.ConstructionDate = updateEstateDto.ConstructionDate;
-                dbEstate.EstateDescription = updateEstateDto.EstateDescription;
-                dbEstate.PublishDate = updateEstateDto.PublishDate;
-                var county = await _countyRepository.GetByIdAsync(updateEstateDto.CountyId);
-                var category = await _categoryRepository.GetByIdAsync(updateEstateDto.CategoryId);
-                var realtor = await _userManager.FindByIdAsync(updateEstateDto.RealtorId);
-                dbEstate.County = county;
-                dbEstate.Category = category;
-                dbEstate.Realtor = realtor;
+            var updateEstate = mapper.Map<EstateDto>(estate);
+            await _estateRepository.UpdateAsync(estate);
 
-                await _estateRepository.UpdateAsync(dbEstate);
+            try
+            { 
+                var estateObject = Mapper.Map<Estate>(updateEstateDto);
+                await _estateRepository.UpdateAsync(estateObject);
                 await _estateRepository.SaveChangesAsync();
-                return Ok(dbEstate);
-
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (_estateRepository.GetByIdAsync(id) == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+            return NoContent();
 
         }
     }
