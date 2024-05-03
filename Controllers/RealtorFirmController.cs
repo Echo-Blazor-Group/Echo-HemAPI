@@ -10,7 +10,7 @@ namespace Echo_HemAPI.Controllers
 {
     /// <summary>
     /// Author: Samed Salman
-    /// Se Microsofts dokumentation för detaljer: https://learn.microsoft.com/en-us/aspnet/core/tutorials/first-web-api?view=aspnetcore-8.0&tabs=visual-studio#routing-and-url-paths
+    /// Note to self: Se Microsofts dokumentation för detaljer: https://learn.microsoft.com/en-us/aspnet/core/tutorials/first-web-api?view=aspnetcore-8.0&tabs=visual-studio#routing-and-url-paths
     /// </summary>
 
     [Route("api/[controller]/")]
