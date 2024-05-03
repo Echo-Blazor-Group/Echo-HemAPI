@@ -1,9 +1,11 @@
-﻿using Echo_HemAPI.Data.Models;
+﻿using AutoMapper;
+using Echo_HemAPI.Data.Models;
+using Echo_HemAPI.Data.Models.DTOs;
 using Echo_HemAPI.Data.Repositories.Interfaces;
-using Humanizer;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Linq.Expressions;
 
 namespace Echo_HemAPI.Controllers
@@ -17,50 +19,60 @@ namespace Echo_HemAPI.Controllers
     [ApiController]
     public class RealtorFirmController : ControllerBase
     {
-        IRealtorFirmRepository _realtorFirmRepository;
+        private readonly IRealtorFirmRepository _realtorFirmRepository;
+        private readonly IMapper _mapper;
 
-        public RealtorFirmController(IRealtorFirmRepository realtorFirmRepository)
+        public RealtorFirmController(IRealtorFirmRepository realtorFirmRepository, IMapper mapper)
         {
             _realtorFirmRepository = realtorFirmRepository;
+            _mapper = mapper;
         }
 
         [HttpPost]
-        public async Task<ActionResult<RealtorFirm>> AddAsync(RealtorFirm realtorFirm)
+        public async Task<ActionResult<RealtorFirm>> AddAsync(RealtorFirmPostDTO realtorFirmPostDTO)
         {
-            if (realtorFirm == null)
+            if (realtorFirmPostDTO == null)
             {
                 return BadRequest();
             }
-            await _realtorFirmRepository.AddAsync(realtorFirm);
+            // Map DTO to entity
+            RealtorFirm realtorFirm = await _realtorFirmRepository.AddAsync(_mapper.Map<RealtorFirm>(realtorFirmPostDTO));
+            // Save entity to db
             await _realtorFirmRepository.SaveChangesAsync();
-            // TODO: Välj vilken return vi ska köra med, om jag kan få CreatedAtAction att funka:
-            // Return success status code with a reference to the newly created object's URL
-            //return CreatedAtAction(nameof(AddAsync), new { id = realtorFirm.RealtorFirmId }, realtorFirm);
-            return Ok(realtorFirm);
+            // Return success status code 201 with a reference to the newly created object's URL
+            return CreatedAtAction(nameof(GetByIdAsync), new { id = realtorFirm.Id }, realtorFirm);
         }
 
-        [HttpGet("all")]
-        public async Task<ActionResult<IEnumerable<RealtorFirm>>> GetAllAsync()
+
+        [Authorize]
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<RealtorFirmGetDTO>>> GetAllAsync()
         {
+            // Get list of entities
             IEnumerable<RealtorFirm> realtorFirmList = await _realtorFirmRepository.GetAllAsync();
             
+            // Check list of entities
             if (realtorFirmList == null)
             {
-                return NotFound();
+                return NotFound("No Realtor firms registrated yet.");
             }
-            return Ok(realtorFirmList);
+            // Map list of entities to list of DTO:s
+            return Ok(_mapper.Map<List<RealtorFirmGetDTO>>(realtorFirmList));
         }
 
-        [HttpGet("id/{id}")]
-        public async Task<ActionResult<RealtorFirm>> GetByIdAsync(int id)
+        [HttpGet("{id}")]
+        public async Task<ActionResult<RealtorFirmGetDTO>> GetByIdAsync(int id)
         {
+            // Get entity
             RealtorFirm realtorFirm = await _realtorFirmRepository.GetByIdAsync(id);
             
+            // Check entity
             if (realtorFirm == null)
             {
                 return NotFound();
-            }            
-            return Ok(realtorFirm);
+            }
+            // Map entity and return only DTO
+            return Ok(_mapper.Map<RealtorFirmGetDTO>(realtorFirm));
         }
 
         [HttpDelete("{id}")]
@@ -76,9 +88,8 @@ namespace Echo_HemAPI.Controllers
             await _realtorFirmRepository.RemoveAsync(realtorFirm);
             await _realtorFirmRepository.SaveChangesAsync();
 
-            // TODO: Testa om det här funkar för våra syften eller om det är bättre att returnera hela objektet i svaret?
             // Add a custom header with the updated item's id to the Http response
-            Response.Headers.Add("X-Removed-RealtorFirm-Successfully-Id", realtorFirm.RealtorFirmId.ToString());
+            Response.Headers.Append("Removed-Realtor-Firm-Id", realtorFirm.Id.ToString());
             // Return a lightweight success response
             return NoContent();
         }
@@ -87,7 +98,7 @@ namespace Echo_HemAPI.Controllers
         public async Task<IActionResult> UpdateAsync(int id, RealtorFirm realtorFirm)
         {
             // If parameters don't match
-            if  (id != realtorFirm.RealtorFirmId)
+            if  (id != realtorFirm.Id)
             {
                 return BadRequest("Id does not match");
             }
@@ -109,18 +120,10 @@ namespace Echo_HemAPI.Controllers
                     throw;
                 }
             }
-            // TODO: Funkar det här för våra syften eller är det bättre att returnera hela objektet i svaret?
             // Add a custom header with the updated item's id to the Http response
-            Response.Headers.Add("X-Updated-RealtorFirm-Successfully-Id", realtorFirm.RealtorFirmId.ToString());
+            Response.Headers.Append("Updated-Realtor-Firm-Id", realtorFirm.Id.ToString());
             // Return a lightweight success response
             return NoContent();
-        }
-
-        // TODO: Osäker på den här metodens syntax och funktion - har inte testat ännu
-        [HttpGet("find/{predicate}")]
-        public async Task<IQueryable<RealtorFirm>> FindAsync(Expression<Func<RealtorFirm, bool>> predicate)
-        {
-            return await _realtorFirmRepository.FindAsync(predicate);
         }
     }
 }

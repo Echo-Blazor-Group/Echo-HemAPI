@@ -6,7 +6,7 @@ using System.Linq.Expressions;
 
 namespace Echo_HemAPI.Data.Repositories.Repos
 {
-    public class PictureRepository : IPicturesReposetories
+    public class PictureRepository : IPictureRepository
     {
         private readonly ApplicationDbContext _context;
 
@@ -16,24 +16,24 @@ namespace Echo_HemAPI.Data.Repositories.Repos
         }
         public async Task<Picture> AddAsync(Picture entity)
         {
-            await _context.Set<Picture>().AddAsync(entity);
+            await _context.Pictures.AddAsync(entity);
             return entity;
         }
 
         public async Task<IQueryable<Picture>> FindAsync(Expression<Func<Picture, bool>> predicate)
         {
-            var entity = await _context.Set<Picture>().FindAsync(predicate);
+            var entity = await _context.Pictures.FindAsync(predicate);
             return (IQueryable<Picture>)entity;
         }
 
         public async Task<IEnumerable<Picture>> GetAllAsync()
         {
-            return await _context.Set<Picture>().ToListAsync();
+            return await _context.Pictures.ToListAsync();
         }
 
-        public async Task<Picture> GetByIdAsync(int id)
+        public async Task<IEnumerable<Picture>> GetByIdAsync(int id)
         {
-            return await _context.Set<Picture>().FindAsync(id);
+            return await _context.Pictures.Where(p => p.Estate.Id == id).ToListAsync();
         }
 
         public async Task<Picture> RemoveAsync(Picture entity)
@@ -49,7 +49,7 @@ namespace Echo_HemAPI.Data.Repositories.Repos
 
         public async Task<Picture> UpdateAsync(Picture entity)
         {
-            _context.Set<Picture>().Update(entity);
+            _context.Pictures.Update(entity);
             return entity;
         }
     }

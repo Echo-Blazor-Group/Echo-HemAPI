@@ -16,27 +16,27 @@ namespace Echo_HemAPI.Data.Repositories.Repos
         }
         public async Task<Category> AddAsync(Category entity)
         {
-            await _context.Set<Category>().AddAsync(entity);
+            await _context.Categories.AddAsync(entity);
             return entity;
         }
 
         public async Task<IQueryable<Category>> FindAsync(Expression<Func<Category, bool>> predicate)
         {
-            var entity = await _context.Set<Category>().FindAsync(predicate);
+            var entity = await _context.Categories.FindAsync(predicate);
             return (IQueryable<Category>)entity;
         }
 
         public async Task<IEnumerable<Category>> GetAllAsync()
         {
-            return await _context.Set<Category>().ToListAsync();
+            return await _context.Categories.ToListAsync();
         }
 
-        public async Task<Category> GetByIdAsync(int id)
+        public async Task<Category?> GetByIdAsync(int id)
         {
-            return await _context.Set<Category>().FindAsync(id);
+            return await _context.Categories.FindAsync(id);
         }
 
-        public async Task<Category> RemoveAsync(Category entity)
+        public async Task<Category?> RemoveAsync(Category entity)
         {
             _context.Remove(entity);
             return entity;
@@ -49,7 +49,7 @@ namespace Echo_HemAPI.Data.Repositories.Repos
 
         public async Task<Category> UpdateAsync(Category entity)
         {
-            _context.Set<Category>().Update(entity);
+            _context.Categories.Update(entity);
             return entity;
         }
     }

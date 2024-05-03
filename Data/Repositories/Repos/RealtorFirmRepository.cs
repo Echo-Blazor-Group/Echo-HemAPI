@@ -27,18 +27,14 @@ namespace Echo_HemAPI.Data.Models
         public async Task<IEnumerable<RealtorFirm>> GetAllAsync()
         {
             return await _context.RealtorFirms
-                                                            //.Include(rf => rf.Employees)
-                                                            //.Include(rf => rf.Estates)
-                                                            .OrderBy(rf => rf.Name)
-                                                            .ToListAsync();
+                                            .OrderBy(rf => rf.Name)
+                                            .ToListAsync();
         }
 
         public async Task<RealtorFirm> GetByIdAsync(int id)
         {
             return await _context.RealtorFirms
-                                                            //.Include(rf => rf.Employees)
-                                                            //.Include(rf => rf.Estates)
-                                                            .FirstOrDefaultAsync(rf => rf.RealtorFirmId == id);
+                                            .FirstOrDefaultAsync(rf => rf.Id == id);
         }
 
         public async Task<RealtorFirm> RemoveAsync(RealtorFirm realtorFirm)
@@ -53,17 +49,9 @@ namespace Echo_HemAPI.Data.Models
             return realtorFirm;
         }
 
-        public async Task<IQueryable<RealtorFirm>> FindAsync(Expression<Func<RealtorFirm, bool>> predicate)
-        {
-            IQueryable<RealtorFirm> entities = _context.RealtorFirms.Where(predicate).AsQueryable();
-            return entities;
-        }
-
-
         public async Task SaveChangesAsync()
         {
             await _context.SaveChangesAsync();
         }
-
     }
 }

@@ -11,6 +11,7 @@ namespace Echo_HemAPI.Data.Models
         {
             
         }
+     
         [Required]
         [DisplayName("First Name")]
         public string FirstName { get; set; } = string.Empty;
@@ -24,9 +25,13 @@ namespace Echo_HemAPI.Data.Models
         public RealtorFirm? RealtorFirm { get; set; }
 
         [DisplayName("Profile Picture")]
-        public Picture? ProfilePicture { get; set; }
+        public string? ProfilePicture { get; set; }
 
-        
+        [Required]
+        [DisplayName("Active")]
+        public bool IsActive { get; set; } = false;
+
+
 
     }
 }
