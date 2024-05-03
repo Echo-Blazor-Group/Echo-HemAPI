@@ -134,11 +134,10 @@ namespace Echo_HemAPI
             builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
             builder.Services.AddScoped<ICountyRepository, CountyRepository>();
             builder.Services.AddScoped<IPictureRepository, PictureRepository>();
+            builder.Services.AddScoped<ITokenService, TokenService>();
             builder.Services.AddRazorPages();
             builder.Services.AddAutoMapper(typeof(Program));
-            builder.Services.AddScoped<ITokenService, TokenService>();
-
-
+           
 
             var app = builder.Build();
 

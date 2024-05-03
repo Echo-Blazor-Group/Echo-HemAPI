@@ -31,12 +31,12 @@ namespace Echo_HemAPI.Data.Repositories.Repos
             return await _context.Categories.ToListAsync();
         }
 
-        public async Task<Category> GetByIdAsync(int id)
+        public async Task<Category?> GetByIdAsync(int id)
         {
             return await _context.Categories.FindAsync(id);
         }
 
-        public async Task<Category> RemoveAsync(Category entity)
+        public async Task<Category?> RemoveAsync(Category entity)
         {
             _context.Remove(entity);
             return entity;
