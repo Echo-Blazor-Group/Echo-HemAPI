@@ -35,4 +35,35 @@ namespace Echo_HemAPI.Data.Models.DTOs
         public List<Picture?>? Pictures { get; set; }
     }
 
+    public class EstatePutDto
+    {
+
+    }
+
+    public class EstatePostDto
+    {
+
+    }
+    public class EstateDeleteDto
+    {
+    }
+
+
+
+    //estateExists.Address = estate.Address;
+    //estateExists.StartingPrice = estate.StartingPrice;
+    //estateExists.LivingAreaKvm = estate.LivingAreaKvm;
+    //estateExists.NumberOfRooms = estate.NumberOfRooms;
+    //estateExists.BiAreaKvm = estate.BiAreaKvm;
+    //estateExists.EstateAreaKvm = estate.EstateAreaKvm;
+    //estateExists.MonthlyFee = estate.MonthlyFee;
+    //estateExists.RunningCosts = estate.RunningCosts;
+    //estateExists.ConstructionDate = estate.ConstructionDate;
+    //estateExists.EstateDescription = estate.EstateDescription;
+    //estateExists.PublishDate = estate.PublishDate;
+    //estateExists.Realtor = estate.Realtor;
+    //estateExists.Category = estate.Category;
+    //estateExists.County = estate.County;
+    //estateExists.Pictures = estate.Pictures;
+
 }

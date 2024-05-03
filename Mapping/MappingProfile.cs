@@ -10,16 +10,10 @@ namespace Echo_HemAPI.Mapping
     {
         public MappingProfile() 
         {
-            // Author: Gustaf Von Schélee frejd
+            // Author: Gustaf Von Schélee
             CreateMap<Estate, EstateDto>().ReverseMap();
-
             CreateMap<InsertEstateDto, Estate>().ReverseMap();
-
-            CreateMap<UpdateEstateDto, Estate>()
-                //.ForMember(dest => dest.Realtor.Id, opt => opt.MapFrom(src => src.RealtorId))
-                //.ForMember(dest => dest.County.Id, opt => opt.MapFrom(src => src.CountyId))
-                //.ForMember(dest => dest.Category.Id, opt => opt.MapFrom(src => src.CategoryId))
-                .ReverseMap();
+            CreateMap<UpdateEstateDto, Estate>().ReverseMap();
 
             // Author: Samed Salman
             CreateMap<RealtorFirm, RealtorFirmGetDTO>().ReverseMap();
