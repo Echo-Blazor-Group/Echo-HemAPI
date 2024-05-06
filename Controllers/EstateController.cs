@@ -1,5 +1,4 @@
-﻿using AspNetCore;
-using AutoMapper;
+﻿using AutoMapper;
 using Echo_HemAPI.Data.Models;
 using Echo_HemAPI.Data.Models.DTOs;
 using Echo_HemAPI.Data.Models.DTOs.RealtorDTOs;
