@@ -7,7 +7,7 @@ namespace Echo_HemAPI.Data.Repositories.Interfaces
     //Author Gustaf
     public interface IEstateRepository
     {
-        Task<Estate> AddAsync(Estate entity);
+        Task<Estate> AddAsync(Estate entity, Realtor realtor, Category category, County county);
         Task<Estate> UpdateAsync(Estate entity);
         Task<Estate?> GetByIdAsync(int id);
         Task<Estate> RemoveAsync(Estate entity);

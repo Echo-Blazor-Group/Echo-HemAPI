@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿
+using AutoMapper;
 using Echo_HemAPI.Data.Models;
 using Echo_HemAPI.Data.Models.DTOs;
 using Echo_HemAPI.Data.Models.DTOs.RealtorDTOs;
@@ -42,7 +43,7 @@ namespace Echo_HemAPI.Controllers
 
         [HttpPost]
         public async Task<IActionResult> AddAsync(InsertEstateDto insertEstateDto)
-        {
+        {   
             var estate = mapper.Map<Estate>(insertEstateDto);
 
             var validationContext = new ValidationContext(estate);
@@ -52,10 +53,16 @@ namespace Echo_HemAPI.Controllers
             {
                 return BadRequest(new { Message = "Custom Validation Error", Errors = validationResult.Select(r => r.ErrorMessage) });
             }
+            var county = await _countyRepository.GetByIdAsync(insertEstateDto.CountyId);
+            var category = await _categoryRepository.GetByIdAsync(insertEstateDto.CategoryId);
+            var realtor = await _userManager.FindByIdAsync(insertEstateDto.RealtorId);
+            estate.County = county;
+            estate.Category = category;
+            estate.Realtor = realtor;
             estate = await _estateRepository.UpdateAsync(estate);
-            var estateDto = mapper.Map<EstateDto>(estate);
+            
             await _estateRepository.SaveChangesAsync();
-            return Created("/api/estate" + estate.Id, new { Message = "estate created!", Data = estateDto });
+            return Created("/api/estate" + estate.Id, new { Message = "estate created!", Data = estate });
 
 
             //Estate = await _estateRepository.AddAsync(estate);
@@ -73,7 +80,7 @@ namespace Echo_HemAPI.Controllers
 
         }
 
-        [HttpGet("{Id}")]
+        [HttpGet("{id}")]
         public async Task<ActionResult<EstateDto>> GetByIdAsync(int id)
         {
 
@@ -81,7 +88,7 @@ namespace Echo_HemAPI.Controllers
 
             if (estate is not null)
             {
-                var EstateToDto = mapper.Map<EstateDto>(estate);
+                var EstateToDto = mapper.Map<Estate>(estate);
                 return Ok(EstateToDto);
             }
             else

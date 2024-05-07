@@ -22,7 +22,7 @@ namespace Echo_HemAPI.Data.Repositories.Repos
             _context = context;
  
         }
-        public async Task<Estate> AddAsync(Estate entity)
+        public async Task<Estate> AddAsync(Estate entity, Realtor realtor, Category category, County county)
         {
             await _context.Estates.AddAsync(entity);
             return entity;

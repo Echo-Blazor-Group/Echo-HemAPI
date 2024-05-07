@@ -27,43 +27,14 @@ namespace Echo_HemAPI.Data.Models.DTOs
         public string EstateDescription { get; set; } = string.Empty;
 
         public DateOnly? PublishDate { get; set; } = new DateOnly();
+
+        public bool OnTheMarket { get; set; } = true;
         //Relational
 
         public Realtor? Realtor { get; set; }
         public County? County { get; set; }
         public Category? Category { get; set; }
         public List<Picture?>? Pictures { get; set; }
-    }
-
-    public class EstatePutDto
-    {
 
     }
-
-    public class EstatePostDto
-    {
-
-    }
-    public class EstateDeleteDto
-    {
-    }
-
-
-
-    //estateExists.Address = estate.Address;
-    //estateExists.StartingPrice = estate.StartingPrice;
-    //estateExists.LivingAreaKvm = estate.LivingAreaKvm;
-    //estateExists.NumberOfRooms = estate.NumberOfRooms;
-    //estateExists.BiAreaKvm = estate.BiAreaKvm;
-    //estateExists.EstateAreaKvm = estate.EstateAreaKvm;
-    //estateExists.MonthlyFee = estate.MonthlyFee;
-    //estateExists.RunningCosts = estate.RunningCosts;
-    //estateExists.ConstructionDate = estate.ConstructionDate;
-    //estateExists.EstateDescription = estate.EstateDescription;
-    //estateExists.PublishDate = estate.PublishDate;
-    //estateExists.Realtor = estate.Realtor;
-    //estateExists.Category = estate.Category;
-    //estateExists.County = estate.County;
-    //estateExists.Pictures = estate.Pictures;
-
 }

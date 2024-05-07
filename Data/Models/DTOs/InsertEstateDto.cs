@@ -1,4 +1,6 @@
-﻿namespace Echo_HemAPI.Data.Models.DTOs
+﻿using System.Diagnostics.Eventing.Reader;
+
+namespace Echo_HemAPI.Data.Models.DTOs
 {
     public class InsertEstateDto
     {
@@ -23,9 +25,10 @@
         public string EstateDescription { get; set; } = string.Empty;
        
         public DateOnly? PublishDate { get; set; } = new DateOnly();
+        public bool OnTheMarket { get; set; } = true;
         //Relational
-        public int? CountyId { get; set; }
-        public Guid? UserId { get; set; }
-        public int? CategoryId { get; set; }
+        public int CountyId { get; set; }
+        public string? RealtorId { get; set; }
+        public int CategoryId { get; set; }
     }
 }

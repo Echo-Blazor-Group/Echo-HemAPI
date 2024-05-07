@@ -13,7 +13,7 @@ namespace Echo_HemAPI.Mapping
             // Author: Gustaf Von Schélee
             CreateMap<Estate, EstateDto>().ReverseMap();
             CreateMap<InsertEstateDto, Estate>().ReverseMap();
-            CreateMap<UpdateEstateDto, Estate>().ReverseMap();
+            CreateMap<UpdateEstateDto, Estate>()/*.ForMember(dest => dest.County.Id, opt => opt.MapFrom(src => src.CountyId))*/.ReverseMap();
 
             // Author: Samed Salman
             CreateMap<RealtorFirm, RealtorFirmGetDTO>().ReverseMap();
