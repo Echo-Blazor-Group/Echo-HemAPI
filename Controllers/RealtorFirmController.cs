@@ -44,7 +44,7 @@ namespace Echo_HemAPI.Controllers
         }
 
 
-        [Authorize]
+        //[Authorize]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<RealtorFirmGetDTO>>> GetAllAsync()
         {
