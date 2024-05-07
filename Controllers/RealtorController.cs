@@ -124,7 +124,6 @@ namespace Echo_HemAPI.Controllers
 
 
         // POST api/<RealtorController>
-        [Authorize]
         [HttpPost("register")]
         public async Task<IActionResult> AddAsync([FromBody] RealtorCreateDTO createDTO)
         {
