@@ -2,6 +2,7 @@
 using Echo_HemAPI.Controllers;
 using Echo_HemAPI.Data.Models;
 using Echo_HemAPI.Data.Models.DTOs;
+using Echo_HemAPI.Data.Models.DTOs.EstateDtos;
 using Echo_HemAPI.Data.Models.DTOs.RealtorDTOs;
 
 namespace Echo_HemAPI.Mapping

@@ -1,7 +1,7 @@
 ﻿
 using AutoMapper;
 using Echo_HemAPI.Data.Models;
-using Echo_HemAPI.Data.Models.DTOs;
+using Echo_HemAPI.Data.Models.DTOs.EstateDtos;
 using Echo_HemAPI.Data.Models.DTOs.RealtorDTOs;
 using Echo_HemAPI.Data.Repositories.Interfaces;
 using Microsoft.AspNetCore.Http;
@@ -99,19 +99,24 @@ namespace Echo_HemAPI.Controllers
 
         }
 
-        [HttpDelete]
-        public async Task<Estate> RemoveAsync(Estate estate)
+        [HttpPatch("{id}")]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(404)]
+        public async Task<ActionResult> UpdateAsync(int id, [FromBody]DeleteEstateDto deleteEstateDto)
         {
-            if (estate == null)
-            {
-                return null;
-            }
-            else
-            {
-                await _estateRepository.RemoveAsync(estate);
-                await _estateRepository.SaveChangesAsync();
-                return estate;
-            }
+            var dbEstate = await _estateRepository.GetByIdAsync(id);
+            if (deleteEstateDto == null)
+                return BadRequest(ModelState);
+            if (id != deleteEstateDto.Id)
+                return BadRequest(ModelState);
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            dbEstate.OnTheMarket = deleteEstateDto.OnTheMarket;
+            await _estateRepository.UpdateAsync(dbEstate);
+            await _estateRepository.SaveChangesAsync();
+            return Ok(dbEstate);
 
         }
 
@@ -141,6 +146,7 @@ namespace Echo_HemAPI.Controllers
             dbEstate.ConstructionDate = updateEstateDto.ConstructionDate;
             dbEstate.EstateDescription = updateEstateDto.EstateDescription;
             dbEstate.PublishDate = updateEstateDto.PublishDate;
+            dbEstate.OnTheMarket = updateEstateDto.OnTheMarket;
             var county = await _countyRepository.GetByIdAsync(updateEstateDto.CountyId);
             var category = await _categoryRepository.GetByIdAsync(updateEstateDto.CategoryId);
             var realtor = await _userManager.FindByIdAsync(updateEstateDto.RealtorId);

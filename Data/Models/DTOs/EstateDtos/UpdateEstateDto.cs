@@ -1,11 +1,9 @@
-﻿using Echo_HemAPI.Data.Models;
-
-namespace Echo_HemAPI.Data.Models.DTOs
+﻿namespace Echo_HemAPI.Data.Models.DTOs.EstateDtos
 {
-    //Author Gustaf
-    public class EstateDto
+    public class UpdateEstateDto
     {
         public int Id { get; set; }
+
         public string Address { get; set; } = string.Empty;
 
         public int StartingPrice { get; set; }
@@ -27,14 +25,11 @@ namespace Echo_HemAPI.Data.Models.DTOs
         public string EstateDescription { get; set; } = string.Empty;
 
         public DateOnly? PublishDate { get; set; } = new DateOnly();
-
         public bool OnTheMarket { get; set; } = true;
         //Relational
-
-        public Realtor? Realtor { get; set; }
-        public County? County { get; set; }
-        public Category? Category { get; set; }
-        public List<Picture?>? Pictures { get; set; }
+        public int CountyId { get; set; }
+        public int CategoryId { get; set; }
+        public string? RealtorId { get; set; }
 
     }
 }
