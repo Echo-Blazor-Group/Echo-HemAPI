@@ -112,8 +112,15 @@ namespace Echo_HemAPI.Controllers
                 return BadRequest(ModelState);
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
-
-            dbEstate.OnTheMarket = deleteEstateDto.OnTheMarket;
+            if(dbEstate.OnTheMarket == true)
+            {
+                
+            }
+            else
+            {
+                dbEstate.OnTheMarket = deleteEstateDto.OnTheMarket = true;
+            }
+            
             await _estateRepository.UpdateAsync(dbEstate);
             await _estateRepository.SaveChangesAsync();
             return Ok(dbEstate);

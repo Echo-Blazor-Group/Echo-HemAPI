@@ -26,7 +26,7 @@
 
         public DateOnly? PublishDate { get; set; } = new DateOnly();
 
-        public bool OnTheMarket { get; set; } = true;
+        public bool OnTheMarket { get; set; }
         //Relational
 
         public Realtor? Realtor { get; set; }
