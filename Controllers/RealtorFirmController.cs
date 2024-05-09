@@ -46,7 +46,7 @@ namespace Echo_HemAPI.Controllers
 
         //[Authorize]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<RealtorFirmGetDTO>>> GetAllAsync()
+        public async Task<ActionResult<IEnumerable<RealtorFirmWithIdDTO>>> GetAllAsync()
         {
             // Get list of entities
             IEnumerable<RealtorFirm> realtorFirmList = await _realtorFirmRepository.GetAllAsync();
@@ -57,11 +57,11 @@ namespace Echo_HemAPI.Controllers
                 return NotFound("No Realtor firms registrated yet.");
             }
             // Map list of entities to list of DTO:s
-            return Ok(_mapper.Map<List<RealtorFirmGetDTO>>(realtorFirmList));
+            return Ok(_mapper.Map<List<RealtorFirmWithIdDTO>>(realtorFirmList));
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<RealtorFirmGetDTO>> GetByIdAsync(int id)
+        public async Task<ActionResult<RealtorFirmWithIdDTO>> GetByIdAsync(int id)
         {
             // Get entity
             RealtorFirm realtorFirm = await _realtorFirmRepository.GetByIdAsync(id);
@@ -72,7 +72,7 @@ namespace Echo_HemAPI.Controllers
                 return NotFound();
             }
             // Map entity and return only DTO
-            return Ok(_mapper.Map<RealtorFirmGetDTO>(realtorFirm));
+            return Ok(_mapper.Map<RealtorFirmWithIdDTO>(realtorFirm));
         }
 
         [HttpDelete("{id}")]
