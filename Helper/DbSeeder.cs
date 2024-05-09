@@ -92,12 +92,12 @@ namespace Echo_HemAPI.Helper
         {
             var firms = new List<RealtorFirm>
         {
-            new RealtorFirm { Name = "Sverige Mäklarna", RealtorFirmPresentation = "Vi har de bästa mäklarna i Sverige.", Logotype = "https://shorturl.at/wKPQR"},
-            new RealtorFirm { Name = "Skandinaviens Mäklarna", RealtorFirmPresentation = "Efter 79 år i branschen så hjälper vi dig att hitta ditt nya hem.", Logotype = "https://shorturl.at/ltDNT"},
-            new RealtorFirm { Name = "Länets Mäklare", RealtorFirmPresentation = "Vi tror på att jobba lokalt.", Logotype = "https://shorturl.at/bgvwF"},
-            new RealtorFirm { Name = "Hemma Mäklarna", RealtorFirmPresentation = "Borta bra, hemma bäst.", Logotype = "https://shorturl.at/iFMVX"},
-            new RealtorFirm { Name = "Fastighetsbyrån", RealtorFirmPresentation = "Vi kan fastigheter.", Logotype = "https://shorturl.at/iHKUZ"}
-
+            new RealtorFirm { Name = "Sverige Mäklarna", RealtorFirmPresentation = "Vi har de bästa mäklarna i Sverige.", Logotype = "https://shorturl.at/wKPQR", Active = true},
+            new RealtorFirm { Name = "Skandinaviens Mäklarna", RealtorFirmPresentation = "Efter 79 år i branschen så hjälper vi dig att hitta ditt nya hem.", Logotype = "https://shorturl.at/ltDNT", Active = true},
+            new RealtorFirm { Name = "Länets Mäklare", RealtorFirmPresentation = "Vi tror på att jobba lokalt.", Logotype = "https://shorturl.at/bgvwF", Active = true},
+            new RealtorFirm { Name = "Hemma Mäklarna", RealtorFirmPresentation = "Borta bra, hemma bäst.", Logotype = "https://shorturl.at/iFMVX", Active = true},
+            new RealtorFirm { Name = "Fastighetsbyrån", RealtorFirmPresentation = "Vi kan fastigheter.", Logotype = "https://shorturl.at/iHKUZ", Active = true}
+            
         };
 
             await context.RealtorFirms.AddRangeAsync(firms);
@@ -167,7 +167,8 @@ namespace Echo_HemAPI.Helper
                     County = counties[0],
                     Realtor = realtors[0],
                     Category = categories[0],
-                    Pictures = pictures.GetRange(10,2)
+                    Pictures = pictures.GetRange(10,2),
+                    OnTheMarket = true
 
 
                 },
@@ -187,7 +188,8 @@ namespace Echo_HemAPI.Helper
                     County = counties[1],
                     Realtor = realtors[1],
                     Category = categories[1],
-                    Pictures = pictures.GetRange(12,2)
+                    Pictures = pictures.GetRange(12,2),
+                    OnTheMarket = true
                 },
                 new Estate
                 {
@@ -205,7 +207,8 @@ namespace Echo_HemAPI.Helper
                     County = counties[2],
                     Realtor = realtors[2],
                     Category = categories[2],
-                    Pictures = pictures.GetRange(14,2)
+                    Pictures = pictures.GetRange(14,2),
+                    OnTheMarket = true
 
                 },
                 new Estate
@@ -224,7 +227,8 @@ namespace Echo_HemAPI.Helper
                     County = counties[3],
                     Realtor = realtors[3],
                     Category = categories[3],
-                    Pictures = pictures.GetRange(16,2)
+                    Pictures = pictures.GetRange(16,2),
+                    OnTheMarket = true
 
                 }
 
