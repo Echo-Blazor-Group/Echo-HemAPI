@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Echo_HemAPI.Data.Models
 {
@@ -15,6 +14,6 @@ namespace Echo_HemAPI.Data.Models
         [Required, DisplayName("About this firm")]
         public string RealtorFirmPresentation { get; set; } = string.Empty;
         public string? Logotype { get; set; }
-
+        public bool Active { get; set; } = true;
     }
 }
