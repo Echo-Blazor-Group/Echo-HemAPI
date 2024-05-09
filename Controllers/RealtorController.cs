@@ -40,6 +40,7 @@ namespace Echo_HemAPI.Controllers
             _realtorFirmRepo = realtorFirmRepo;
             _estateRepo = estateRepo;
         }
+
         // GET: api/<RealtorController>
         [HttpGet]
         public async Task<IActionResult> GetAllAsync([FromQuery] QueryObject query)
@@ -87,9 +88,9 @@ namespace Echo_HemAPI.Controllers
                 return NotFound("Invalid id.");
             }
         }
+
         // POST api/<RealtorController>
         [HttpPost("login")]
-
         public async Task<IActionResult> Login(RealtorLoginDTO loginDTO)
         {
             if (!ModelState.IsValid)
@@ -119,9 +120,6 @@ namespace Echo_HemAPI.Controllers
                 return Unauthorized("Invalid email and/or password.");
             }
         }
-
-
-
 
         // POST api/<RealtorController>
         [HttpPost("register")]

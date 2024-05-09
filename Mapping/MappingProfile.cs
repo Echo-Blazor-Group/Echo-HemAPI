@@ -17,9 +17,8 @@ namespace Echo_HemAPI.Mapping
             CreateMap<UpdateEstateDto, Estate>()/*.ForMember(dest => dest.County.Id, opt => opt.MapFrom(src => src.CountyId))*/.ReverseMap();
 
             // Author: Samed Salman
-            CreateMap<RealtorFirm, RealtorFirmGetDTO>().ReverseMap();
+            CreateMap<RealtorFirm, RealtorFirmWithIdDTO>().ReverseMap();
             CreateMap<RealtorFirm, RealtorFirmPostDTO>().ReverseMap();
-            CreateMap<RealtorFirm, RealtorFirmPutDTO>().ReverseMap();
 
             // Author: Seb
             CreateMap<Realtor, RealtorGetDTO>().ForMember(dest => dest.RealtorFirmName,
