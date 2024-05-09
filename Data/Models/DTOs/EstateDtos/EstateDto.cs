@@ -1,4 +1,6 @@
-﻿namespace Echo_HemAPI.Data.Models.DTOs.EstateDtos
+﻿using Microsoft.CodeAnalysis.CSharp;
+
+namespace Echo_HemAPI.Data.Models.DTOs.EstateDtos
 {
     //Author Gustaf
     public class EstateDto
@@ -32,7 +34,15 @@
         public Realtor? Realtor { get; set; }
         public County? County { get; set; }
         public Category? Category { get; set; }
-        public List<Picture?>? Pictures { get; set; }
+        public List<Picture> Pictures { get; set; }
+        
+        public void PicturesInBox()
+        {
+            foreach (var picture in Pictures)
+            {
+                
+            }
+        }
 
     }
 }
