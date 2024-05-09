@@ -141,7 +141,7 @@ namespace Echo_HemAPI.Controllers
                     realtorFromDto.RealtorFirm = existingRealtorFirm;
                 }
                 if (realtorFromDto.ProfilePicture.IsNullOrEmpty() || realtorFromDto.ProfilePicture.ToLower() == "string")
-                    realtorFromDto.ProfilePicture = "https://placehold.co/600x400/png";
+                    realtorFromDto.ProfilePicture = "https://shorturl.at/CJOR3";
 
 
                 var createdUser = await _userManager.CreateAsync(realtorFromDto, createDTO.Password!);
@@ -285,7 +285,7 @@ namespace Echo_HemAPI.Controllers
 
                 estatesMatchingThisRealtorId.AsQueryable();
 
-                var filteredEstates = estatesMatchingThisRealtorId.Where(e => e.Realtor.Id == user.Id);
+                var filteredEstates = estatesMatchingThisRealtorId.Where(e => e.Realtor?.Id == user.Id);
 
 
                 if (filteredEstates.Any())

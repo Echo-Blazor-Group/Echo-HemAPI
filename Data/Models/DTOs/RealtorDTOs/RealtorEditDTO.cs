@@ -19,7 +19,7 @@ namespace Echo_HemAPI.Data.Models.DTOs.RealtorDTOs
         public string PhoneNumber { get; set; } = string.Empty;
         
         [Required]
-        public string ProfilePicture { get; set; } = "https://placehold.co/600x400/png";
+        public string ProfilePicture { get; set; } = "https://shorturl.at/CJOR3";
         public string? OldPassword { get; set; }
         public string? NewPassword { get; set; }
     }

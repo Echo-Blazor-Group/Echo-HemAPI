@@ -18,7 +18,7 @@ namespace Echo_HemAPI.Data.Models.DTOs.RealtorDTOs
         public string? Password { get; set; }
         [Required]
         public int RealtorFirmId { get; set; }
-        public string ProfilePicture { get; set; } = "https://placehold.co/600x400/png";
+        public string ProfilePicture { get; set; } = "https://shorturl.at/CJOR3";
         
         
     }
