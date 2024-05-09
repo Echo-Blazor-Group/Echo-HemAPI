@@ -4,6 +4,7 @@ namespace Echo_HemAPI.Data.Models.DTOs.RealtorDTOs
 {
     public class RealtorGetDTO
     {
+        public string Id { get; set; }
         public string FirstName { get; set; } = string.Empty;
         public string LastName { get; set; } = string.Empty;
         public string RealtorFirmName { get; set; } = string.Empty;

@@ -11,6 +11,8 @@ namespace Echo_HemAPI.Data.Models
         {
             
         }
+
+        public string Id { get; set; }
      
         [Required]
         [DisplayName("First Name")]

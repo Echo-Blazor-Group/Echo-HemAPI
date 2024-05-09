@@ -1,5 +1,4 @@
-﻿using AspNetCore;
-using AutoMapper;
+﻿using AutoMapper;
 using Echo_HemAPI.Data.Models;
 using Echo_HemAPI.Data.Models.DTOs;
 using Echo_HemAPI.Data.Models.DTOs.RealtorDTOs;
@@ -74,7 +73,7 @@ namespace Echo_HemAPI.Controllers
 
         }
 
-        [HttpGet("{Id}")]
+        [HttpGet("{id}")]
         public async Task<ActionResult<EstateDto>> GetByIdAsync(int id)
         {
 
