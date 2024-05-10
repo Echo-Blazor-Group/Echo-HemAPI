@@ -10,6 +10,8 @@ using Microsoft.EntityFrameworkCore;
 using Mono.TextTemplating;
 using System.ComponentModel.DataAnnotations;
 using System.Linq.Expressions;
+using System.Text.Json.Serialization;
+using System.Text.Json;
 
 //Author Gustaf
 
@@ -88,7 +90,14 @@ namespace Echo_HemAPI.Controllers
             if (estate is not null)
             {
                 var EstateToDto = mapper.Map<Estate>(estate);
-                return Ok(EstateToDto);
+                var options = new JsonSerializerOptions
+                {
+                    ReferenceHandler = ReferenceHandler.Preserve,
+                    // Other options as needed
+                };
+                var json = JsonSerializer.Serialize(EstateToDto, options);
+                
+                return Content(json, "application/json");
             }
             else
             {
