@@ -36,8 +36,6 @@ namespace Echo_HemAPI.Mapping
                                                    .MapFrom(src => src.UserName))
                                                    .ReverseMap();
 
-
-
             CreateMap<RealtorEditDTO, Realtor>().ForMember(dest => dest.UserName,
                                                 opt => opt.MapFrom(src => src.Email)).ReverseMap();
         }

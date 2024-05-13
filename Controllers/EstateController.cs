@@ -21,6 +21,7 @@ namespace Echo_HemAPI.Controllers
     [ApiController]
     public class EstateController : ControllerBase
     {
+        //object brings along other objects
         private readonly IEstateRepository _estateRepository;
         private readonly ICategoryRepository _categoryRepository;
         private readonly ICountyRepository _countyRepository;
@@ -39,8 +40,6 @@ namespace Echo_HemAPI.Controllers
             _countyRepository = countyRepository;
             _userManager = userManager;
         }
-
-
 
         [HttpPost]
         public async Task<IActionResult> AddAsync(InsertEstateDto insertEstateDto)
@@ -64,38 +63,25 @@ namespace Echo_HemAPI.Controllers
             
             await _estateRepository.SaveChangesAsync();
             return Created("/api/estate" + estate.Id, new { Message = "estate created!", Data = estate });
-
-
-            //Estate = await _estateRepository.AddAsync(estate);
-
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAllAsync()
         {
-
             var estates = await _estateRepository.GetAllAsync();
             var estateDto = mapper.Map<List<Estate>>(estates);
 
             return Ok(estateDto);
-
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<EstateDto>> GetByIdAsync(int id)
         {
-
             var estate = await _estateRepository.GetByIdAsync(id);
 
             if (estate is not null)
             {
                 var EstateToDto = mapper.Map<Estate>(estate);
-                //var options = new JsonSerializerOptions
-                //{
-                //    ReferenceHandler = ReferenceHandler.Preserve,
-                //    // Other options as needed
-                //};
-                //var json = JsonSerializer.Serialize(EstateToDto, options);
                 
                 return Ok(EstateToDto);
             }
@@ -103,8 +89,6 @@ namespace Echo_HemAPI.Controllers
             {
                 return NotFound("Invalid id.");
             }
-
-
         }
 
         [HttpPatch("{id}")]
@@ -148,7 +132,8 @@ namespace Echo_HemAPI.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
             //var estateMap = mapper.Map<Estate>(updateEstateDto);
-
+            //We decided to not use the mapper on the update function as the problems would not solve themselves, maybe it was related to 
+            //the pictures objects being slightly wrongly made, don't know but in the interest of finishing the project on time.
             dbEstate.Address = updateEstateDto.Address;
             dbEstate.StartingPrice = updateEstateDto.StartingPrice;
             dbEstate.LivingAreaKvm = updateEstateDto.LivingAreaKvm;

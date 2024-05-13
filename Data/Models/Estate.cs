@@ -7,6 +7,8 @@ namespace Echo_HemAPI.Data.Models
     //Author Gustaf
     public class Estate
     {
+        //reminder to change some of the values into int´s instead to make it easier for people adding data to just add resonable data
+        //this is optional ofc..
         [Key]
         public int Id { get; set; }
         [Required]

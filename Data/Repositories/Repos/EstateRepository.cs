@@ -29,10 +29,13 @@ namespace Echo_HemAPI.Data.Repositories.Repos
         }
         public async Task<IEnumerable<Estate>?> GetAllAsync()
         {
+            //calling the estate objects and includes the relational data, like counties and categories
+            //aswell as realtors which also tags along the realtorfirm object, and lastly pictures
             var estate = await _context.Estates
                 .Include(c => c.Category)
                 .Include(c => c.County)
                 .Include(r => r.Realtor.RealtorFirm) 
+                .Include(p => p.Pictures) 
                 .ToListAsync();
             if (estate is null)
             {
@@ -74,6 +77,7 @@ namespace Echo_HemAPI.Data.Repositories.Repos
             }
         }
 
+        //Not actually ever used because we don't actually want to remove the data of estate objects.
         public async Task<Estate> RemoveAsync(Estate entity)
         {
             _context.Estates.Remove(entity);
