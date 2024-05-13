@@ -97,7 +97,7 @@ namespace Echo_HemAPI.Controllers
 
             var realtor = await _userManager.Users.Include(r => r.RealtorFirm).Where(r => r.Email == loginDTO.Email.ToLower()).FirstOrDefaultAsync();
 
-            if (realtor is null)
+            if (realtor is null || realtor.IsActive == false)
                 return Unauthorized("Invalid email.");
 
            var result = await _signInManager.CheckPasswordSignInAsync(realtor, loginDTO.Password, false);

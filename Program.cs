@@ -78,10 +78,12 @@ namespace Echo_HemAPI
                 };
             });
 
+            // TODO: Add options to check for roles here
             builder.Services.AddAuthorization();
+
             builder.Services.ConfigureApplicationCookie(options =>
             {
-                options.ExpireTimeSpan = TimeSpan.FromHours(1); // logs user out automatically in 1 hour
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(10); // logs user out automatically in 10 minutes
                 options.SlidingExpiration = true; // post pones automatic log out when using the app
 
                 //3 options below = fix routing
