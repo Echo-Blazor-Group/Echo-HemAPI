@@ -7,6 +7,7 @@ namespace Echo_HemAPI.Data.Models
     //Author Gustaf
     public class Estate
     {
+        [Key]
         public int Id { get; set; }
         [Required]
         public string Address { get; set; } = string.Empty;

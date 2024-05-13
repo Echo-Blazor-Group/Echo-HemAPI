@@ -1,4 +1,5 @@
 ﻿using Echo_HemAPI.Data.Models;
+using Echo_HemAPI.Data.Models.DTOs.PictureDtos;
 using System.Linq.Expressions;
 
 namespace Echo_HemAPI.Data.Repositories.Interfaces

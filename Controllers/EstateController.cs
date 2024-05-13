@@ -90,14 +90,14 @@ namespace Echo_HemAPI.Controllers
             if (estate is not null)
             {
                 var EstateToDto = mapper.Map<Estate>(estate);
-                var options = new JsonSerializerOptions
-                {
-                    ReferenceHandler = ReferenceHandler.Preserve,
-                    // Other options as needed
-                };
-                var json = JsonSerializer.Serialize(EstateToDto, options);
+                //var options = new JsonSerializerOptions
+                //{
+                //    ReferenceHandler = ReferenceHandler.Preserve,
+                //    // Other options as needed
+                //};
+                //var json = JsonSerializer.Serialize(EstateToDto, options);
                 
-                return Content(json, "application/json");
+                return Ok(EstateToDto);
             }
             else
             {
@@ -171,8 +171,6 @@ namespace Echo_HemAPI.Controllers
             await _estateRepository.UpdateAsync(dbEstate);
             await _estateRepository.SaveChangesAsync();
             return Ok(dbEstate);
-
-
         }
     }
 }

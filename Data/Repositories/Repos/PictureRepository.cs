@@ -1,4 +1,5 @@
-﻿using Echo_HemAPI.Data.Context;
+﻿using Echo_HemAPI.Controllers;
+using Echo_HemAPI.Data.Context;
 using Echo_HemAPI.Data.Models;
 using Echo_HemAPI.Data.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -28,12 +29,12 @@ namespace Echo_HemAPI.Data.Repositories.Repos
 
         public async Task<IEnumerable<Picture>> GetAllAsync()
         {
-            return await _context.Pictures/*.Include(e => e.Estate.Id)*/.ToListAsync();
+            return await _context.Pictures.ToListAsync();
         }
 
         public async Task<IEnumerable<Picture>> GetByIdAsync(int id)
         {
-            return await _context.Pictures.Where(p => p.Estate.Id == id).ToListAsync();
+            return await _context.Pictures.Where(p => p.EstateId == id).ToListAsync();
 
             //.Include(e => e.Estate)
         }

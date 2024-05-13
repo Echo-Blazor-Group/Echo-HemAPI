@@ -3,6 +3,7 @@ using Echo_HemAPI.Controllers;
 using Echo_HemAPI.Data.Models;
 using Echo_HemAPI.Data.Models.DTOs;
 using Echo_HemAPI.Data.Models.DTOs.EstateDtos;
+using Echo_HemAPI.Data.Models.DTOs.PictureDtos;
 using Echo_HemAPI.Data.Models.DTOs.RealtorDTOs;
 
 namespace Echo_HemAPI.Mapping
@@ -14,7 +15,10 @@ namespace Echo_HemAPI.Mapping
             // Author: Gustaf Von Schélee
             CreateMap<Estate, EstateDto>().ReverseMap();
             CreateMap<InsertEstateDto, Estate>().ReverseMap();
-            CreateMap<UpdateEstateDto, Estate>()/*.ForMember(dest => dest.County.Id, opt => opt.MapFrom(src => src.CountyId))*/.ReverseMap();
+            CreateMap<UpdateEstateDto, Estate>().ReverseMap();
+
+            CreateMap<PictureDto, Picture>().ReverseMap();
+            CreateMap<UpdatePictureDto, Picture>().ReverseMap();
 
             // Author: Samed Salman
             CreateMap<RealtorFirm, RealtorFirmWithIdDTO>().ReverseMap();

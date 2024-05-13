@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Echo_HemAPI.Data.Models
 {
@@ -7,6 +8,7 @@ namespace Echo_HemAPI.Data.Models
         //Author Gustaf & Seb
         public int Id { get; set; }
         public string PictureUrl { get; set; } = string.Empty;
-        public virtual Estate? Estate { get; set; }
+        
+        public int? EstateId { get; set; }
     }
 }

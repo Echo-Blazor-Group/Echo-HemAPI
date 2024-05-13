@@ -169,7 +169,7 @@ namespace Echo_HemAPI.Helper
                     Realtor = realtors[0],
                     Category = categories[0],
                     Pictures = pictures.GetRange(10,2),
-                    OnTheMarket = true
+                  
 
 
                 },
@@ -191,7 +191,7 @@ namespace Echo_HemAPI.Helper
                     Realtor = realtors[1],
                     Category = categories[1],
                     Pictures = pictures.GetRange(12,2),
-                    OnTheMarket = true
+                    
                 },
                 new Estate
                 {
@@ -211,7 +211,7 @@ namespace Echo_HemAPI.Helper
                     Realtor = realtors[2],
                     Category = categories[2],
                     Pictures = pictures.GetRange(14,2),
-                    OnTheMarket = true
+                   
 
                 },
                 new Estate
@@ -232,7 +232,7 @@ namespace Echo_HemAPI.Helper
                     Realtor = realtors[3],
                     Category = categories[3],
                     Pictures = pictures.GetRange(16,2),
-                    OnTheMarket = true
+                   
 
                 }
 

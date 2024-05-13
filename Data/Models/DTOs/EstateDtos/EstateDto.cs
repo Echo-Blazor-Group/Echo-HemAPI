@@ -35,14 +35,6 @@ namespace Echo_HemAPI.Data.Models.DTOs.EstateDtos
         public County? County { get; set; }
         public Category? Category { get; set; }
         public List<Picture> Pictures { get; set; }
-        
-        public void PicturesInBox()
-        {
-            foreach (var picture in Pictures)
-            {
-                
-            }
-        }
 
     }
 }
