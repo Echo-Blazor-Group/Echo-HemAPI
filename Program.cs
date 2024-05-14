@@ -30,14 +30,12 @@ namespace Echo_HemAPI
 
             builder.Services.AddCors(options =>
             {
-
                 options.AddDefaultPolicy(
                     policyBuilder =>
                     {
                         policyBuilder.AllowAnyOrigin()
                         .AllowAnyMethod()
                         .AllowAnyHeader();
-
                     });
             });
 

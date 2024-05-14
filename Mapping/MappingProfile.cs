@@ -17,7 +17,8 @@ namespace Echo_HemAPI.Mapping
             CreateMap<InsertEstateDto, Estate>().ReverseMap();
             CreateMap<UpdateEstateDto, Estate>().ReverseMap();
 
-            CreateMap<PictureDto, Picture>().ReverseMap();
+            CreateMap<Picture, PictureDto>().ReverseMap();
+            CreateMap<InsertPictureDto, Picture>().ReverseMap();
             CreateMap<UpdatePictureDto, Picture>().ReverseMap();
 
             // Author: Samed Salman
