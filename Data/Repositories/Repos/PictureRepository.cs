@@ -32,11 +32,9 @@ namespace Echo_HemAPI.Data.Repositories.Repos
             return await _context.Pictures.ToListAsync();
         }
 
-        public async Task<IEnumerable<Picture>> GetByIdAsync(int id)
+        public async Task<Picture> GetByIdAsync(int id)
         {
-            return await _context.Pictures.Where(p => p.EstateId == id).ToListAsync();
-
-            //.Include(e => e.Estate)
+            return await _context.Pictures.FirstOrDefaultAsync(e => e.Id == id);       
         }
 
         public async Task<Picture> RemoveAsync(Picture entity)

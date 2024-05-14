@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 using Echo_HemAPI.Data.Models.DTOs.PictureDtos;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace Echo_HemAPI.Controllers
 {
@@ -25,11 +26,27 @@ namespace Echo_HemAPI.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllAsync()
         {
-            var category = await _pictureRepository.GetAllAsync();
-            return Ok(category);
+            var pictures = await _pictureRepository.GetAllAsync();
+            return Ok(pictures);
+        }
+        [HttpGet("{id}")]
+        public async Task<ActionResult<PictureDto>> GetByIdAsync(int id)
+        {
+            var picture = await _pictureRepository.GetByIdAsync(id);
+
+            if (picture is not null)
+            {
+                var pictureToDto = mapper.Map<Picture>(picture);
+
+                return Ok(pictureToDto);
+            }
+            else
+            {
+                return NotFound("Invalid id.");
+            }
         }
         [HttpPost]
-        public async Task<IActionResult> AddAsync(PictureDto picture)
+        public async Task<IActionResult> AddAsync(InsertPictureDto picture)
         {
             var pictureToAdd = mapper.Map<Picture>(picture);
 
@@ -46,7 +63,7 @@ namespace Echo_HemAPI.Controllers
             await _pictureRepository.SaveChangesAsync();
             return Created("/api/estate" + pictureToAdd.Id, new { Message = "estate created!", Data = pictureToAdd });
         }
-        [HttpPut("{id}")]
+        [HttpPatch("{id}")]
         [ProducesResponseType(400)]
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
@@ -61,10 +78,27 @@ namespace Echo_HemAPI.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-
             await _pictureRepository.UpdateAsync(pictureToEdit);
             await _pictureRepository.SaveChangesAsync();
             return Ok(pictureToEdit);
+        }
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> RemoveAsync(int id)
+        {
+            Picture picture = await _pictureRepository.GetByIdAsync(id);
+
+            if (picture == null)
+            {
+                return NotFound();
+            }
+
+            await _pictureRepository.RemoveAsync(picture);
+            await _pictureRepository.SaveChangesAsync();
+
+            // Add a custom header with the updated item's id to the Http response
+            Response.Headers.Append("Removed-Realtor-Firm-Id", picture.Id.ToString());
+            // Return a lightweight success response
+            return NoContent();
         }
     }
 }

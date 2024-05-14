@@ -8,7 +8,7 @@ namespace Echo_HemAPI.Data.Repositories.Interfaces
     {
         Task<Picture> AddAsync(Picture entity);
         Task<Picture> UpdateAsync(Picture entity);
-        Task<IEnumerable<Picture?>> GetByIdAsync(int id);
+        Task<Picture?> GetByIdAsync(int id);
         Task<Picture> RemoveAsync(Picture entity);
         Task<IEnumerable<Picture>> GetAllAsync();
         Task<IQueryable<Picture>> FindAsync(Expression<Func<Picture, bool>> predicate);
