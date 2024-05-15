@@ -2,6 +2,7 @@
 using Echo_HemAPI.Data.Models;
 using Echo_HemAPI.Data.Models.DTOs;
 using Echo_HemAPI.Data.Repositories.Interfaces;
+using Echo_HemAPI.Helper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -44,7 +45,7 @@ namespace Echo_HemAPI.Controllers
         }
 
 
-        //[Authorize]
+        [Authorize(Roles = SD.SuperAdmin)]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<RealtorFirmWithIdDTO>>> GetAllAsync()
         {
