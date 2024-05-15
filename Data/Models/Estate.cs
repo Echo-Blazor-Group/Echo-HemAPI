@@ -16,19 +16,19 @@ namespace Echo_HemAPI.Data.Models
         [Required]
         public int StartingPrice { get; set; }
         [Required]
-        public string LivingAreaKvm { get; set; } = string.Empty;
+        public int LivingAreaKvm { get; set; } 
         [Required]
-        public string NumberOfRooms { get; set; } = string.Empty;
+        public int NumberOfRooms { get; set; } 
         [Required]
-        public string BiAreaKvm { get; set; } = string.Empty;
+        public int BiAreaKvm { get; set; } 
         [Required]
-        public string EstateAreaKvm { get; set; } = string.Empty;
+        public int EstateAreaKvm { get; set; } 
         [Required]
-        public string MonthlyFee { get; set; } = string.Empty;
+        public int MonthlyFee { get; set; }
         [Required]
-        public string RunningCosts { get; set; } = string.Empty;
+        public int RunningCosts { get; set; }
         [Required]
-        public string ConstructionDate { get; set; } = string.Empty;
+        public DateOnly? ConstructionDate { get; set; }
         [Required]
         public string EstateDescription { get; set; } = string.Empty;
         [Required]

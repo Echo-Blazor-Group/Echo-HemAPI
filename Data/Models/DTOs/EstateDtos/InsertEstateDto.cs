@@ -5,27 +5,27 @@ namespace Echo_HemAPI.Data.Models.DTOs.EstateDtos
     public class InsertEstateDto
     {
         public string Address { get; set; } = string.Empty;
-
         public int StartingPrice { get; set; }
 
-        public string LivingAreaKvm { get; set; } = string.Empty;
+        public int LivingAreaKvm { get; set; }
 
-        public string NumberOfRooms { get; set; } = string.Empty;
+        public int NumberOfRooms { get; set; }
 
-        public string BiAreaKvm { get; set; } = string.Empty;
+        public int BiAreaKvm { get; set; }
 
-        public string EstateAreaKvm { get; set; } = string.Empty;
+        public int EstateAreaKvm { get; set; }
 
-        public string MonthlyFee { get; set; } = string.Empty;
+        public int MonthlyFee { get; set; }
 
-        public string RunningCosts { get; set; } = string.Empty;
+        public int RunningCosts { get; set; }
 
-        public string ConstructionDate { get; set; } = string.Empty;
+        public DateOnly? ConstructionDate { get; set; }
 
         public string EstateDescription { get; set; } = string.Empty;
 
         public DateOnly? PublishDate { get; set; } = new DateOnly();
-        public bool OnTheMarket { get; set; } = true;
+
+        public bool OnTheMarket { get; set; }
         //Relational
         public int CountyId { get; set; }
         public string? RealtorId { get; set; }
