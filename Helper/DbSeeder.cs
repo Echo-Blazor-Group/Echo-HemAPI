@@ -93,7 +93,7 @@ namespace Echo_HemAPI.Helper
             var firms = new List<RealtorFirm>
         {
             new RealtorFirm { Name = "Sverige Mäklarna", RealtorFirmPresentation = "Vi har de bästa mäklarna i Sverige.", Logotype = "https://shorturl.at/wKPQR", Active = true},
-            new RealtorFirm { Name = "Skandinaviens Mäklarna", RealtorFirmPresentation = "Efter 79 år i branschen så hjälper vi dig att hitta ditt nya hem.", Logotype = "https://shorturl.at/ltDNT", Active = true},
+            new RealtorFirm { Name = "Skandinaviens Mäklare", RealtorFirmPresentation = "Efter 79 år i branschen så hjälper vi dig att hitta ditt nya hem.", Logotype = "https://shorturl.at/ltDNT", Active = true},
             new RealtorFirm { Name = "Länets Mäklare", RealtorFirmPresentation = "Vi tror på att jobba lokalt.", Logotype = "https://shorturl.at/bgvwF", Active = true},
             new RealtorFirm { Name = "Hemma Mäklarna", RealtorFirmPresentation = "Borta bra, hemma bäst.", Logotype = "https://shorturl.at/iFMVX", Active = true},
             new RealtorFirm { Name = "Fastighetsbyrån", RealtorFirmPresentation = "Vi kan fastigheter.", Logotype = "https://shorturl.at/iHKUZ", Active = true}
