@@ -45,7 +45,7 @@ namespace Echo_HemAPI.Controllers
         }
 
 
-        //[Authorize(Roles = SD.SuperAdmin)]
+        
         [HttpGet]
         public async Task<ActionResult<IEnumerable<RealtorFirmWithIdDTO>>> GetAllAsync()
         {
