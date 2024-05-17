@@ -1,4 +1,5 @@
-﻿using Microsoft.IdentityModel.Tokens;
+﻿using Microsoft.Identity.Client;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Echo_HemAPI.Helper
 {
@@ -8,5 +9,6 @@ namespace Echo_HemAPI.Helper
     {
         public const string SuperAdmin = "SuperAdmin";
         public const string Realtor = "Realtor";
+        public const string SuperAdminOrRealtor = SD.SuperAdmin + "," + SD.Realtor;
     }
 }
