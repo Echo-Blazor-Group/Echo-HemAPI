@@ -185,7 +185,6 @@ namespace Echo_HemAPI.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> EditAsync([FromRoute] string id, [FromBody] RealtorEditDTO editDTO)
         {
-
             try
             {
                 if (!ModelState.IsValid)

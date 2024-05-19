@@ -1,4 +1,5 @@
 ﻿using Swashbuckle.AspNetCore.Annotations;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace Echo_HemAPI.Data.Models.DTOs.RealtorDTOs
@@ -22,5 +23,8 @@ namespace Echo_HemAPI.Data.Models.DTOs.RealtorDTOs
         public string ProfilePicture { get; set; } = "https://shorturl.at/CJOR3";
         public string? OldPassword { get; set; }
         public string? NewPassword { get; set; }
+        [Required]
+        [DisplayName("Active")]
+        public bool IsActive { get; set; } = false;
     }
 }
