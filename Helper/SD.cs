@@ -3,9 +3,8 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace Echo_HemAPI.Helper
 {
-    //Static details
     //Author: Seb
-    public static class SD
+    public static class SD //Static details
     {
         public const string SuperAdmin = "SuperAdmin";
         public const string Realtor = "Realtor";

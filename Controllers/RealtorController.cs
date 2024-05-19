@@ -140,7 +140,7 @@ namespace Echo_HemAPI.Controllers
                 {
                     realtorFromDto.RealtorFirm = existingRealtorFirm;
                 }
-                if (realtorFromDto.ProfilePicture.IsNullOrEmpty() || realtorFromDto.ProfilePicture.ToLower() == "string")
+                if (realtorFromDto.ProfilePicture.IsNullOrEmpty())
                     realtorFromDto.ProfilePicture = "https://shorturl.at/CJOR3";
 
 
@@ -194,9 +194,7 @@ namespace Echo_HemAPI.Controllers
                 if (existingRealtor is null)
                     return NotFound("User not found");
 
-                if (editDTO.OldPassword.IsNullOrEmpty() || editDTO.NewPassword.IsNullOrEmpty() ||
-                    editDTO.OldPassword.ToLower().Equals("string") ||
-                    editDTO.NewPassword.ToLower().Equals("string"))
+                if (string.IsNullOrEmpty(editDTO.OldPassword) || string.IsNullOrEmpty(editDTO.NewPassword))
                 {
                     _mapper.Map(editDTO, existingRealtor);
                     var updateResult = await _userManager.UpdateAsync(existingRealtor);
@@ -282,16 +280,19 @@ namespace Echo_HemAPI.Controllers
             {
                 var estatesMatchingThisRealtorId = await _estateRepo.GetAllAsync();
 
-                estatesMatchingThisRealtorId.AsQueryable();
-
-                var filteredEstates = estatesMatchingThisRealtorId.Where(e => e.Realtor?.Id == user.Id);
-
-
-                if (filteredEstates.Any())
+                if(estatesMatchingThisRealtorId is not null)
                 {
-                    foreach (var estate in filteredEstates)
+                    estatesMatchingThisRealtorId.AsQueryable();
+
+                    var filteredEstates = estatesMatchingThisRealtorId.Where(e => e.Realtor?.Id == user.Id);
+
+
+                    if (filteredEstates.Any())
                     {
-                        estate.Realtor = null;
+                        foreach (var estate in filteredEstates)
+                        {
+                            estate.Realtor = null;
+                        }
                     }
                 }
 

@@ -27,15 +27,15 @@ namespace Echo_HemAPI.Mapping
 
             // Author: Seb
             CreateMap<Realtor, RealtorGetDTO>().ForMember(dest => dest.RealtorFirmName,
-                                      opt => opt.MapFrom(src => src.RealtorFirm.Name)).ReverseMap();
+                         opt => opt.MapFrom(src => src.RealtorFirm.Name)).ReverseMap();
 
 
 
             CreateMap<Realtor, RealtorCreateDTO>().ForMember(dest => dest.RealtorFirmId,
-                                      opt => opt.MapFrom(src => src.RealtorFirm.Id))
-                                                   .ForMember(dest => dest.Email, opt => opt
-                                                   .MapFrom(src => src.UserName))
-                                                   .ReverseMap();
+                            opt => opt.MapFrom(src => src.RealtorFirm.Id))
+                                                  .ForMember(dest => dest.Email, opt => opt
+                                                  .MapFrom(src => src.UserName))
+                                                  .ReverseMap();
 
             CreateMap<RealtorEditDTO, Realtor>().ForMember(dest => dest.UserName,
                                                 opt => opt.MapFrom(src => src.Email)).ReverseMap();

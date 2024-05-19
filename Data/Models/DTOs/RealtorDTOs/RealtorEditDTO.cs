@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Echo_HemAPI.Data.Models.DTOs.RealtorDTOs
 {
+    //Author: Seb
     public class RealtorEditDTO
     {
         [Required]
