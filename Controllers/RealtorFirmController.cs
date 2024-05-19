@@ -1,10 +1,12 @@
 ﻿using AutoMapper;
+using Echo_HemAPI.Data.Context;
 using Echo_HemAPI.Data.Models;
 using Echo_HemAPI.Data.Models.DTOs;
 using Echo_HemAPI.Data.Repositories.Interfaces;
 using Echo_HemAPI.Helper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
@@ -22,11 +24,17 @@ namespace Echo_HemAPI.Controllers
     {
         private readonly IRealtorFirmRepository _realtorFirmRepository;
         private readonly IMapper _mapper;
+        private readonly UserManager<Realtor> _userManager;
+        private readonly IEstateRepository _estateRepository;
+        private readonly ApplicationDbContext _dbContext;
 
-        public RealtorFirmController(IRealtorFirmRepository realtorFirmRepository, IMapper mapper)
+        public RealtorFirmController(IRealtorFirmRepository realtorFirmRepository, IMapper mapper, UserManager<Realtor> userManager, IEstateRepository estateRepository, ApplicationDbContext dbContext)
         {
             _realtorFirmRepository = realtorFirmRepository;
             _mapper = mapper;
+            _userManager = userManager;
+            _estateRepository = estateRepository;
+            _dbContext = dbContext;
         }
 
         [HttpPost]
@@ -45,13 +53,13 @@ namespace Echo_HemAPI.Controllers
         }
 
 
-        
+
         [HttpGet]
         public async Task<ActionResult<IEnumerable<RealtorFirmWithIdDTO>>> GetAllAsync()
         {
             // Get list of entities
             IEnumerable<RealtorFirm> realtorFirmList = await _realtorFirmRepository.GetAllAsync();
-            
+
             // Check list of entities
             if (realtorFirmList == null)
             {
@@ -66,7 +74,7 @@ namespace Echo_HemAPI.Controllers
         {
             // Get entity
             RealtorFirm realtorFirm = await _realtorFirmRepository.GetByIdAsync(id);
-            
+
             // Check entity
             if (realtorFirm == null)
             {
@@ -86,6 +94,35 @@ namespace Echo_HemAPI.Controllers
                 return NotFound();
             }
 
+            //var employees = await _userManager.Users.Where(r => r.RealtorFirm == realtorFirm).ToListAsync();
+            //if (employees.Any())
+            //{
+            //    var estates = await _estateRepository.GetAllAsync();
+            //    foreach (var employee in employees)
+            //    {
+            //        employee.RealtorFirm = null;
+            //        employee.IsActive = false;
+                    
+            //        var housesTiedToEmployee = estates?.Where(e => e.Realtor == employee);
+            //        if (housesTiedToEmployee is not null)
+            //        {
+            //            foreach (var house in housesTiedToEmployee)
+            //            {
+            //                house.Realtor.RealtorFirm = null;
+            //                house.Realtor = null;
+            //                house.OnTheMarket = false;
+            //                _dbContext.Update(house);
+            //            }
+            //        }
+            //        _dbContext.Update(employee);
+                    
+            //    }
+            //    await _dbContext.SaveChangesAsync();
+            //}
+            //_dbContext.Entry(employees).State = EntityState.Unchanged;
+
+            //^Commented because don't want to be able to remove realtorFirms (unless they have no employees / estates have no realtors associated)
+
             await _realtorFirmRepository.RemoveAsync(realtorFirm);
             await _realtorFirmRepository.SaveChangesAsync();
 
@@ -99,7 +136,7 @@ namespace Echo_HemAPI.Controllers
         public async Task<IActionResult> UpdateAsync(int id, RealtorFirm realtorFirm)
         {
             // If parameters don't match
-            if  (id != realtorFirm.Id)
+            if (id != realtorFirm.Id)
             {
                 return BadRequest("Id does not match");
             }
@@ -112,7 +149,7 @@ namespace Echo_HemAPI.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if(_realtorFirmRepository.GetByIdAsync(id) == null)
+                if (_realtorFirmRepository.GetByIdAsync(id) == null)
                 {
                     return NotFound();
                 }

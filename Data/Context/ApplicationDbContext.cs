@@ -33,7 +33,6 @@ namespace Echo_HemAPI.Data.Context
             modelBuilder.Entity<County>().HasData(counties);
             var categories = SeedCategories.GetCategories();
             modelBuilder.Entity<Category>().HasData(categories);
-
         }
     }
 }
