@@ -2,6 +2,7 @@
 
 namespace Echo_HemAPI.Data.Models.DTOs.RealtorDTOs
 {
+    //Author: Seb
     public class NewUserShowClaimsDTO
     {
         public string? Email { get; set; }

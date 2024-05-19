@@ -40,6 +40,7 @@ namespace Echo_HemAPI
                     });
             });
 
+            //Author: Seb
             builder.Services.AddIdentity<Realtor, IdentityRole>(options =>
             {
                 // Configure identity options here
@@ -50,6 +51,7 @@ namespace Echo_HemAPI
             .AddEntityFrameworkStores<ApplicationDbContext>()
             .AddDefaultTokenProviders();
 
+            //Author: Seb
             builder.Services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme =
@@ -102,6 +104,7 @@ namespace Echo_HemAPI
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+            //Author: Seb
             builder.Services.AddSwaggerGen(option =>
             {
                 option.SwaggerDoc("v1", new OpenApiInfo { Title = "Demo API", Version = "v1" });
@@ -144,7 +147,7 @@ namespace Echo_HemAPI
 
             var app = builder.Build();
 
-
+            //Author: Seb
             using (var scope = app.Services.CreateScope())
             {
                 var services = scope.ServiceProvider;
