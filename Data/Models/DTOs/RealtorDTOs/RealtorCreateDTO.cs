@@ -3,6 +3,7 @@ using static System.Net.WebRequestMethods;
 
 namespace Echo_HemAPI.Data.Models.DTOs.RealtorDTOs
 {
+    //Author: Seb
     public class RealtorCreateDTO
     {
         [Required]

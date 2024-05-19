@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Echo_HemAPI.Helper
 {
+    //Author: Seb
     public class QueryObject
     {
         public bool? IsActive { get; set; } = null;
@@ -14,7 +15,7 @@ namespace Echo_HemAPI.Helper
             {
                 if (!string.IsNullOrWhiteSpace(query.RealtorFirm))
                 {
-                    users = users.Where(u => u.RealtorFirm.Name.Contains(query.RealtorFirm));
+                    users = users.Where(u => u.RealtorFirm != null && u.RealtorFirm.Name.Contains(query.RealtorFirm));
                 }
                 if (query.IsActive is true)
                 {
