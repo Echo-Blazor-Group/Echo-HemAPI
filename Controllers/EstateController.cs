@@ -1,17 +1,12 @@
 ﻿using AutoMapper;
 using Echo_HemAPI.Data.Models;
 using Echo_HemAPI.Data.Models.DTOs.EstateDtos;
-using Echo_HemAPI.Data.Models.DTOs.RealtorDTOs;
 using Echo_HemAPI.Data.Repositories.Interfaces;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Mono.TextTemplating;
 using System.ComponentModel.DataAnnotations;
-using System.Linq.Expressions;
-using System.Text.Json.Serialization;
-using System.Text.Json;
+
+
 
 //Author Gustaf
 
