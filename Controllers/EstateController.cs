@@ -2,6 +2,8 @@
 using Echo_HemAPI.Data.Models;
 using Echo_HemAPI.Data.Models.DTOs.EstateDtos;
 using Echo_HemAPI.Data.Repositories.Interfaces;
+using Echo_HemAPI.Helper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
@@ -37,6 +39,7 @@ namespace Echo_HemAPI.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = SD.SuperAdminOrRealtor)]
         public async Task<IActionResult> AddAsync(InsertEstateDto insertEstateDto)
         {   
             var estate = mapper.Map<Estate>(insertEstateDto);
@@ -87,6 +90,7 @@ namespace Echo_HemAPI.Controllers
         }
 
         [HttpPatch("{id}")]
+        [Authorize(Roles = SD.SuperAdminOrRealtor)]
         [ProducesResponseType(400)]
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
@@ -114,6 +118,7 @@ namespace Echo_HemAPI.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize(Roles = SD.SuperAdminOrRealtor)]
         [ProducesResponseType(400)]
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]

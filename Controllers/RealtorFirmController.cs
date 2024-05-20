@@ -38,6 +38,7 @@ namespace Echo_HemAPI.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = SD.SuperAdminOrRealtor)]
         public async Task<ActionResult<RealtorFirm>> AddAsync(RealtorFirmPostDTO realtorFirmPostDTO)
         {
             if (realtorFirmPostDTO == null)
@@ -85,6 +86,7 @@ namespace Echo_HemAPI.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize (Roles = SD.SuperAdmin)]
         public async Task<IActionResult> RemoveAsync(int id)
         {
             RealtorFirm realtorFirm = await _realtorFirmRepository.GetByIdAsync(id);
@@ -133,6 +135,7 @@ namespace Echo_HemAPI.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize(Roles = SD.SuperAdmin)]
         public async Task<IActionResult> UpdateAsync(int id, RealtorFirm realtorFirm)
         {
             // If parameters don't match
