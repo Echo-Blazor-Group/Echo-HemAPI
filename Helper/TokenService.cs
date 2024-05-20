@@ -19,14 +19,15 @@ namespace Echo_HemAPI.Helper
             _key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["JWT:SigningKey"]!));
 
         }
-        public string CreateToken(Realtor realtor, int realtorFirmId, string? role)
+        public string CreateToken(Realtor realtor, int realtorFirmId, string? role, string? realtorId)
         {
 
             var claims = new List<Claim>
             {
                 new Claim(JwtRegisteredClaimNames.Email, realtor.Email!),
                 new Claim(JwtRegisteredClaimNames.GivenName, realtor.Email!),
-                new Claim("RealtorFirmId", realtorFirmId.ToString())
+                new Claim("RealtorFirmId", realtorFirmId.ToString()),
+                new Claim("RealtorId",realtorId)
             };
 
             if (!string.IsNullOrEmpty(role) && !string.IsNullOrWhiteSpace(role))
