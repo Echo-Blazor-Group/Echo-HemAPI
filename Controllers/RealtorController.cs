@@ -112,7 +112,8 @@ namespace Echo_HemAPI.Controllers
                     UserName = realtor.Email,
                     RealtorFirmId = realtor.RealtorFirm!.Id,
                     Role = role,
-                    Token = _tokenService.CreateToken(realtor,realtor.RealtorFirm.Id, role)
+                    RealtorId = realtor.Id,
+                    Token = _tokenService.CreateToken(realtor,realtor.RealtorFirm.Id, role, realtor.Id)
                 });
             }
             else
@@ -158,9 +159,10 @@ namespace Echo_HemAPI.Controllers
                                 Email = realtorFromDto.Email,
                                 UserName = realtorFromDto.Email,
                                 RealtorFirmId = realtorFromDto.RealtorFirm.Id,
+                                RealtorId = realtorFromDto.Id,
                                 Role = role,
                                 Token = _tokenService.CreateToken(realtorFromDto,
-                                                      realtorFromDto.RealtorFirm.Id, role)
+                                                      realtorFromDto.RealtorFirm.Id, role, realtorFromDto.Id)
                             }
                          );
                     }
