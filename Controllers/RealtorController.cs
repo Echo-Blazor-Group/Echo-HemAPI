@@ -185,6 +185,7 @@ namespace Echo_HemAPI.Controllers
 
         // PUT api/<RealtorController>/5
         [HttpPut("{id}")]
+        [Authorize(Roles = SD.SuperAdminOrRealtor)]
         public async Task<IActionResult> EditAsync([FromRoute] string id, [FromBody] RealtorEditDTO editDTO)
         {
             try
@@ -252,6 +253,7 @@ namespace Echo_HemAPI.Controllers
 
         // DELETE api/<RealtorController>/5
         [HttpDelete("{id}")]
+        [Authorize(Roles = SD.SuperAdminOrRealtor)]
         public async Task<IActionResult> RemoveAsync([FromRoute] string id, [FromQuery] DeleteQueryObject query)
         {
             if (id.IsNullOrEmpty())
