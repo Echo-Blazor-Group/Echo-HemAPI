@@ -85,45 +85,38 @@ namespace Echo_HemAPI.Controllers
             return Ok(_mapper.Map<RealtorFirmWithIdDTO>(realtorFirm));
         }
 
+
+
+        //Author: Seb
+        [HttpGet("IsFirmEmpty/{id}")]
+        public async Task<ActionResult<bool>> IsFirmEmpty(int id)
+        {
+            bool isFirmEmpty = true;
+            RealtorFirm realtorFirm = await _realtorFirmRepository.GetByIdAsync(id);
+            var employees = await _userManager.Users.Where(r => r.RealtorFirm == realtorFirm).ToListAsync();
+            if (employees.Any())
+            {
+                isFirmEmpty = false;
+            }
+
+            return Ok(isFirmEmpty);
+        }
+
+
+
+
+
         [HttpDelete("{id}")]
-        [Authorize (Roles = SD.SuperAdmin)]
+        [Authorize(Roles = SD.SuperAdmin)]
         public async Task<IActionResult> RemoveAsync(int id)
         {
             RealtorFirm realtorFirm = await _realtorFirmRepository.GetByIdAsync(id);
+
 
             if (realtorFirm == null)
             {
                 return NotFound();
             }
-
-            //var employees = await _userManager.Users.Where(r => r.RealtorFirm == realtorFirm).ToListAsync();
-            //if (employees.Any())
-            //{
-            //    var estates = await _estateRepository.GetAllAsync();
-            //    foreach (var employee in employees)
-            //    {
-            //        employee.RealtorFirm = null;
-            //        employee.IsActive = false;
-                    
-            //        var housesTiedToEmployee = estates?.Where(e => e.Realtor == employee);
-            //        if (housesTiedToEmployee is not null)
-            //        {
-            //            foreach (var house in housesTiedToEmployee)
-            //            {
-            //                house.Realtor.RealtorFirm = null;
-            //                house.Realtor = null;
-            //                house.OnTheMarket = false;
-            //                _dbContext.Update(house);
-            //            }
-            //        }
-            //        _dbContext.Update(employee);
-                    
-            //    }
-            //    await _dbContext.SaveChangesAsync();
-            //}
-            //_dbContext.Entry(employees).State = EntityState.Unchanged;
-
-            //^Commented because don't want to be able to remove realtorFirms (unless they have no employees / estates have no realtors associated)
 
             await _realtorFirmRepository.RemoveAsync(realtorFirm);
             await _realtorFirmRepository.SaveChangesAsync();
